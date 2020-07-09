@@ -6,7 +6,7 @@
 /*   By: tima <tima@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 17:12:52 by tima              #+#    #+#             */
-/*   Updated: 2020/07/09 04:48:58 by tima             ###   ########.fr       */
+/*   Updated: 2020/07/09 06:13:36 by tima             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -110,5 +110,7 @@ void	put_time(time_t ntime);
 
 void	parse_flag_args(t_ls *ls, int argc, char **argv);
 void	parse_file_args(t_ls *ls, int argc, char **argv);
+
+void	print_ls(t_ls *ls, t_file *head);
 
 #endif

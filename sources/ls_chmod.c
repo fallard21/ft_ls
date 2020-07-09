@@ -6,7 +6,7 @@
 /*   By: tima <tima@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 22:19:10 by tima              #+#    #+#             */
-/*   Updated: 2020/07/08 00:26:08 by tima             ###   ########.fr       */
+/*   Updated: 2020/07/09 06:08:25 by tima             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@ void	put_chmod(mode_t mode)
 		tmp = tmp / 8;
 	}
 	init_chmod(res, chmod, mode);
-	ft_printf("{3}%s{0} \n", res);
+	ft_printf("{3}%s{0} ", res);
 	free(res);
 }
 

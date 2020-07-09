@@ -6,7 +6,7 @@
 /*   By: tima <tima@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 06:00:04 by tima              #+#    #+#             */
-/*   Updated: 2020/07/09 00:23:52 by tima             ###   ########.fr       */
+/*   Updated: 2020/07/09 06:12:58 by tima             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@ void	print_list(t_file *head)
 		ft_printf("blocks: %ld\n", head->blocks);
 		ft_printf("nlink: %lu\n", head->nlink);
 		ft_printf("mode: %u\n", head->mode);
-		put_chmod(head->mode);
+		put_chmod(head->mode); printf("\n");
 		ft_printf("st_uid: %u\n", head->uid);
 		ft_printf("name_uid: %s\n", head->uid_name);
 		ft_printf("st_gid: %u\n", head->gid);
@@ -29,7 +29,7 @@ void	print_list(t_file *head)
 		ft_printf("f_size: %ld\n", head->size);
 		
 		ft_printf("__time: %ld\n", head->ctime);
-		put_time(head->ctime);
+		put_time(head->ctime); ft_printf("\n\n");
 		//ft_printf("TIME: %k\n", head->time);
 		//ft_printf("___dev: %lu\n", head->dev);
 		head = head->next;

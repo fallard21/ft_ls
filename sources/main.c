@@ -6,7 +6,7 @@
 /*   By: tima <tima@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 17:21:09 by tima              #+#    #+#             */
-/*   Updated: 2020/07/09 04:48:55 by tima             ###   ########.fr       */
+/*   Updated: 2020/07/09 06:14:16 by tima             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,7 +55,8 @@ int		without_args(t_ls *ls)
 		tmp = &(*tmp)->next;
 	}
 	closedir(ls->dir);
-	print_list(head);
+	//print_list(head);
+	print_ls(ls, head);
 	free_list(&head);
 	return (0);
 }
@@ -90,8 +91,6 @@ int	main(int argc, char **argv)
 {
 	t_ls ls;
 	
-	//for (int i = 0; i < argc; i++)
-	//	printf("[ %s ]\n", argv[i]);
 	ft_memset(&ls, 0, sizeof(t_ls));
 	if (argc == 1)
 		without_args(&ls);
