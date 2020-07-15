@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ls_time.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tima <tima@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 23:59:57 by tima              #+#    #+#             */
-/*   Updated: 2020/07/09 06:17:20 by tima             ###   ########.fr       */
+/*   Updated: 2020/07/15 02:04:17 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,5 +41,4 @@ void	print_ls(t_ls *ls, t_file *head)
 		ft_printf("{2}%s{0}\n", head->name);
 		head = head->next;
 	}
-	
 }

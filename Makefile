@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tima <tima@student.42.fr>                  +#+  +:+       +#+         #
+#    By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
-#    Created: 2020/06/20 17:12:55 by tima              #+#    #+#              #
-#    Updated: 2020/07/09 00:02:36 by tima             ###   ########.fr        #
+#    Created: 2020/07/13 21:03:45 by fallard           #+#    #+#              #
+#    Updated: 2020/07/15 04:58:40 by fallard          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,8 @@ NAME = ft_ls
 HEAD_NAME = ft_ls.h
 LIB_NAME = libft.a
 
-CC = gcc
-CFLAGS = -Wall -Wextra -Werror
+CC = gcc -g
+CFLAGS = 
 
 SRC_DIR = sources/
 INC_DIR = includes/

@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   main.c                                             :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tima <tima@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 17:21:09 by tima              #+#    #+#             */
-/*   Updated: 2020/07/09 06:14:16 by tima             ###   ########.fr       */
+/*   Updated: 2020/07/15 04:55:13 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,27 +37,44 @@ void	sort_words(char **word, int size)
 	}
 }
 
-int		without_args(t_ls *ls)
-{	
+t_file	*ls_read_dir(t_ls *ls, char *dir_name)
+{
 	t_file	*head;
 	t_file	**tmp;
 
 	head = NULL;
 	tmp = &head;
-	if (!(ls->dir = opendir(".")))
-		ft_exit();
+	if (!(ls->dir = opendir(dir_name)))
+		return (NULL);
 	while((ls->lol = readdir(ls->dir)))
 	{
-		//ft_printf("off: %ld\n", ls->lol->d_off);
-		//ft_printf("reclen: %hhu\n", ls->lol->d_reclen);
-		//ft_printf("inode: %lu\n\n", ls->lol->d_ino);
-		*tmp = new_file(ls, ls->lol->d_name);
+		if (!(*tmp = new_file(ls, ls->lol->d_name)))
+		{
+			closedir(ls->dir);
+			return (NULL);	// ???
+		}
 		tmp = &(*tmp)->next;
 	}
 	closedir(ls->dir);
-	//print_list(head);
-	print_ls(ls, head);
-	free_list(&head);
+	return (head);
+}
+
+int		ls_without_args(t_ls *ls)
+{	
+	t_file	*tmp;
+
+	if (!(ls->args = ls_read_dir(ls, ".")))
+		return (1);
+	ls->args = sort_list(cmp_name, ls->args);
+	tmp = ls->args;
+	while(tmp)
+	{
+		if (tmp->name[0] != '.')
+			ft_printf("%s  ", tmp->name);
+		tmp = tmp->next;
+	}
+	ft_printf("\n");
+	free_list(&ls->args);
 	return (0);
 }
 
@@ -66,11 +83,10 @@ t_file 	*new_file(t_ls *ls, char *name)
 	t_file	*tmp;
 
 	stat(name, &ls->sb);
-	//ft_printf("{1}file: %s, inode: %lu{0}\n", file->d_name, ls->sb.st_ino);
 	ls->gr_gid = getgrgid(ls->sb.st_gid);
 	ls->pw_uid = getpwuid(ls->sb.st_uid);
 	if (!(tmp = ft_calloc(1, sizeof(t_file))))
-		ft_exit();
+		return (NULL);
 	tmp->inode = ls->sb.st_ino;
 	tmp->name = ft_strdup(name);
 	tmp->blocks = ls->sb.st_blocks;
@@ -83,6 +99,8 @@ t_file 	*new_file(t_ls *ls, char *name)
 	tmp->size = ls->sb.st_size;
 	tmp->ctime = ls->sb.st_ctime;
 	//tmp->dev = ls->sb.st_dev;
+	// if (!tmp->name || tmp->uid_name || tmp->gid_name)
+	// 	return (NULL);
 	return (tmp);
 }
 
@@ -93,12 +111,14 @@ int	main(int argc, char **argv)
 	
 	ft_memset(&ls, 0, sizeof(t_ls));
 	if (argc == 1)
-		without_args(&ls);
+		ls_without_args(&ls);
 	else
 	{
-		parse_flag_args(&ls, argc, argv);
+		parse_keys_args(&ls, argc, argv);
 		parse_file_args(&ls, argc, argv);
+		choosing_ls(&ls);
+		ft_printf("{1}flag_args: %d{0}\n", ls.flag_args);
+		ft_printf("{1}flag_keys: %d{0}\n", ls.flag_keys);
 	}
-	
 	return (0);
 }

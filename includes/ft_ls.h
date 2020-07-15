@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ft_ls.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tima <tima@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/20 17:12:52 by tima              #+#    #+#             */
-/*   Updated: 2020/07/09 06:13:36 by tima             ###   ########.fr       */
+/*   Created: 2020/07/13 21:03:52 by fallard           #+#    #+#             */
+/*   Updated: 2020/07/15 04:54:34 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,14 +58,14 @@ typedef struct		s_file
 
 typedef struct		s_ls
 {
-	int				flag;
-	int				flag_l;
-	int				flag_R;
-	int				flag_a;
-	int				flag_r;
-	int				flag_t;
+	int				flag_args;
+	int				flag_keys;
+	int				key_l;
+	int				key_R;
+	int				key_a;
+	int				key_r;
+	int				key_t;
 	
-	char			**word;
 	DIR				*dir;
 	t_dir			*lol;
 	t_stat			sb;
@@ -78,7 +78,10 @@ typedef struct		s_ls
 void	ft_parse_args(t_ls *ls, int argc, char **argv);
 int		parse_keys(t_ls *ls, char *keys);
 
-t_file	*next_file(char *argv);
+t_file	*ls_read_dir(t_ls *ls, char *dir_name);
+void	choosing_ls(t_ls *ls);
+void	ls_only_keys(t_ls *ls);
+
 t_file 	*new_file(t_ls *ls, char *name);
 
 void	ft_exit();
@@ -108,8 +111,10 @@ size_t	width_nlink(t_file *head, int flag);
 
 void	put_time(time_t ntime);
 
-void	parse_flag_args(t_ls *ls, int argc, char **argv);
+void	parse_keys_args(t_ls *ls, int argc, char **argv);
 void	parse_file_args(t_ls *ls, int argc, char **argv);
+void	choosing_ls(t_ls *ls);
+
 
 void	print_ls(t_ls *ls, t_file *head);
 
