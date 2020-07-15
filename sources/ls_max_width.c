@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ls_max_width.c                                     :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tima <tima@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 06:30:43 by tima              #+#    #+#             */
-/*   Updated: 2020/07/09 00:26:32 by tima             ###   ########.fr       */
+/*   Updated: 2020/07/15 06:06:52 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,7 +44,7 @@ size_t	width_nlink_size(t_file *head, int flag)
 	return (max);
 }
 
-size_t	width_gid_uid(t_file *head, int flag)
+size_t	width_uid_gid(t_file *head, int flag)
 {
 	size_t max;
 	size_t len;
@@ -52,10 +52,10 @@ size_t	width_gid_uid(t_file *head, int flag)
 	max = 0;
 	while (head)
 	{
-		if (flag == 1)	// gid
-			len = ft_strlen(head->gid_name);
-		else			// uid
+		if (flag == 1)	// uid
 			len = ft_strlen(head->uid_name);
+		else			// gid
+			len = ft_strlen(head->gid_name);
 		if (len > max)
 			max = len;
 		head = head->next;
@@ -74,10 +74,25 @@ size_t	width_ino_blck(t_file *head, int flag)
 		if (flag == 1)	// inode
 			len = get_uint_size(head->inode, 0);
 		else			// blocks
-			len = get_uint_size(head->blocks, 0);
+			len = get_uint_size(head->blocks / 2, 0);
 		if (len > max)
 			max = len;
 		head = head->next;
 	}
 	return (max);
+}
+
+int		*get_width_arr(t_file *head)
+{
+	int *arr;
+
+	if (!(arr = ft_calloc(6, sizeof(int))))
+		return (NULL);
+	arr[0] = width_ino_blck(head, 1);
+	arr[1] = width_ino_blck(head, 2);
+	arr[2] = width_nlink_size(head, 1);
+	arr[3] = width_uid_gid(head, 1);
+	arr[4] = width_uid_gid(head, 2);
+	arr[5] = width_nlink_size(head, 2);
+	return (arr);
 }

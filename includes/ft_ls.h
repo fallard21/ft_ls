@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 21:03:52 by fallard           #+#    #+#             */
-/*   Updated: 2020/07/15 04:54:34 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/15 06:03:57 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -105,7 +105,7 @@ int		cmp_time(t_file *left, t_file *right);
 
 
 
-size_t	width_gid_uid(t_file *head, int flag);
+size_t	width_uid_gid(t_file *head, int flag);
 size_t	width_nlink(t_file *head, int flag);
 
 
@@ -117,5 +117,6 @@ void	choosing_ls(t_ls *ls);
 
 
 void	print_ls(t_ls *ls, t_file *head);
+int		*get_width_arr(t_file *head);
 
 #endif

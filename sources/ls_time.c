@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 23:59:57 by tima              #+#    #+#             */
-/*   Updated: 2020/07/15 02:04:17 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/15 05:59:51 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,20 +25,4 @@ void	put_time(time_t time)
 		i++;
 	}
 	free_split(&str);
-}
-
-void	print_ls(t_ls *ls, t_file *head)
-{
-	//head = sort_list(cmp_name, head);
-	while (head)
-	{
-		put_chmod(head->mode);
-		ft_printf("%2lu ", head->nlink);
-		ft_printf("%s ", head->uid_name);
-		ft_printf("%s ", head->gid_name);
-		ft_printf("%5ld ", head->size);
-		put_time(head->ctime);
-		ft_printf("{2}%s{0}\n", head->name);
-		head = head->next;
-	}
 }

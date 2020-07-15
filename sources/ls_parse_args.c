@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 17:10:19 by tima              #+#    #+#             */
-/*   Updated: 2020/07/15 05:00:51 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/15 06:10:22 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,4 +124,5 @@ void	ls_only_keys(t_ls *ls)
 	if (!(head = ls_read_dir(ls, ".")))
 		return ;	// ??
 	print_ls(ls, head);
+	free_list(&head);
 }
