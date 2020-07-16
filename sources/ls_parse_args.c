@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 17:10:19 by tima              #+#    #+#             */
-/*   Updated: 2020/07/15 06:10:22 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/16 09:15:40 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -74,11 +74,13 @@ void	parse_keys_args(t_ls *ls, int argc, char **argv)
 		//ft_printf("status stat: %d\n", stat(argv[i], &ls->sb));
 		i++;
 	}
+	/*
 	ft_printf("key l: %d\n", ls->key_l);
 	ft_printf("key R: %d\n", ls->key_R);
 	ft_printf("key a: %d\n", ls->key_a);
 	ft_printf("key r: %d\n", ls->key_r);
 	ft_printf("key t: %d\n", ls->key_t);
+	*/
 }
 
 void	parse_file_args(t_ls *ls, int argc, char **argv)
@@ -90,11 +92,12 @@ void	parse_file_args(t_ls *ls, int argc, char **argv)
 	i = 1;
 	while (i < argc)
 	{
+		
 		if (argv[i][0] != '-')
 		{
 			ls->flag_args = 1;
-			if (stat(argv[i], &ls->sb) < 0)
-				ft_printf("ls: cannot access %s: %s\n", argv[i], strerror(errno));
+			if (lstat(argv[i], &ls->sb) < 0)
+				ft_printf("ls: cannot access '%s': %s\n", argv[i], strerror(errno));
 			else
 			{
 				*tmp = new_file(ls, argv[i]);
@@ -103,7 +106,7 @@ void	parse_file_args(t_ls *ls, int argc, char **argv)
 		}
 		i++;
 	}
-	print_list(ls->args);
+	//print_list(ls->args);
 }
 
 void	choosing_ls(t_ls *ls)
@@ -111,7 +114,7 @@ void	choosing_ls(t_ls *ls)
 	if (ls->flag_args == 0 && ls->flag_keys == 1)
 		ls_only_keys(ls);
 	else if (ls->flag_args == 1 && ls->flag_keys == 0)
-		;
+		ls_only_args(ls);
 	else if (ls->flag_args == 1 && ls->flag_keys == 1)
 		;
 	
@@ -125,4 +128,55 @@ void	ls_only_keys(t_ls *ls)
 		return ;	// ??
 	print_ls(ls, head);
 	free_list(&head);
+}
+
+void	ls_only_args(t_ls *ls)
+{
+	t_file *tmp;
+
+	ls->args = sort_list(cmp_name, ls->args);
+	tmp = ls->args;
+	ls_print_reg(tmp);
+	while (tmp)
+	{
+		if (S_ISDIR(tmp->mode))
+			ls_print_dir(ls, tmp->name);
+		tmp = tmp->next;
+	}
+}
+
+void	ls_print_dir(t_ls *ls, char *dir_name)
+{
+	t_file	*head;
+
+	if (!(head = ls_read_dir(ls, dir_name)))
+		ft_printf("ls: cannot open directory '%s': Permission denied");
+	else
+		ft_printf("\n{2}%s:{0}\n", dir_name);
+	head = sort_list(cmp_name,  head);
+	while (head)
+	{
+		if (head->name[0] != '.')
+			ft_printf("%s  ", head->name);
+		head = head->next;
+	}
+	ft_printf("\n");
+}
+
+void	ls_print_reg(t_file *head)
+{
+	int flag;
+
+	flag = 0;
+	while (head)
+	{
+		if (S_ISREG(head->mode) || S_ISLNK(head->mode))
+		{
+			flag = 1;
+			ft_printf("%s  ", head->name);
+		}
+		head = head->next;	
+	}
+	if (flag)
+		write(1, "\n\n", 2);
 }

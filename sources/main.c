@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 17:21:09 by tima              #+#    #+#             */
-/*   Updated: 2020/07/15 04:55:13 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/16 09:35:39 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ t_file 	*new_file(t_ls *ls, char *name)
 {
 	t_file	*tmp;
 
-	stat(name, &ls->sb);
+	lstat(name, &ls->sb);
 	ls->gr_gid = getgrgid(ls->sb.st_gid);
 	ls->pw_uid = getpwuid(ls->sb.st_uid);
 	if (!(tmp = ft_calloc(1, sizeof(t_file))))
@@ -116,9 +116,10 @@ int	main(int argc, char **argv)
 	{
 		parse_keys_args(&ls, argc, argv);
 		parse_file_args(&ls, argc, argv);
+		//print_list(ls.args);
 		choosing_ls(&ls);
-		ft_printf("{1}flag_args: %d{0}\n", ls.flag_args);
-		ft_printf("{1}flag_keys: %d{0}\n", ls.flag_keys);
+		//ft_printf("{1}flag_args: %d{0}\n", ls.flag_args);
+		//ft_printf("{1}flag_keys: %d{0}\n", ls.flag_keys);
 	}
 	return (0);
 }

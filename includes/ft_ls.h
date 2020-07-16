@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 21:03:52 by fallard           #+#    #+#             */
-/*   Updated: 2020/07/15 06:03:57 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/16 09:18:18 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 # define FT_LS_H
 
 #include "libft.h"
+#include <unistd.h>
 #include <sys/types.h>
 #include <sys/stat.h>	// stat
 #include <dirent.h>		// readdir
@@ -23,9 +24,7 @@
 #include <grp.h>		// getgrid
 #include <time.h>		// ctime
 #include <stdio.h>
-
 #include <fcntl.h>
-#include <unistd.h>
 
 # define FLAGS 1
 # define FILES 2
@@ -81,6 +80,9 @@ int		parse_keys(t_ls *ls, char *keys);
 t_file	*ls_read_dir(t_ls *ls, char *dir_name);
 void	choosing_ls(t_ls *ls);
 void	ls_only_keys(t_ls *ls);
+void	ls_only_args(t_ls *ls);
+void	ls_print_dir(t_ls *ls, char *dir_name);
+void	ls_print_reg(t_file *head);
 
 t_file 	*new_file(t_ls *ls, char *name);
 
