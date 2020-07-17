@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 17:10:19 by tima              #+#    #+#             */
-/*   Updated: 2020/07/16 09:15:40 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/17 03:33:23 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,6 +134,7 @@ void	ls_only_args(t_ls *ls)
 {
 	t_file *tmp;
 
+	print_link(ls, ls->args->name);
 	ls->args = sort_list(cmp_name, ls->args);
 	tmp = ls->args;
 	ls_print_reg(tmp);
@@ -179,4 +180,26 @@ void	ls_print_reg(t_file *head)
 	}
 	if (flag)
 		write(1, "\n\n", 2);
+}
+
+char *print_link(t_ls *ls, char *file)
+{
+	char	*buf;
+	t_stat	sb;
+	size_t	size;
+
+	if (lstat(file, &sb) == -1)
+		return (NULL);
+	size = sb.st_size + 1;
+	if (!size)
+		size = PATH_MAX;
+	if (!(buf = ft_calloc(size, sizeof(char))))
+		return (NULL);
+	if (readlink(file, buf, size) < 0)
+	{
+		free (buf);
+		return (NULL);
+	}
+	ft_printf("{3}%s -> %s{0}\n", file, buf);
+	return (buf);
 }

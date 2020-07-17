@@ -6,11 +6,11 @@
 #    By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/13 21:03:45 by fallard           #+#    #+#              #
-#    Updated: 2020/07/15 04:58:40 by fallard          ###   ########.fr        #
+#    Updated: 2020/07/17 05:41:07 by fallard          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
-NAME = ft_ls
+NAME = ls
 
 HEAD_NAME = ft_ls.h
 LIB_NAME = libft.a
@@ -37,8 +37,10 @@ LIBFT = $(addprefix $(LIB_DIR), $(LIB_NAME))
 
 INCLUDES = -I $(INC_DIR) -I libft/includes
 
-all: $(TMP)
-	$(CC) $(TMP) $(INCLUDES) libft/libft.a
+all: $(NAME) 
+
+$(NAME): $(TMP)
+	$(CC) -o $(NAME) $(TMP) $(INCLUDES) -L $(LIB_DIR) -lft
 
 %.o:%.c $(HEADER)
 	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
@@ -46,4 +48,7 @@ all: $(TMP)
 clean:
 	rm -f $(TMP)
 
-re: clean all
+fclean: clean
+	rm -f $(NAME)
+
+re: fclean all

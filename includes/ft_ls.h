@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 21:03:52 by fallard           #+#    #+#             */
-/*   Updated: 2020/07/16 09:18:18 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/17 03:21:28 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,8 @@
 #include <time.h>		// ctime
 #include <stdio.h>
 #include <fcntl.h>
+#include <linux/limits.h>
+#include <unistd.h>
 
 # define FLAGS 1
 # define FILES 2
@@ -83,6 +85,8 @@ void	ls_only_keys(t_ls *ls);
 void	ls_only_args(t_ls *ls);
 void	ls_print_dir(t_ls *ls, char *dir_name);
 void	ls_print_reg(t_file *head);
+
+char *print_link(t_ls *ls, char *file);
 
 t_file 	*new_file(t_ls *ls, char *name);
 
