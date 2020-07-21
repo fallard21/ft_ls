@@ -6,7 +6,7 @@
 #    By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/13 21:03:45 by fallard           #+#    #+#              #
-#    Updated: 2020/07/17 05:41:07 by fallard          ###   ########.fr        #
+#    Updated: 2020/07/20 09:53:57 by fallard          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -22,13 +22,14 @@ SRC_DIR = sources/
 INC_DIR = includes/
 LIB_DIR = libft/
 
-SRC = main.c ls_mem.c \
+SRC = main.c \
 ls_parse_args.c \
 ls_chmod.c \
 ls_memory.c \
 ls_sort.c \
 ls_max_width.c \
 ls_time.c \
+ls_print_column.c \
 print.c
 
 TMP = $(addprefix $(SRC_DIR), $(SRC:.c=.o))

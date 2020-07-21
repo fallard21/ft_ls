@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 06:00:04 by tima              #+#    #+#             */
-/*   Updated: 2020/07/15 06:08:34 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/17 20:37:27 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void	print_ls(t_ls *ls, t_file *head)
 	width  = get_width_arr(head);
 	while (head)
 	{
-		ft_printf("%*lu ",  width[0], head->inode);
-		ft_printf("%*ld ",  width[1], head->blocks / 2);
+		//ft_printf("%*lu ",  width[0], head->inode);
+		//ft_printf("%*ld ",  width[1], head->blocks / 2);
 		put_chmod(head->mode);
 		ft_printf("%*lu ", width[2], head->nlink);
 		ft_printf("%*s ", width[3], head->uid_name);

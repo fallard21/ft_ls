@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 21:03:52 by fallard           #+#    #+#             */
-/*   Updated: 2020/07/17 03:21:28 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/21 05:35:19 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,6 +28,9 @@
 #include <linux/limits.h>
 #include <unistd.h>
 
+#include <sys/ioctl.h>
+#include <termios.h>
+
 # define FLAGS 1
 # define FILES 2
 
@@ -35,9 +38,21 @@ typedef struct stat t_stat;
 typedef struct dirent t_dir;
 typedef struct group t_grp;
 typedef struct passwd t_pw;
-
+typedef struct winsize t_win;
 // -ismScu
 // -AF ?
+
+typedef struct		s_col
+{
+	char			**args;
+	int				*lens;
+	int				size;
+	int				col;
+	int				row;
+	int				space;
+	int				prev;
+	int				m;
+}					t_col;
 
 typedef struct		s_file
 {
@@ -66,7 +81,7 @@ typedef struct		s_ls
 	int				key_a;
 	int				key_r;
 	int				key_t;
-	
+	uint16_t		tty_width;
 	DIR				*dir;
 	t_dir			*lol;
 	t_stat			sb;
@@ -93,6 +108,14 @@ t_file 	*new_file(t_ls *ls, char *name);
 void	ft_exit();
 void	free_split(char ***str);
 
+void	calculate_column(t_ls *ls, t_file *head);
+int		get_column(char **args);
+void	print_column(t_col *col, int row);
+int		get_max_width(t_col *col, int j, int row);
+char	**list_to_char(t_col *col, t_file *head);
+int		*get_lens_of_args(t_col *col);
+int		get_row(t_ls *ls, t_col *col);
+int		get_sum_width(t_col *col, int row);
 
 void    print_list(t_file *head);
 

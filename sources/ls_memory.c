@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ls_memory.c                                        :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tima <tima@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 23:42:41 by tima              #+#    #+#             */
-/*   Updated: 2020/07/08 00:20:21 by tima             ###   ########.fr       */
+/*   Updated: 2020/07/20 09:53:39 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,4 +26,25 @@ void	free_list(t_file **head)
 		*head = next;
 	}
 	*head = NULL;
+}
+
+void	ft_exit()
+{
+	perror("ls");
+	exit(EXIT_FAILURE);
+}
+
+void	free_split(char ***str)
+{
+	int i;
+
+	i = 0;
+	if (*str == NULL)
+		return ;
+	while ((*str)[i])
+	{
+		ft_memdel((void**)&(*str)[i]);
+		i++;
+	}
+	ft_memdel((void**)&(*str));
 }

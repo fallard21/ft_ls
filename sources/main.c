@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 17:21:09 by tima              #+#    #+#             */
-/*   Updated: 2020/07/17 02:56:37 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/21 05:36:29 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -48,6 +48,8 @@ t_file	*ls_read_dir(t_ls *ls, char *dir_name)
 		return (NULL);
 	while((ls->lol = readdir(ls->dir)))
 	{
+		if (ls->lol->d_name[0] == '.')
+			continue;
 		if (!(*tmp = new_file(ls, ls->lol->d_name)))
 		{
 			closedir(ls->dir);
@@ -70,10 +72,12 @@ int		ls_without_args(t_ls *ls)
 	while(tmp)
 	{
 		if (tmp->name[0] != '.')
-			ft_printf("%s  ", tmp->name);
+			//ft_printf("%s  ", tmp->name);
 		tmp = tmp->next;
 	}
-	ft_printf("\n");
+
+	//ft_printf("\n");
+	calculate_column(ls, ls->args);
 	free_list(&ls->args);
 	return (0);
 }
@@ -105,15 +109,30 @@ t_file 	*new_file(t_ls *ls, char *name)
 }
 
 
+void	tty_test(t_ls *ls)
+{
+	t_win	win;
+
+	if ((ioctl(1, TIOCGWINSZ, &win)) < 0)
+	{
+		perror("ioctl");
+		exit(EXIT_FAILURE);
+	}
+	ls->tty_width = win.ws_col;
+	//ls->tty_row = win.ws_row;
+	ft_printf("tty_width(x): %d\n", ls->tty_width);
+}
+
 int	main(int argc, char **argv)
 {
 	t_ls ls;
 	
 	ft_memset(&ls, 0, sizeof(t_ls));
+	tty_test(&ls);
 	if (argc == 1)
 		ls_without_args(&ls);
 	else
-	{
+	{	
 		parse_keys_args(&ls, argc, argv);
 		parse_file_args(&ls, argc, argv);
 		//print_list(ls.args);
