@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 17:10:19 by tima              #+#    #+#             */
-/*   Updated: 2020/07/17 03:33:23 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/21 07:10:01 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -134,7 +134,7 @@ void	ls_only_args(t_ls *ls)
 {
 	t_file *tmp;
 
-	print_link(ls, ls->args->name);
+	//print_link(ls, ls->args->name);
 	ls->args = sort_list(cmp_name, ls->args);
 	tmp = ls->args;
 	ls_print_reg(tmp);
@@ -155,13 +155,7 @@ void	ls_print_dir(t_ls *ls, char *dir_name)
 	else
 		ft_printf("\n{2}%s:{0}\n", dir_name);
 	head = sort_list(cmp_name,  head);
-	while (head)
-	{
-		if (head->name[0] != '.')
-			ft_printf("%s  ", head->name);
-		head = head->next;
-	}
-	ft_printf("\n");
+	calculate_column(ls, head);
 }
 
 void	ls_print_reg(t_file *head)
