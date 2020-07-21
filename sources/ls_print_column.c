@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 09:11:23 by fallard           #+#    #+#             */
-/*   Updated: 2020/07/21 06:10:43 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/21 06:32:31 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,7 +81,7 @@ int		get_row(t_ls *ls, t_col *col)
 {
 	int i;
 	int row;
-	
+
 	row = 1;
 	i = 1;
 	while (i++ <= col->size)
@@ -95,7 +95,7 @@ int		get_row(t_ls *ls, t_col *col)
 			row++;
 			continue;
 		}
-		if (col->space < ls->tty_width && ls->tty_width - col->space >= 2)
+		if (col->space < ls->tty_width)
 			return (row);
 		row++;
 	}
@@ -110,7 +110,6 @@ int		get_max_width(t_col *col, int j, int row)
 	max = 0;
 	i = (int)(j / row) * row;
 	max = col->lens[i];
-	//ft_printf("[%d]\n", i);
 	while (row--)
 	{
 		if (i >= col->size)
@@ -143,21 +142,24 @@ void	print_column(t_col *col, int row)
 	int i;
 	int j;
 	int width;
+	int n;
 
 	i = 0;
 	while (i < row)
 	{
-		j = i;
+		n = col->col - 1;
+		j = i++;
 		while (j < col->size)
 		{
 			if (j <= col->size)
 			{
 				width = (row == 1) ? 0 : get_max_width(col, j, row);
-				ft_printf("%-*s  ", width, col->args[j]);
+				ft_printf("%-*s", width, col->args[j]);
+				if (n-- > 0)
+					write(1, "  ", 2);
 			}
 			j = j + row;
 		}
 		write(1, "\n", 1);
-		i++;
 	}
 }

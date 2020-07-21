@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 17:21:09 by tima              #+#    #+#             */
-/*   Updated: 2020/07/21 05:36:29 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/21 06:18:03 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -68,15 +68,7 @@ int		ls_without_args(t_ls *ls)
 	if (!(ls->args = ls_read_dir(ls, ".")))
 		return (1);
 	ls->args = sort_list(cmp_name, ls->args);
-	tmp = ls->args;
-	while(tmp)
-	{
-		if (tmp->name[0] != '.')
-			//ft_printf("%s  ", tmp->name);
-		tmp = tmp->next;
-	}
-
-	//ft_printf("\n");
+	
 	calculate_column(ls, ls->args);
 	free_list(&ls->args);
 	return (0);
