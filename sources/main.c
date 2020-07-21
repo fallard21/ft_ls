@@ -6,13 +6,13 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 17:21:09 by tima              #+#    #+#             */
-/*   Updated: 2020/07/21 09:15:56 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/21 10:07:39 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
-#include <stdio.h>
 
+/*
 void	sort_words(char **word, int size)
 {
 	char	*tmp;
@@ -36,35 +36,10 @@ void	sort_words(char **word, int size)
 		i++;
 	}
 }
-
-t_file	*get_dir_files(t_ls *ls, char *dir_name)
-{
-	t_file	*head;
-	t_file	**tmp;
-
-	head = NULL;
-	tmp = &head;
-	if (!(ls->dir = opendir(dir_name)))
-		return (NULL);
-	while((ls->lol = readdir(ls->dir)))
-	{
-		if (ls->lol->d_name[0] == '.')
-			continue;
-		if (!(*tmp = new_file(ls, ls->lol->d_name)))
-		{
-			closedir(ls->dir);
-			return (NULL);	// ???
-		}
-		tmp = &(*tmp)->next;
-	}
-	closedir(ls->dir);
-	return (head);
-}
+*/
 
 int		ls_without_args(t_ls *ls)
 {	
-	t_file	*tmp;
-
 	if (!(ls->args = get_dir_files(ls, ".")))
 		return (1);
 	ls->args = sort_list(cmp_name, ls->args);
@@ -73,33 +48,6 @@ int		ls_without_args(t_ls *ls)
 	free_list(&ls->args);
 	return (0);
 }
-
-t_file 	*new_file(t_ls *ls, char *name)
-{
-	t_file	*tmp;
-
-	lstat(name, &ls->sb);
-	ls->gr_gid = getgrgid(ls->sb.st_gid);
-	ls->pw_uid = getpwuid(ls->sb.st_uid);
-	if (!(tmp = ft_calloc(1, sizeof(t_file))))
-		return (NULL);
-	tmp->inode = ls->sb.st_ino;
-	tmp->name = ft_strdup(name);
-	tmp->blocks = ls->sb.st_blocks;
-	tmp->nlink = ls->sb.st_nlink;
-	tmp->mode = ls->sb.st_mode;
-	tmp->uid = ls->sb.st_uid;
-	tmp->uid_name = ft_strdup(ls->pw_uid->pw_name);
-	tmp->gid = ls->sb.st_gid;
-	tmp->gid_name = ft_strdup(ls->gr_gid->gr_name);
-	tmp->size = ls->sb.st_size;
-	tmp->ctime = ls->sb.st_ctime;
-	//tmp->dev = ls->sb.st_dev;
-	// if (!tmp->name || tmp->uid_name || tmp->gid_name)
-	// 	return (NULL);
-	return (tmp);
-}
-
 
 void	get_width_terminal(t_ls *ls)
 {

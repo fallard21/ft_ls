@@ -6,13 +6,13 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 23:42:41 by tima              #+#    #+#             */
-/*   Updated: 2020/07/20 09:53:39 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/21 11:04:16 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	free_list(t_file **head)
+int		free_list(t_file **head)
 {
 	t_file *next;
 
@@ -26,6 +26,7 @@ void	free_list(t_file **head)
 		*head = next;
 	}
 	*head = NULL;
+	return (1);
 }
 
 void	ft_exit()
@@ -34,17 +35,19 @@ void	ft_exit()
 	exit(EXIT_FAILURE);
 }
 
-void	free_split(char ***str)
+int		free_split(char ***str)
 {
 	int i;
 
 	i = 0;
-	if (*str == NULL)
-		return ;
-	while ((*str)[i])
+	if (*str)
 	{
-		ft_memdel((void**)&(*str)[i]);
-		i++;
+		while ((*str)[i])
+		{
+			ft_memdel((void**)&(*str)[i]);
+			i++;
+		}
 	}
 	ft_memdel((void**)&(*str));
+	return (1);
 }

@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 21:03:52 by fallard           #+#    #+#             */
-/*   Updated: 2020/07/21 09:57:15 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/21 11:03:28 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -96,6 +96,9 @@ void	ft_parse_args(t_ls *ls, int argc, char **argv);
 int		parse_keys(t_ls *ls, char *keys);
 
 t_file	*get_dir_files(t_ls *ls, char *dir_name);
+t_file	*new_file(t_ls *ls, char *name);
+int		save_filenames(t_ls *ls, t_file *tmp, char *name);
+
 void	choosing_ls(t_ls *ls);
 void	ls_only_keys(t_ls *ls);
 void	ls_only_args(t_ls *ls);
@@ -104,10 +107,9 @@ void	ls_print_reg(t_file *head);
 
 char	*print_link(t_ls *ls, char *file);
 
-t_file	*new_file(t_ls *ls, char *name);
-
 void	ft_exit();
-void	free_split(char ***str);
+int		free_split(char ***str);
+int		free_list(t_file **head);
 
 void	calculate_column(t_ls *ls, t_file *head);
 int		get_column(char **args);
@@ -123,8 +125,6 @@ void	print_list(t_file *head);
 void	put_chmod(mode_t mode);
 void	init_chmod(char *res, int chmod[3], mode_t mode);
 char	get_type(mode_t mode);
-
-void	free_list(t_file **head);
 
 t_file	*sort_list(int (*cmp)(t_file*, t_file*), t_file *head);
 t_file	*reverse_list(t_file *head);

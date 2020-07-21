@@ -6,7 +6,7 @@
 #    By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/13 21:03:45 by fallard           #+#    #+#              #
-#    Updated: 2020/07/20 09:53:57 by fallard          ###   ########.fr        #
+#    Updated: 2020/07/21 10:08:43 by fallard          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -24,6 +24,8 @@ LIB_DIR = libft/
 
 SRC = main.c \
 ls_parse_args.c \
+ls_get_dir_info.c \
+ls_only_args.c \
 ls_chmod.c \
 ls_memory.c \
 ls_sort.c \
