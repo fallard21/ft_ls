@@ -6,39 +6,38 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 21:03:52 by fallard           #+#    #+#             */
-/*   Updated: 2020/07/21 05:35:19 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/21 09:57:15 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef FT_LS_H
 # define FT_LS_H
 
-#include "libft.h"
-#include <unistd.h>
-#include <sys/types.h>
-#include <sys/stat.h>	// stat
-#include <dirent.h>		// readdir
-#include <errno.h>		// perror
-#include <sys/xattr.h>	// getxattr
-#include <pwd.h>		// getpwuid
-#include <grp.h>		// getgrid
-#include <time.h>		// ctime
-#include <stdio.h>
-#include <fcntl.h>
-#include <linux/limits.h>
-#include <unistd.h>
+# include "libft.h"
+# include <unistd.h>
+# include <sys/types.h>
+# include <sys/stat.h>	// stat
+# include <dirent.h>		// readdir
+# include <errno.h>		// perror
+# include <sys/xattr.h>	// getxattr
+# include <pwd.h>		// getpwuid
+# include <grp.h>		// getgrid
+# include <time.h>		// ctime
+# include <stdio.h>
+# include <fcntl.h>
+# include <linux/limits.h>
+# include <unistd.h>
 
-#include <sys/ioctl.h>
-#include <termios.h>
+# include <sys/ioctl.h>
+# include <termios.h>
 
-# define FLAGS 1
-# define FILES 2
+# define KEYS "lRart"
 
-typedef struct stat t_stat;
-typedef struct dirent t_dir;
-typedef struct group t_grp;
-typedef struct passwd t_pw;
-typedef struct winsize t_win;
+typedef struct stat	t_stat;
+typedef struct dirent	t_dir;
+typedef struct group	t_grp;
+typedef struct passwd	t_pw;
+typedef struct winsize	t_win;
 // -ismScu
 // -AF ?
 
@@ -74,10 +73,13 @@ typedef struct		s_file
 
 typedef struct		s_ls
 {
+	int				count_file;
+	int				count_dir;
+	int				count_link;
 	int				flag_args;
 	int				flag_keys;
 	int				key_l;
-	int				key_R;
+	int				key_up_r;
 	int				key_a;
 	int				key_r;
 	int				key_t;
@@ -90,20 +92,19 @@ typedef struct		s_ls
 	t_file			*args;
 }					t_ls;
 
-
 void	ft_parse_args(t_ls *ls, int argc, char **argv);
 int		parse_keys(t_ls *ls, char *keys);
 
-t_file	*ls_read_dir(t_ls *ls, char *dir_name);
+t_file	*get_dir_files(t_ls *ls, char *dir_name);
 void	choosing_ls(t_ls *ls);
 void	ls_only_keys(t_ls *ls);
 void	ls_only_args(t_ls *ls);
 void	ls_print_dir(t_ls *ls, char *dir_name);
 void	ls_print_reg(t_file *head);
 
-char *print_link(t_ls *ls, char *file);
+char	*print_link(t_ls *ls, char *file);
 
-t_file 	*new_file(t_ls *ls, char *name);
+t_file	*new_file(t_ls *ls, char *name);
 
 void	ft_exit();
 void	free_split(char ***str);
@@ -117,8 +118,7 @@ int		*get_lens_of_args(t_col *col);
 int		get_row(t_ls *ls, t_col *col);
 int		get_sum_width(t_col *col, int row);
 
-void    print_list(t_file *head);
-
+void	print_list(t_file *head);
 
 void	put_chmod(mode_t mode);
 void	init_chmod(char *res, int chmod[3], mode_t mode);

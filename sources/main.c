@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 17:21:09 by tima              #+#    #+#             */
-/*   Updated: 2020/07/21 06:18:03 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/21 09:15:56 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,7 +37,7 @@ void	sort_words(char **word, int size)
 	}
 }
 
-t_file	*ls_read_dir(t_ls *ls, char *dir_name)
+t_file	*get_dir_files(t_ls *ls, char *dir_name)
 {
 	t_file	*head;
 	t_file	**tmp;
@@ -65,7 +65,7 @@ int		ls_without_args(t_ls *ls)
 {	
 	t_file	*tmp;
 
-	if (!(ls->args = ls_read_dir(ls, ".")))
+	if (!(ls->args = get_dir_files(ls, ".")))
 		return (1);
 	ls->args = sort_list(cmp_name, ls->args);
 	
@@ -101,18 +101,18 @@ t_file 	*new_file(t_ls *ls, char *name)
 }
 
 
-void	tty_test(t_ls *ls)
+void	get_width_terminal(t_ls *ls)
 {
 	t_win	win;
 
 	if ((ioctl(1, TIOCGWINSZ, &win)) < 0)
 	{
 		perror("ioctl");
-		exit(EXIT_FAILURE);
+		exit (EXIT_FAILURE);
 	}
 	ls->tty_width = win.ws_col;
 	//ls->tty_row = win.ws_row;
-	ft_printf("tty_width(x): %d\n", ls->tty_width);
+	//ft_printf("tty_width(x): %d\n", ls->tty_width);
 }
 
 int	main(int argc, char **argv)
@@ -120,7 +120,7 @@ int	main(int argc, char **argv)
 	t_ls ls;
 	
 	ft_memset(&ls, 0, sizeof(t_ls));
-	tty_test(&ls);
+	get_width_terminal(&ls);
 	if (argc == 1)
 		ls_without_args(&ls);
 	else

@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 09:11:23 by fallard           #+#    #+#             */
-/*   Updated: 2020/07/21 06:32:31 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/21 07:11:24 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,7 +20,7 @@ void	calculate_column(t_ls *ls, t_file *head)
 	col.args = list_to_char(&col, head);
 	col.lens = get_lens_of_args(&col);
 	col.row = get_row(ls, &col);
-	ft_printf("row: %d, col: %d, space: %d\n", col.row, col.col, col.space);
+	//ft_printf("row: %d, col: %d, space: %d\n", col.row, col.col, col.space);
 	print_column(&col, col.row);
 	/*
 	int i = 0;
