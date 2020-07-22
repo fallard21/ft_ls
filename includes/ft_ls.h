@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 21:03:52 by fallard           #+#    #+#             */
-/*   Updated: 2020/07/21 11:03:28 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/22 06:16:58 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -67,7 +67,7 @@ typedef struct		s_file
 	time_t			ctime;
 	//dev_t			dev;
 	char			*name;
-	char			*path;
+	char			path[PATH_MAX];
 	struct s_file	*next;
 }					t_file;
 
@@ -96,7 +96,7 @@ void	ft_parse_args(t_ls *ls, int argc, char **argv);
 int		parse_keys(t_ls *ls, char *keys);
 
 t_file	*get_dir_files(t_ls *ls, char *dir_name);
-t_file	*new_file(t_ls *ls, char *name);
+t_file	*new_file(t_ls *ls, char *dirname, char *filename);
 int		save_filenames(t_ls *ls, t_file *tmp, char *name);
 
 void	choosing_ls(t_ls *ls);

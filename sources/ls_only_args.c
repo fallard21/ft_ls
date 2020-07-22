@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 10:03:56 by fallard           #+#    #+#             */
-/*   Updated: 2020/07/21 10:05:02 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/22 06:39:16 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ void	ls_only_args(t_ls *ls)
 			ls_print_dir(ls, tmp->name);
 		tmp = tmp->next;
 	}
+    free_list(&ls->args);
 }
 
 void	ls_print_dir(t_ls *ls, char *dir_name)
@@ -38,6 +39,7 @@ void	ls_print_dir(t_ls *ls, char *dir_name)
 		ft_printf("\n{2}%s:{0}\n", dir_name);
 	head = sort_list(cmp_name,  head);
 	calculate_column(ls, head);
+    free_list(&head);
 }
 
 void	ls_print_reg(t_file *head)

@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 17:10:19 by tima              #+#    #+#             */
-/*   Updated: 2020/07/21 10:18:08 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/22 06:26:47 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -93,7 +93,7 @@ void	parse_file_args(t_ls *ls, int argc, char **argv)
 				ft_printf("ls: cannot access '%s': %s\n", argv[i], strerror(errno));
 			else
 			{
-				*tmp = new_file(ls, argv[i]);
+				*tmp = new_file(ls, "./", argv[i]);
 				tmp = &(*tmp)->next;
 			}
 		}
@@ -117,7 +117,7 @@ void	ls_only_keys(t_ls *ls)
 {
 	t_file 	*head;
 	
-	if (!(head = get_dir_files(ls, ".")))
+	if (!(head = get_dir_files(ls, "./")))
 		return ;	// ??
 	head = sort_list(cmp_name, head);
 	print_ls(ls, head);

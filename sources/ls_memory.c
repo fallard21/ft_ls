@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 23:42:41 by tima              #+#    #+#             */
-/*   Updated: 2020/07/21 11:04:16 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/21 11:13:42 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,9 +19,9 @@ int		free_list(t_file **head)
 	while (*head)
 	{
 		next = (*head)->next;
-		free((*head)->name);
-		free((*head)->gid_name);
-		free((*head)->uid_name);
+		ft_strdel(&(*head)->name);
+		ft_strdel(&(*head)->gid_name);
+		ft_strdel(&(*head)->uid_name);
 		free(*head);
 		*head = next;
 	}

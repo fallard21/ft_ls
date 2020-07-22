@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 10:06:49 by fallard           #+#    #+#             */
-/*   Updated: 2020/07/21 11:02:15 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/22 06:36:48 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,7 +25,7 @@ t_file	*get_dir_files(t_ls *ls, char *dir_name)
 	{
 		if (ls->lol->d_name[0] == '.' && ls->key_a == 0)
 			continue;
-		if (!(*tmp = new_file(ls, ls->lol->d_name)))
+		if (!(*tmp = new_file(ls, dir_name, ls->lol->d_name)))
 		{
 			closedir(ls->dir);
 			return (NULL);	// ???
@@ -36,14 +36,19 @@ t_file	*get_dir_files(t_ls *ls, char *dir_name)
 	return (head);
 }
 
-t_file	*new_file(t_ls *ls, char *name)
+t_file	*new_file(t_ls *ls, char *dirname, char *filename)
 {
 	t_file	*tmp;
 
-	if ((lstat(name, &ls->sb)) < 0)
-		return (NULL);
 	if (!(tmp = ft_calloc(1, sizeof(t_file))))
 		return (NULL);
+	ft_strcat(tmp->path, dirname);
+	ft_strcat(tmp->path, filename);
+	if (lstat(tmp->path, &ls->sb) == -1)
+	{
+		free (tmp);
+		return (NULL);
+	}
 	tmp->inode = ls->sb.st_ino;
 	tmp->blocks = ls->sb.st_blocks;
 	tmp->nlink = ls->sb.st_nlink;
@@ -51,7 +56,7 @@ t_file	*new_file(t_ls *ls, char *name)
 	tmp->size = ls->sb.st_size;
 	tmp->ctime = ls->sb.st_ctime;
 	//tmp->dev = ls->sb.st_dev;
-	if (save_filenames(ls, tmp, name))
+	if (save_filenames(ls, tmp, filename))
 		return (NULL);
 	return (tmp);
 }

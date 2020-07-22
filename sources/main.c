@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/20 17:21:09 by tima              #+#    #+#             */
-/*   Updated: 2020/07/21 10:07:39 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/22 06:26:17 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,7 +40,7 @@ void	sort_words(char **word, int size)
 
 int		ls_without_args(t_ls *ls)
 {	
-	if (!(ls->args = get_dir_files(ls, ".")))
+	if (!(ls->args = get_dir_files(ls, "./")))
 		return (1);
 	ls->args = sort_list(cmp_name, ls->args);
 	
