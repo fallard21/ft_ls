@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 17:10:19 by tima              #+#    #+#             */
-/*   Updated: 2020/07/22 06:26:47 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/23 06:45:03 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,7 @@
 int		find_key(char key)
 {
 	const char	*keys;
-	int i;
+	int			i;
 
 	keys = KEYS;
 	i = 0;
@@ -28,7 +28,7 @@ int		find_key(char key)
 	return (0);
 }
 
-int		parse_keys(t_ls *ls, char *argv)	// ?
+int		parse_keys(t_ls *ls, char *argv)
 {
 	int i;
 
@@ -49,62 +49,66 @@ int		parse_keys(t_ls *ls, char *argv)	// ?
 
 void	parse_keys_args(t_ls *ls, int argc, char **argv)
 {
-	int		i;
-	char	key;
+	int	i;
 
-	i = 1;
-	while (i < argc)
+	i = 0;
+	while (++i < argc)
 	{
+		if (ft_strncmp("--", argv[i], 2) == 0)
+		{
+			if (ft_strcmp("--", argv[i]) == 0)
+				break ;
+			else
+			{
+				ft_printf("ls: invalid parameter - '%s'\n", argv[i]);
+				exit(EXIT_FAILURE);
+			}
+		}
 		if (argv[i][0] == '-')
 		{
 			ls->flag_keys = 1;
-			if ((key = parse_keys(ls, argv[i])))
+			if (parse_keys(ls, argv[i]))
 			{
-				ft_printf("ls: invalid key - '%c'\n", key);
-				exit (EXIT_FAILURE);
+				ft_printf("ls: invalid key - '%c'\n", parse_keys(ls, argv[i]));
+				exit(EXIT_FAILURE);
 			}
 		}
-		//ft_printf("argv: %s\n", argv[i]);
-		//ft_printf("status stat: %d\n", stat(argv[i], &ls->sb));
-		i++;
 	}
-	/*
-	ft_printf("key l: %d\n", ls->key_l);
-	ft_printf("key R: %d\n", ls->key_R);
-	ft_printf("key a: %d\n", ls->key_a);
-	ft_printf("key r: %d\n", ls->key_r);
-	ft_printf("key t: %d\n", ls->key_t);
-	*/
 }
 
 void	parse_file_args(t_ls *ls, int argc, char **argv)
 {
 	t_file	**tmp;
 	int		i;
-	
+	int		flag;
+
+	flag = 0;
 	tmp = &ls->args;
-	i = 1;
-	while (i < argc)
+	i = 0;
+	while (++i < argc)
 	{
-		if (argv[i][0] != '-')
+		if (strcmp("--", argv[i]) == 0)
+			flag = 1;
+		else if (argv[i][0] != '-' || flag == 1)
 		{
 			ls->flag_args = 1;
 			if (lstat(argv[i], &ls->sb) < 0)
-				ft_printf("ls: cannot access '%s': %s\n", argv[i], strerror(errno));
+				ft_printf(ACCESS, argv[i], strerror(errno));
 			else
 			{
-				*tmp = new_file(ls, "./", argv[i]);
+				if (!(*tmp = new_file(ls, "./", argv[i])))
+					return ;
 				tmp = &(*tmp)->next;
 			}
 		}
-		i++;
 	}
-	//print_list(ls->args);
 }
 
 void	choosing_ls(t_ls *ls)
 {
-	if (ls->flag_args == 0 && ls->flag_keys == 1)
+	if (ls->flag_args == 0 && ls->flag_keys == 0)
+		ls_without_args(ls);
+	else if (ls->flag_args == 0 && ls->flag_keys == 1)
 		ls_only_keys(ls);
 	else if (ls->flag_args == 1 && ls->flag_keys == 0)
 		ls_only_args(ls);
@@ -115,8 +119,8 @@ void	choosing_ls(t_ls *ls)
 
 void	ls_only_keys(t_ls *ls)
 {
-	t_file 	*head;
-	
+	t_file	*head;
+
 	if (!(head = get_dir_files(ls, "./")))
 		return ;	// ??
 	head = sort_list(cmp_name, head);
@@ -139,7 +143,7 @@ char	*print_link(t_ls *ls, char *file)
 		return (NULL);
 	if (readlink(file, buf, size) < 0)
 	{
-		free (buf);
+		free(buf);
 		return (NULL);
 	}
 	ft_printf("{3}%s -> %s{0}\n", file, buf);

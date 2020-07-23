@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 21:03:52 by fallard           #+#    #+#             */
-/*   Updated: 2020/07/22 06:16:58 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/23 06:40:21 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,8 +32,9 @@
 # include <termios.h>
 
 # define KEYS "lRart"
+# define ACCESS "ls: cannot access '%s': %s\n"
 
-typedef struct stat	t_stat;
+typedef struct stat		t_stat;
 typedef struct dirent	t_dir;
 typedef struct group	t_grp;
 typedef struct passwd	t_pw;
@@ -98,6 +99,8 @@ int		parse_keys(t_ls *ls, char *keys);
 t_file	*get_dir_files(t_ls *ls, char *dir_name);
 t_file	*new_file(t_ls *ls, char *dirname, char *filename);
 int		save_filenames(t_ls *ls, t_file *tmp, char *name);
+
+int		ls_without_args(t_ls *ls);
 
 void	choosing_ls(t_ls *ls);
 void	ls_only_keys(t_ls *ls);
