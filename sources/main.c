@@ -5,8 +5,8 @@
 /*                                                    +:+ +:+         +:+     */
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2020/06/20 17:21:09 by tima              #+#    #+#             */
-/*   Updated: 2020/07/22 06:26:17 by fallard          ###   ########.fr       */
+/*   Created: 2020/07/23 07:24:15 by fallard           #+#    #+#             */
+/*   Updated: 2020/07/23 07:24:17 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -53,6 +53,7 @@ void	get_width_terminal(t_ls *ls)
 {
 	t_win	win;
 
+	//ft_printf("status: %d\n", isatty(1));
 	if ((ioctl(1, TIOCGWINSZ, &win)) < 0)
 	{
 		perror("ioctl");

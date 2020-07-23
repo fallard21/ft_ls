@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 10:06:49 by fallard           #+#    #+#             */
-/*   Updated: 2020/07/22 06:36:48 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/23 09:00:03 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,6 +43,7 @@ t_file	*new_file(t_ls *ls, char *dirname, char *filename)
 	if (!(tmp = ft_calloc(1, sizeof(t_file))))
 		return (NULL);
 	ft_strcat(tmp->path, dirname);
+	ft_strcat(tmp->path, "/");
 	ft_strcat(tmp->path, filename);
 	if (lstat(tmp->path, &ls->sb) == -1)
 	{
