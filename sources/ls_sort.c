@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ls_sort.c                                          :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tima <tima@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 02:22:49 by tima              #+#    #+#             */
-/*   Updated: 2020/07/09 00:19:54 by tima             ###   ########.fr       */
+/*   Updated: 2020/07/25 19:46:19 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,7 +60,9 @@ t_file	*reverse_list(t_file *head)
 
 int		cmp_size(t_file *left, t_file *right)
 {
-	if (left->size > right->size)
+	if (left->sb.st_size == right->sb.st_size)
+		return(cmp_name(left, right));
+	if (left->sb.st_size > right->sb.st_size)
 		return (1);
 	return (0);
 }
@@ -72,9 +74,17 @@ int		cmp_name(t_file *left, t_file *right)
 	return (0);
 }
 
-int		cmp_time(t_file *left, t_file *right)
+int		cmp_mtime(t_file *left, t_file *right)
 {
-	if (left->ctime < right->ctime)
+	if (left->sb.st_mtime == right->sb.st_mtime)
+	{
+		if (left->sb.st_mtim.tv_nsec == right->sb.st_mtim.tv_nsec)
+			return(cmp_name(left, right));
+		if (left->sb.st_mtim.tv_nsec > right->sb.st_mtim.tv_nsec)
+			return (1);
+		return (0);
+	}
+	if (left->sb.st_mtime > right->sb.st_mtime)
 		return (1);
 	return (0);
 }

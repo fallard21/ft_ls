@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 10:03:56 by fallard           #+#    #+#             */
-/*   Updated: 2020/07/23 08:25:21 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/25 18:18:51 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ void	ls_only_args(t_ls *ls)
 	ls_print_reg(tmp);
 	while (tmp)
 	{
-		if (S_ISDIR(tmp->mode))
+		if (S_ISDIR(tmp->sb.st_mode))
 			ls_print_dir(ls, tmp->name);
 		tmp = tmp->next;
 	}
@@ -49,7 +49,7 @@ void	ls_print_reg(t_file *head)
 	flag = 0;
 	while (head)
 	{
-		if (S_ISREG(head->mode) || S_ISLNK(head->mode))
+		if (S_ISREG(head->sb.st_mode) || S_ISLNK(head->sb.st_mode))
 		{
 			flag = 1;
 			ft_printf("%s  ", head->name);

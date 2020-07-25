@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 17:10:19 by tima              #+#    #+#             */
-/*   Updated: 2020/07/23 06:45:03 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/25 23:49:19 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void	parse_keys_args(t_ls *ls, int argc, char **argv)
 				exit(EXIT_FAILURE);
 			}
 		}
-		if (argv[i][0] == '-')
+		if (argv[i][0] == '-' && ft_strcmp(argv[i], "-"))
 		{
 			ls->flag_keys = 1;
 			if (parse_keys(ls, argv[i]))
@@ -76,7 +76,7 @@ void	parse_keys_args(t_ls *ls, int argc, char **argv)
 	}
 }
 
-void	parse_file_args(t_ls *ls, int argc, char **argv)
+int		parse_file_args(t_ls *ls, int argc, char **argv)
 {
 	t_file	**tmp;
 	int		i;
@@ -87,7 +87,7 @@ void	parse_file_args(t_ls *ls, int argc, char **argv)
 	i = 0;
 	while (++i < argc)
 	{
-		if (strcmp("--", argv[i]) == 0)
+		if (ft_strcmp("--", argv[i]) == 0)
 			flag = 1;
 		else if (argv[i][0] != '-' || flag == 1)
 		{
@@ -97,11 +97,12 @@ void	parse_file_args(t_ls *ls, int argc, char **argv)
 			else
 			{
 				if (!(*tmp = new_file(ls, "./", argv[i])))
-					return ;
+					return (free_list(&ls->args));
 				tmp = &(*tmp)->next;
 			}
 		}
 	}
+	return (0);
 }
 
 void	choosing_ls(t_ls *ls)
@@ -123,8 +124,9 @@ void	ls_only_keys(t_ls *ls)
 
 	if (!(head = get_dir_files(ls, "./")))
 		return ;	// ??
-	head = sort_list(cmp_name, head);
+	head = sort_list(cmp_mtime, head);
 	print_ls(ls, head);
+	//print_list(head);
 	free_list(&head);
 }
 

@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 06:30:43 by tima              #+#    #+#             */
-/*   Updated: 2020/07/15 06:06:52 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/25 18:15:52 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,9 @@ size_t	width_nlink_size(t_file *head, int flag)
 	while (head)
 	{
 		if (flag == 1)	// nlink
-			len = get_uint_size(head->nlink, 0);
+			len = get_uint_size(head->sb.st_nlink, 0);
 		else			// size
-			len = get_uint_size(head->size, 0);
+			len = get_uint_size(head->sb.st_size, 0);
 		if (len > max)
 			max = len;
 		head = head->next;
@@ -72,9 +72,9 @@ size_t	width_ino_blck(t_file *head, int flag)
 	while (head)
 	{
 		if (flag == 1)	// inode
-			len = get_uint_size(head->inode, 0);
+			len = get_uint_size(head->sb.st_ino, 0);
 		else			// blocks
-			len = get_uint_size(head->blocks / 2, 0);
+			len = get_uint_size(head->sb.st_blocks / 2, 0);
 		if (len > max)
 			max = len;
 		head = head->next;

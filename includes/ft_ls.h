@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 21:03:52 by fallard           #+#    #+#             */
-/*   Updated: 2020/07/23 06:40:21 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/25 23:45:11 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,16 +56,17 @@ typedef struct		s_col
 
 typedef struct		s_file
 {
-	ino_t			inode;
-	blkcnt_t		blocks;
-	mode_t			mode;
-	nlink_t			nlink;
-	uid_t			uid;
+	t_stat			sb;
+	//ino_t			inode;
+	//blkcnt_t		blocks;
+	//mode_t			mode;
+	//nlink_t			nlink;
+	//uid_t			uid;
 	char			*uid_name;
-	gid_t			gid;
+	//gid_t			gid;
 	char			*gid_name;
-	off_t			size;
-	time_t			ctime;
+	//off_t			size;
+	//time_t			mtime;
 	//dev_t			dev;
 	char			*name;
 	char			path[PATH_MAX];
@@ -77,14 +78,18 @@ typedef struct		s_ls
 	int				count_file;
 	int				count_dir;
 	int				count_link;
+
 	int				flag_args;
 	int				flag_keys;
+
 	int				key_l;
 	int				key_up_r;
 	int				key_a;
 	int				key_r;
 	int				key_t;
+
 	uint16_t		tty_width;
+
 	DIR				*dir;
 	t_dir			*lol;
 	t_stat			sb;
@@ -98,7 +103,7 @@ int		parse_keys(t_ls *ls, char *keys);
 
 t_file	*get_dir_files(t_ls *ls, char *dir_name);
 t_file	*new_file(t_ls *ls, char *dirname, char *filename);
-int		save_filenames(t_ls *ls, t_file *tmp, char *name);
+int		save_file_info(t_ls *ls, t_file *tmp, char *name);
 
 int		ls_without_args(t_ls *ls);
 
@@ -133,7 +138,7 @@ t_file	*sort_list(int (*cmp)(t_file*, t_file*), t_file *head);
 t_file	*reverse_list(t_file *head);
 int		cmp_size(t_file *left, t_file *right);
 int		cmp_name(t_file *left, t_file *right);
-int		cmp_time(t_file *left, t_file *right);
+int		cmp_mtime(t_file *left, t_file *right);
 
 
 
@@ -144,7 +149,7 @@ size_t	width_nlink(t_file *head, int flag);
 void	put_time(time_t ntime);
 
 void	parse_keys_args(t_ls *ls, int argc, char **argv);
-void	parse_file_args(t_ls *ls, int argc, char **argv);
+int		parse_file_args(t_ls *ls, int argc, char **argv);
 void	choosing_ls(t_ls *ls);
 
 
