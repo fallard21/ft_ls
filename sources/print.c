@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 06:00:04 by tima              #+#    #+#             */
-/*   Updated: 2020/07/27 14:26:55 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/27 14:41:50 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,7 +89,7 @@ void	print_error(t_ls *ls, char *file, int flag)
 	if (flag == 1) // invalid key
 	{
 		ft_strcat(str, "ls: invalid key - '");
-		str[ft_strlen(str)] = parse_keys(ls, file);
+		str[ft_strlen(str)] = init_keys(ls, file);
 		ft_strcat(str, "'\n");
 	}
 	if (flag == 2) // invalid parametr
