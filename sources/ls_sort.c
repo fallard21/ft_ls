@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 02:22:49 by tima              #+#    #+#             */
-/*   Updated: 2020/07/25 19:46:19 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/27 17:15:49 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,4 +87,17 @@ int		cmp_mtime(t_file *left, t_file *right)
 	if (left->sb.st_mtime > right->sb.st_mtime)
 		return (1);
 	return (0);
+}
+
+t_file	*sort(t_ls *ls, t_file *head)
+{
+	if (ls->key_f)
+		return (head);
+	if (ls->key_t)
+		head = sort_list(cmp_mtime, head);
+	else
+		head = sort_list(cmp_name, head);
+	if (ls->key_r)
+		head = reverse_list(head);
+	return (head);
 }

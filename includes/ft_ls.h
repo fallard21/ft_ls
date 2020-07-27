@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 21:03:52 by fallard           #+#    #+#             */
-/*   Updated: 2020/07/27 14:47:01 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/28 00:41:18 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,6 +41,7 @@ typedef struct passwd	t_pw;
 typedef struct winsize	t_win;
 // -ismScu
 // -AF ?
+// -go 
 
 typedef struct		s_col
 {
@@ -90,6 +91,7 @@ typedef struct		s_ls
 	int				key_i;
 	int				key_s;
 	int				key_up_s;
+	int				key_f;	// ?
 
 	uint16_t		tty_width;
 	int				tty_flag;
@@ -100,6 +102,8 @@ typedef struct		s_ls
 	t_grp			*gr_gid;
 	t_pw			*pw_uid;
 	t_file			*args;
+	t_file			*dirs;
+	t_file			*others;
 }					t_ls;
 
 int		parse_args_to_keys(t_ls *ls, int ac, char **av);
@@ -116,15 +120,17 @@ int		ls_without_args(t_ls *ls);
 void	choosing_ls(t_ls *ls);
 void	ls_only_args(t_ls *ls);
 void	ls_print_dir(t_ls *ls, char *dir_name);
-void	ls_print_reg(t_file *head);
+void	ls_print_reg(t_ls *ls, t_file *head);
 
-char	*print_link(t_ls *ls, char *file);
+void	ls_print_args(t_ls *ls, t_file *head);
+
+void	print_link(t_ls *ls, char *file);
 
 void	ft_exit();
 int		free_split(char ***str);
 int		free_list(t_file **head);
 
-void	print_column(t_ls *ls, t_file *head);
+int		print_column(t_ls *ls, t_file *head);
 
 //void	calculate_column(t_ls *ls, t_file *head);
 //int		get_column(char **args);
@@ -145,7 +151,7 @@ t_file	*reverse_list(t_file *head);
 int		cmp_size(t_file *left, t_file *right);
 int		cmp_name(t_file *left, t_file *right);
 int		cmp_mtime(t_file *left, t_file *right);
-
+t_file	*sort(t_ls *ls, t_file *head);
 
 size_t	width_uid_gid(t_file *head, int flag);
 size_t	width_nlink(t_file *head, int flag);
@@ -161,7 +167,16 @@ void	print_key_l(t_ls *ls, t_file *head);
 
 void	print_error(t_ls *ls, char *file, int flag);
 
-void	do_ls(t_ls *ls, t_file *head);
+void	do_ls(t_ls *ls, t_file *head, char *dir);
+void	do_ls_args(t_ls *ls, t_file *head);
 void	print_total(t_file *head);
+
+void	main_print(t_ls *ls, t_file *head);
+
+int		list_size(t_file *head);
+
+void	split_list(t_ls *ls, t_file *head);
+
+
 
 #endif

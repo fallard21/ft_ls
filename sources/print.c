@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 06:00:04 by tima              #+#    #+#             */
-/*   Updated: 2020/07/27 15:44:21 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/28 00:40:34 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,6 +61,30 @@ void	print_key_l(t_ls *ls, t_file *head)
 	free(width);
 }
 
+void	print_total(t_file *head)
+{
+	long	blck;
+	char	buf[40];
+	char	*num;
+
+	if (!head)
+		return ;
+	ft_memset(buf, 0, 40);
+	blck = 0;
+	while (head)
+	{
+		blck = blck + (head->sb.st_blocks / 2);
+		head = head->next;
+	}
+	if (!(num = ft_ulong_itoa(blck, 1)))
+		return ;
+	ft_strcat(buf, "total ");
+	ft_strcat(buf, num);
+	ft_strcat(buf, "\n");
+	write(1, buf, ft_strlen(buf));
+	free(num);
+}
+
 void	print_link(t_ls *ls, char *file)
 {
 	char	*buf;
@@ -102,8 +126,8 @@ void	print_error(t_ls *ls, char *file, int flag)
 	}
 	if (flag == 3)
 	{
-		ft_strcat(str, "ls: ");
-		ft_strcat(str, file);
+		ft_strcat(ft_strcat(str, "ls: "), file);
+		ft_strcat(str, ": ");
 		ft_strcat(str, strerror(errno));
 		ft_strcat(str, "\n");
 	}
