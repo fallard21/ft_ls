@@ -6,7 +6,7 @@
 #    By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/13 21:03:45 by fallard           #+#    #+#              #
-#    Updated: 2020/07/21 10:08:43 by fallard          ###   ########.fr        #
+#    Updated: 2020/07/27 14:27:21 by fallard          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = ls
 HEAD_NAME = ft_ls.h
 LIB_NAME = libft.a
 
-CC = gcc -g
+CC = gcc -g #-fsanitize=address
 CFLAGS = 
 
 SRC_DIR = sources/
@@ -28,6 +28,7 @@ ls_get_dir_info.c \
 ls_only_args.c \
 ls_chmod.c \
 ls_memory.c \
+do_ls.c \
 ls_sort.c \
 ls_max_width.c \
 ls_time.c \
