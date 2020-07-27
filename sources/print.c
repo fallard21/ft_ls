@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 06:00:04 by tima              #+#    #+#             */
-/*   Updated: 2020/07/27 14:41:50 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/27 15:44:21 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,57 +52,60 @@ void	print_key_l(t_ls *ls, t_file *head)
 		ft_printf("%*s ", width[4], head->gid_name);
 		ft_printf("%*ld ", width[5], head->sb.st_size);
 		put_time(head->sb.st_mtime);
-		ft_printf("{2}%s{0}\n", head->name);
+		if (S_ISLNK(head->sb.st_mode))
+			print_link(ls, head->name);
+		else
+			ft_printf("{2}%s{0}\n", head->name);
 		head = head->next;
 	}
 	free(width);
 }
 
-char	*print_link(t_ls *ls, char *file)
+void	print_link(t_ls *ls, char *file)
 {
 	char	*buf;
 	t_stat	sb;
 	size_t	size;
 
 	if (lstat(file, &sb) == -1)
-		return (NULL);
+		return ;
 	size = sb.st_size + 1;
 	if (!size)
 		size = PATH_MAX;
 	if (!(buf = ft_calloc(size, sizeof(char))))
-		return (NULL);
+		return ;
 	if (readlink(file, buf, size) < 0)
 	{
 		free(buf);
-		return (NULL);
+		return ;
 	}
 	ft_printf("{3}%s -> %s{0}\n", file, buf);
-	return (buf);
+	free (buf);
 }
-
 
 void	print_error(t_ls *ls, char *file, int flag)
 {
 	char str[350];
 
-	ft_memset(str, 0, 300);
-	if (flag == 1) // invalid key
+	ft_memset(str, 0, 350);
+	if (flag == 1)
 	{
 		ft_strcat(str, "ls: invalid key - '");
 		str[ft_strlen(str)] = init_keys(ls, file);
 		ft_strcat(str, "'\n");
 	}
-	if (flag == 2) // invalid parametr
+	if (flag == 2)
 	{
 		ft_strcat(str, "ls: invalid parameter '");
 		ft_strcat(str, file);
 		ft_strcat(str, "'\n");
 	}
-	if (flag == 3) // not access
+	if (flag == 3)
 	{
 		ft_strcat(str, "ls: ");
 		ft_strcat(str, file);
 		ft_strcat(str, strerror(errno));
+		ft_strcat(str, "\n");
 	}
 	write(2, str, ft_strlen(str));
 	if (flag == 1 || flag == 2)

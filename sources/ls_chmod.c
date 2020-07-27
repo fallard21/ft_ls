@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 22:19:10 by tima              #+#    #+#             */
-/*   Updated: 2020/07/27 12:38:22 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/27 15:31:00 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,8 +35,6 @@ void	put_chmod(mode_t mode)
 
 char	get_type(mode_t mode)
 {
-	char s;
-
 	if (S_ISREG(mode))
 		return ('-');
 	if (S_ISDIR(mode))
@@ -51,4 +49,6 @@ char	get_type(mode_t mode)
 		return ('p');
 	else if ((mode & __S_IFMT) == __S_IFSOCK)
 		return ('s');
+	else
+		return ('-');
 }

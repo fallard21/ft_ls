@@ -6,19 +6,18 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 10:03:56 by fallard           #+#    #+#             */
-/*   Updated: 2020/07/27 14:05:24 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/27 15:22:35 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	ls_only_args(t_ls *ls)
+void	do_ls_args(t_ls *ls, t_file *head)
 {
 	t_file *tmp;
 
 	//print_link(ls, ls->args->name);
-	ls->args = sort_list(cmp_name, ls->args);
-	tmp = ls->args;
+	tmp = head;
 	ls_print_reg(tmp);
 	while (tmp)
 	{
