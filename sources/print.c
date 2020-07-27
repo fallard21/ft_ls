@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 06:00:04 by tima              #+#    #+#             */
-/*   Updated: 2020/07/25 19:38:25 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/27 14:26:55 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -37,12 +37,11 @@ void	print_list(t_file *head)
 	ft_printf("\n");
 }
 
-void	print_ls(t_ls *ls, t_file *head)
+void	print_key_l(t_ls *ls, t_file *head)
 {
-	//head = sort_list(cmp_name, head);
 	int *width;
 
-	width  = get_width_arr(head);
+	width = get_width_arr(head);
 	while (head)
 	{
 		//ft_printf("%*lu ",  width[0], head->inode);
@@ -59,3 +58,53 @@ void	print_ls(t_ls *ls, t_file *head)
 	free(width);
 }
 
+char	*print_link(t_ls *ls, char *file)
+{
+	char	*buf;
+	t_stat	sb;
+	size_t	size;
+
+	if (lstat(file, &sb) == -1)
+		return (NULL);
+	size = sb.st_size + 1;
+	if (!size)
+		size = PATH_MAX;
+	if (!(buf = ft_calloc(size, sizeof(char))))
+		return (NULL);
+	if (readlink(file, buf, size) < 0)
+	{
+		free(buf);
+		return (NULL);
+	}
+	ft_printf("{3}%s -> %s{0}\n", file, buf);
+	return (buf);
+}
+
+
+void	print_error(t_ls *ls, char *file, int flag)
+{
+	char str[350];
+
+	ft_memset(str, 0, 300);
+	if (flag == 1) // invalid key
+	{
+		ft_strcat(str, "ls: invalid key - '");
+		str[ft_strlen(str)] = parse_keys(ls, file);
+		ft_strcat(str, "'\n");
+	}
+	if (flag == 2) // invalid parametr
+	{
+		ft_strcat(str, "ls: invalid parameter '");
+		ft_strcat(str, file);
+		ft_strcat(str, "'\n");
+	}
+	if (flag == 3) // not access
+	{
+		ft_strcat(str, "ls: ");
+		ft_strcat(str, file);
+		ft_strcat(str, strerror(errno));
+	}
+	write(2, str, ft_strlen(str));
+	if (flag == 1 || flag == 2)
+		exit(EXIT_FAILURE);
+}

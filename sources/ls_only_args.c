@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 10:03:56 by fallard           #+#    #+#             */
-/*   Updated: 2020/07/25 18:18:51 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/27 14:05:24 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,7 +38,7 @@ void	ls_print_dir(t_ls *ls, char *dir_name)
 	else
 		ft_printf("\n{2}%s:{0}\n", dir_name);
 	head = sort_list(cmp_name,  head);
-	calculate_column(ls, head);
+	print_column(ls, head);
     free_list(&head);
 }
 

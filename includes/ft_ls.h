@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 21:03:52 by fallard           #+#    #+#             */
-/*   Updated: 2020/07/25 23:45:11 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/27 14:09:16 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -87,8 +87,12 @@ typedef struct		s_ls
 	int				key_a;
 	int				key_r;
 	int				key_t;
+	int				key_i;
+	int				key_s;
+	int				key_up_s;
 
 	uint16_t		tty_width;
+	int				tty_flag;
 
 	DIR				*dir;
 	t_dir			*lol;
@@ -119,19 +123,20 @@ void	ft_exit();
 int		free_split(char ***str);
 int		free_list(t_file **head);
 
-void	calculate_column(t_ls *ls, t_file *head);
-int		get_column(char **args);
-void	print_column(t_col *col, int row);
-int		get_max_width(t_col *col, int j, int row);
-char	**list_to_char(t_col *col, t_file *head);
-int		*get_lens_of_args(t_col *col);
-int		get_row(t_ls *ls, t_col *col);
-int		get_sum_width(t_col *col, int row);
+void	print_column(t_ls *ls, t_file *head);
+
+//void	calculate_column(t_ls *ls, t_file *head);
+//int		get_column(char **args);
+//void	print_column(t_col *col, int row);
+//int		get_max_width(t_col *col, int j, int row);
+//char	**list_to_char(t_col *col, t_file *head);
+//int		*get_lens_of_args(t_col *col);
+//int		get_row(t_ls *ls, t_col *col);
+//int		get_sum_width(t_col *col, int row);
 
 void	print_list(t_file *head);
 
 void	put_chmod(mode_t mode);
-void	init_chmod(char *res, int chmod[3], mode_t mode);
 char	get_type(mode_t mode);
 
 t_file	*sort_list(int (*cmp)(t_file*, t_file*), t_file *head);
@@ -153,7 +158,12 @@ int		parse_file_args(t_ls *ls, int argc, char **argv);
 void	choosing_ls(t_ls *ls);
 
 
-void	print_ls(t_ls *ls, t_file *head);
+void	print_key_l(t_ls *ls, t_file *head);
 int		*get_width_arr(t_file *head);
+
+void	print_error(t_ls *ls, char *file, int flag);
+
+void	do_ls(t_ls *ls, t_file *head);
+void	print_total(t_file *head);
 
 #endif

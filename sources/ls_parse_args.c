@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 17:10:19 by tima              #+#    #+#             */
-/*   Updated: 2020/07/25 23:49:19 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/27 14:26:57 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -59,19 +59,13 @@ void	parse_keys_args(t_ls *ls, int argc, char **argv)
 			if (ft_strcmp("--", argv[i]) == 0)
 				break ;
 			else
-			{
-				ft_printf("ls: invalid parameter - '%s'\n", argv[i]);
-				exit(EXIT_FAILURE);
-			}
+				print_error(ls, argv[i], 2);
 		}
 		if (argv[i][0] == '-' && ft_strcmp(argv[i], "-"))
 		{
-			ls->flag_keys = 1;
+			ls->flag_keys = 1;	// ?
 			if (parse_keys(ls, argv[i]))
-			{
-				ft_printf("ls: invalid key - '%c'\n", parse_keys(ls, argv[i]));
-				exit(EXIT_FAILURE);
-			}
+				print_error(ls, argv[i], 1);
 		}
 	}
 }
@@ -89,7 +83,7 @@ int		parse_file_args(t_ls *ls, int argc, char **argv)
 	{
 		if (ft_strcmp("--", argv[i]) == 0)
 			flag = 1;
-		else if (argv[i][0] != '-' || flag == 1)
+		else if (argv[i][0] != '-' || flag == 1 || !ft_strcmp("-", argv[i]))
 		{
 			ls->flag_args = 1;
 			if (lstat(argv[i], &ls->sb) < 0)
@@ -105,19 +99,6 @@ int		parse_file_args(t_ls *ls, int argc, char **argv)
 	return (0);
 }
 
-void	choosing_ls(t_ls *ls)
-{
-	if (ls->flag_args == 0 && ls->flag_keys == 0)
-		ls_without_args(ls);
-	else if (ls->flag_args == 0 && ls->flag_keys == 1)
-		ls_only_keys(ls);
-	else if (ls->flag_args == 1 && ls->flag_keys == 0)
-		ls_only_args(ls);
-	else if (ls->flag_args == 1 && ls->flag_keys == 1)
-		//ls_keys_and_args(ls);
-		;
-}
-
 void	ls_only_keys(t_ls *ls)
 {
 	t_file	*head;
@@ -125,29 +106,7 @@ void	ls_only_keys(t_ls *ls)
 	if (!(head = get_dir_files(ls, "./")))
 		return ;	// ??
 	head = sort_list(cmp_mtime, head);
-	print_ls(ls, head);
+	print_key_l(ls, head);
 	//print_list(head);
 	free_list(&head);
-}
-
-char	*print_link(t_ls *ls, char *file)
-{
-	char	*buf;
-	t_stat	sb;
-	size_t	size;
-
-	if (lstat(file, &sb) == -1)
-		return (NULL);
-	size = sb.st_size + 1;
-	if (!size)
-		size = PATH_MAX;
-	if (!(buf = ft_calloc(size, sizeof(char))))
-		return (NULL);
-	if (readlink(file, buf, size) < 0)
-	{
-		free(buf);
-		return (NULL);
-	}
-	ft_printf("{3}%s -> %s{0}\n", file, buf);
-	return (buf);
 }

@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 07:24:15 by fallard           #+#    #+#             */
-/*   Updated: 2020/07/23 07:24:17 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/27 14:02:29 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,30 +38,30 @@ void	sort_words(char **word, int size)
 }
 */
 
+/*
 int		ls_without_args(t_ls *ls)
 {	
 	if (!(ls->args = get_dir_files(ls, "./")))
 		return (1);
 	ls->args = sort_list(cmp_name, ls->args);
 	
-	calculate_column(ls, ls->args);
+	print_column(ls, ls->args);
 	free_list(&ls->args);
 	return (0);
 }
+*/
 
 void	get_width_terminal(t_ls *ls)
 {
-	t_win	win;
+	t_win  win;
 
-	//ft_printf("status: %d\n", isatty(1));
-	if ((ioctl(1, TIOCGWINSZ, &win)) < 0)
+	if (isatty(1))
 	{
-		perror("ioctl");
-		exit (EXIT_FAILURE);
+		ioctl(1, TIOCGWINSZ, &win);
+		ls->tty_width = win.ws_col;
+		ls->tty_flag = 1;
 	}
-	ls->tty_width = win.ws_col;
-	//ls->tty_row = win.ws_row;
-	//ft_printf("tty_width(x): %d\n", ls->tty_width);
+	//ft_printf("%d, %d\n", ls->tty_flag, ls->tty_width);
 }
 
 int	main(int argc, char **argv)
@@ -70,16 +70,12 @@ int	main(int argc, char **argv)
 	
 	ft_memset(&ls, 0, sizeof(t_ls));
 	get_width_terminal(&ls);
-	if (argc == 1)
-		ls_without_args(&ls);
-	else
-	{	
-		parse_keys_args(&ls, argc, argv);
-		parse_file_args(&ls, argc, argv);
-		//print_list(ls.args);
-		choosing_ls(&ls);
-		//ft_printf("{1}flag_args: %d{0}\n", ls.flag_args);
-		//ft_printf("{1}flag_keys: %d{0}\n", ls.flag_keys);
-	}
+	
+	parse_keys_args(&ls, argc, argv);
+	parse_file_args(&ls, argc, argv);
+	//print_list(ls.args);
+	choosing_ls(&ls);
+	//ft_printf("{1}flag_args: %d{0}\n", ls.flag_args);
+	//ft_printf("{1}flag_keys: %d{0}\n", ls.flag_keys);
 	return (0);
 }
