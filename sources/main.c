@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 07:24:15 by fallard           #+#    #+#             */
-/*   Updated: 2020/07/27 14:02:29 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/27 14:47:32 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -71,8 +71,9 @@ int	main(int argc, char **argv)
 	ft_memset(&ls, 0, sizeof(t_ls));
 	get_width_terminal(&ls);
 	
-	parse_keys_args(&ls, argc, argv);
-	parse_file_args(&ls, argc, argv);
+	parse_args_to_keys(&ls, argc, argv);
+	if (parse_args_to_file(&ls, argc, argv))
+		return (EXIT_FAILURE);
 	//print_list(ls.args);
 	choosing_ls(&ls);
 	//ft_printf("{1}flag_args: %d{0}\n", ls.flag_args);

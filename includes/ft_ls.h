@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 21:03:52 by fallard           #+#    #+#             */
-/*   Updated: 2020/07/27 14:09:16 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/27 14:47:01 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -102,8 +102,10 @@ typedef struct		s_ls
 	t_file			*args;
 }					t_ls;
 
-void	ft_parse_args(t_ls *ls, int argc, char **argv);
-int		parse_keys(t_ls *ls, char *keys);
+int		parse_args_to_keys(t_ls *ls, int ac, char **av);
+int		parse_args_to_file(t_ls *ls, int ac, char **av);
+int		init_keys(t_ls *ls, char *argv);
+int		find_key(char key);
 
 t_file	*get_dir_files(t_ls *ls, char *dir_name);
 t_file	*new_file(t_ls *ls, char *dirname, char *filename);
@@ -112,7 +114,6 @@ int		save_file_info(t_ls *ls, t_file *tmp, char *name);
 int		ls_without_args(t_ls *ls);
 
 void	choosing_ls(t_ls *ls);
-void	ls_only_keys(t_ls *ls);
 void	ls_only_args(t_ls *ls);
 void	ls_print_dir(t_ls *ls, char *dir_name);
 void	ls_print_reg(t_file *head);
@@ -146,10 +147,9 @@ int		cmp_name(t_file *left, t_file *right);
 int		cmp_mtime(t_file *left, t_file *right);
 
 
-
 size_t	width_uid_gid(t_file *head, int flag);
 size_t	width_nlink(t_file *head, int flag);
-
+int		*get_width_arr(t_file *head);
 
 void	put_time(time_t ntime);
 
@@ -157,9 +157,7 @@ void	parse_keys_args(t_ls *ls, int argc, char **argv);
 int		parse_file_args(t_ls *ls, int argc, char **argv);
 void	choosing_ls(t_ls *ls);
 
-
 void	print_key_l(t_ls *ls, t_file *head);
-int		*get_width_arr(t_file *head);
 
 void	print_error(t_ls *ls, char *file, int flag);
 
