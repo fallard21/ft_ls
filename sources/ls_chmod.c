@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   ls_chmod.c                                         :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tima <tima@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 22:19:10 by tima              #+#    #+#             */
-/*   Updated: 2020/07/09 06:08:25 by tima             ###   ########.fr       */
+/*   Updated: 2020/07/27 12:38:22 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,52 +14,41 @@
 
 void	put_chmod(mode_t mode)
 {
-	int		chmod[3];
-	mode_t	tmp;
-	char	*res;
-	int		i;
+	char res[11];
 
-	tmp = mode;
-	i = 0;
-	if (!(res = ft_calloc(11, sizeof(char))))
-		ft_exit();
-	ft_memset(chmod, 0, sizeof(int) * 3);
-	while (i < 3)
-	{
-		chmod[i++] = tmp % 8;
-		tmp = tmp / 8;
-	}
-	init_chmod(res, chmod, mode);
-	ft_printf("{3}%s{0} ", res);
-	free(res);
-}
-
-void	init_chmod(char *res, int chmod[3], mode_t mode)
-{
 	res[0] = get_type(mode);
 
-	res[1] = (chmod[2] > 3) ? 'r' : '-';
-	res[2] = (chmod[2] > 1 && chmod[2] != 4 && chmod[2] != 5) ? 'w' : '-';
-	res[3] = (chmod[2] & 1) ? 'x' : '-';
+	res[1] = (mode & S_IRUSR) ? 'r' : '-';
+	res[2] = (mode & S_IWUSR) ? 'w' : '-';
+	res[3] = (mode & S_IXUSR) ? 'x' : '-';
 
-	res[4] = (chmod[1] > 3) ? 'r' : '-';
-	res[5] = (chmod[1] > 1 && chmod[1] != 4 && chmod[1] != 5) ? 'w' : '-';
-	res[6] = (chmod[1] & 1) ? 'x' : '-';
+	res[4] = (mode & S_IRGRP) ? 'r' : '-';
+	res[5] = (mode & S_IWGRP) ? 'w' : '-';
+	res[6] = (mode & S_IXGRP) ? 'x' : '-';
 
-	res[7] = (chmod[0] > 3) ? 'r' : '-';
-	res[8] = (chmod[0] > 1 && chmod[0] != 4 && chmod[0] != 5) ? 'w' : '-';
-	res[9] = (chmod[0] & 1) ? 'x' : '-';
+	res[7] = (mode & S_IROTH) ? 'r' : '-';
+	res[8] = (mode & S_IWOTH) ? 'w' : '-';
+	res[9] = (mode & S_IXOTH) ? 'x' : '-';
+	res[10] = ' ';
+	write(1, res, 11);
 }
 
 char	get_type(mode_t mode)
 {
 	char s;
 
+	if (S_ISREG(mode))
+		return ('-');
 	if (S_ISDIR(mode))
-		s = 'd';
+		return ('d');
 	else if (S_ISLNK(mode))
-		s = 'l';
-	else
-		s = '-';
-	return (s);
+		return ('l');
+	else if (S_ISBLK(mode))
+		return ('b');
+	else if (S_ISCHR(mode))
+		return ('c');
+	else if (S_ISFIFO(mode))
+		return ('p');
+	else if ((mode & __S_IFMT) == __S_IFSOCK)
+		return ('s');
 }
