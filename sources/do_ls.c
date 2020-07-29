@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 14:25:15 by fallard           #+#    #+#             */
-/*   Updated: 2020/07/28 00:36:26 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/30 01:02:35 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,24 +20,21 @@ void	choosing_ls(t_ls *ls)
 void	do_ls(t_ls *ls, t_file *head, char *dir)
 {
 	if (ls->flag_args == 0)
-	{
-		if (!(head = get_dir_files(ls, "./")))
-			return ;
-	}
+		head = get_dir_files(ls, NULL);
 	else
 		head = ls->args;
-
 	if (!head)
 		return ;
 	
 	head = sort(ls, head);
-	if (ls->key_l || ls->key_s)
-		print_total(head);
+	//if (ls->key_l || ls->key_s)
+	//	print_total(head);
 	if (ls->flag_args)
 		ls_print_args(ls, head);
 	else
-		main_print(ls, head);
+		main_print(ls, head); 
 	//free_list(&head);
+	
 }
 
 void	ls_print_args(t_ls *ls, t_file *head)
@@ -56,7 +53,7 @@ void	ls_print_args(t_ls *ls, t_file *head)
 			write(1, "\n", 1);
 		tmp = tmp->next;
 	}
-	ls->flag_args = 0;
+	//ls->flag_args = 0;
 	free_list(&ls->dirs);
 	free_list(&ls->others);
 }

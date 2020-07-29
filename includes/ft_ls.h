@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 21:03:52 by fallard           #+#    #+#             */
-/*   Updated: 2020/07/28 00:41:18 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/30 01:37:59 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,6 +27,7 @@
 # include <fcntl.h>
 # include <linux/limits.h>
 # include <unistd.h>
+# include <sys/sysmacros.h>	//major minor
 
 # include <sys/ioctl.h>
 # include <termios.h>
@@ -42,6 +43,7 @@ typedef struct winsize	t_win;
 // -ismScu
 // -AF ?
 // -go 
+// -1
 
 typedef struct		s_col
 {
@@ -92,6 +94,8 @@ typedef struct		s_ls
 	int				key_s;
 	int				key_up_s;
 	int				key_f;	// ?
+	int				key_o;
+	int				key_g;
 
 	uint16_t		tty_width;
 	int				tty_flag;
@@ -115,8 +119,6 @@ t_file	*get_dir_files(t_ls *ls, char *dir_name);
 t_file	*new_file(t_ls *ls, char *dirname, char *filename);
 int		save_file_info(t_ls *ls, t_file *tmp, char *name);
 
-int		ls_without_args(t_ls *ls);
-
 void	choosing_ls(t_ls *ls);
 void	ls_only_args(t_ls *ls);
 void	ls_print_dir(t_ls *ls, char *dir_name);
@@ -124,7 +126,13 @@ void	ls_print_reg(t_ls *ls, t_file *head);
 
 void	ls_print_args(t_ls *ls, t_file *head);
 
-void	print_link(t_ls *ls, char *file);
+void	display_name(t_ls *ls, t_file *current);
+void	print_link(t_file *file);
+void	display_size(t_file	*f, int *width);
+void	display_time(time_t ntime);
+void	display_chmod(t_file *tmp);
+void	display_users(t_ls *ls, t_file *tmp, int *width);
+
 
 void	ft_exit();
 int		free_split(char ***str);
@@ -143,7 +151,7 @@ int		print_column(t_ls *ls, t_file *head);
 
 void	print_list(t_file *head);
 
-void	put_chmod(mode_t mode);
+
 char	get_type(mode_t mode);
 
 t_file	*sort_list(int (*cmp)(t_file*, t_file*), t_file *head);
@@ -157,7 +165,7 @@ size_t	width_uid_gid(t_file *head, int flag);
 size_t	width_nlink(t_file *head, int flag);
 int		*get_width_arr(t_file *head);
 
-void	put_time(time_t ntime);
+
 
 void	parse_keys_args(t_ls *ls, int argc, char **argv);
 int		parse_file_args(t_ls *ls, int argc, char **argv);

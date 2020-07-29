@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 10:06:49 by fallard           #+#    #+#             */
-/*   Updated: 2020/07/27 15:16:27 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/29 18:01:11 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,6 +19,8 @@ t_file	*get_dir_files(t_ls *ls, char *dir_name)
 
 	head = NULL;
 	tmp = &head;
+	if (!dir_name)
+		dir_name = "./";
 	if (!(ls->dir = opendir(dir_name)))
 		return (NULL);
 	while((ls->lol = readdir(ls->dir)))
@@ -29,7 +31,7 @@ t_file	*get_dir_files(t_ls *ls, char *dir_name)
 		{
 			closedir(ls->dir);
 			free_list(&head);
-			return (NULL);	// ???
+			return (NULL);
 		}
 		tmp = &(*tmp)->next;
 	}
@@ -44,9 +46,14 @@ t_file	*new_file(t_ls *ls, char *dirname, char *filename)
 
 	if (!(tmp = ft_calloc(1, sizeof(t_file))))
 		return (NULL);
-	ft_strcat(tmp->path, dirname);
-	ft_strcat(tmp->path, "/");
-	ft_strcat(tmp->path, filename);
+	if (dirname == NULL)
+		ft_strcat(tmp->path, filename);
+	else
+	{
+		ft_strcat(tmp->path, dirname);
+		ft_strcat(tmp->path, "/");
+		ft_strcat(tmp->path, filename);
+	}
 	if (lstat(tmp->path, &current) == -1)
 		perror("lstat");
 	tmp->sb = current;
