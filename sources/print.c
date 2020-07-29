@@ -6,12 +6,13 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 06:00:04 by tima              #+#    #+#             */
-/*   Updated: 2020/07/30 01:46:27 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/30 01:53:46 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
+/*
 void	print_list(t_file *head)
 {
 	while (head)
@@ -36,6 +37,7 @@ void	print_list(t_file *head)
 	}
 	ft_printf("\n");
 }
+*/
 
 void	print_key_l(t_ls *ls, t_file *head)
 {
