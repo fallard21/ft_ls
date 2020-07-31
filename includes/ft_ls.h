@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 21:03:52 by fallard           #+#    #+#             */
-/*   Updated: 2020/07/30 01:37:59 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/31 16:14:17 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,17 +33,20 @@
 # include <termios.h>
 
 # define KEYS "lRart"
-# define ACCESS "ls: cannot access '%s': %s\n"
 
 typedef struct stat		t_stat;
 typedef struct dirent	t_dir;
 typedef struct group	t_grp;
 typedef struct passwd	t_pw;
 typedef struct winsize	t_win;
-// -ismScu
+// -isScu
 // -AF ?
 // -go 
 // -1
+
+// -t - mtime
+// -c - ctime
+// -u - atime
 
 typedef struct		s_col
 {
@@ -90,12 +93,16 @@ typedef struct		s_ls
 	int				key_a;
 	int				key_r;
 	int				key_t;
-	int				key_i;
-	int				key_s;
-	int				key_up_s;
-	int				key_f;	// ?
-	int				key_o;
-	int				key_g;
+
+	int				key_c;		// bonus
+	int				key_u;		// bonus
+	int				key_i;		// bonus
+	int				key_s;		// bonus
+	int				key_up_s;	// bonus
+	int				key_f;		// bonus ??
+	int				key_o;		// bonus
+	int				key_g;		// bonus
+	int				key_one;	// bonus 
 
 	uint16_t		tty_width;
 	int				tty_flag;
@@ -129,7 +136,7 @@ void	ls_print_args(t_ls *ls, t_file *head);
 void	display_name(t_ls *ls, t_file *current);
 void	print_link(t_file *file);
 void	display_size(t_file	*f, int *width);
-void	display_time(time_t ntime);
+void	display_time(t_ls *ls, t_file *tmp);
 void	display_chmod(t_file *tmp);
 void	display_users(t_ls *ls, t_file *tmp, int *width);
 
@@ -158,6 +165,8 @@ t_file	*sort_list(int (*cmp)(t_file*, t_file*), t_file *head);
 t_file	*reverse_list(t_file *head);
 int		cmp_size(t_file *left, t_file *right);
 int		cmp_name(t_file *left, t_file *right);
+int		cmp_atime(t_file *left, t_file *right);
+int		cmp_ctime(t_file *left, t_file *right);
 int		cmp_mtime(t_file *left, t_file *right);
 t_file	*sort(t_ls *ls, t_file *head);
 

@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 06:00:04 by tima              #+#    #+#             */
-/*   Updated: 2020/07/30 01:53:46 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/31 16:14:08 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void	print_key_l(t_ls *ls, t_file *head)
 		ft_printf("%*lu ", width[2], head->sb.st_nlink);
 		display_users(ls, head, width);
 		display_size(head, width);
-		display_time(head->sb.st_mtime);
+		display_time(ls, head);
 		display_name(ls, head);
 		head = head->next;
 	}

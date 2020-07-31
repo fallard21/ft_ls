@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 17:10:19 by tima              #+#    #+#             */
-/*   Updated: 2020/07/29 17:13:20 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/31 16:07:28 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,35 @@ int		init_keys(t_ls *ls, char *argv)
 		i++;
 	}
 	return (0);
+}
+
+void	lol(t_ls *ls, char *del, int key)
+{
+	if (key == 'o' || ls->key_g == 'g')
+		ls->key_l = 1;
+	if (key == 'l')
+		ls->key_one = 0;
+	if (key == 'f')
+	{
+		ls->key_a = 1;
+		ls->key_l = 0;
+		ls->key_up_s = 0;
+		ls->key_s = 0;
+	}
+	if (key == 'S')
+	{
+		ls->key_t = 0;
+		ls->key_f = 0;
+	}
+	if (key == 'c')
+		ls->key_u = 0;
+	if (key == 'u')
+		ls->key_c = 0;
+	if (key == 't')
+	{
+		ls->key_f = 0;
+		ls->key_up_s = 0;
+	}
 }
 
 int		parse_args_to_keys(t_ls *ls, int ac, char **av)

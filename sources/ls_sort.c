@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 02:22:49 by tima              #+#    #+#             */
-/*   Updated: 2020/07/27 17:15:49 by fallard          ###   ########.fr       */
+/*   Updated: 2020/07/31 16:02:44 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -89,12 +89,50 @@ int		cmp_mtime(t_file *left, t_file *right)
 	return (0);
 }
 
+int		cmp_ctime(t_file *left, t_file *right)
+{
+	if (left->sb.st_ctime == right->sb.st_ctime)
+	{
+		if (left->sb.st_ctim.tv_nsec == right->sb.st_ctim.tv_nsec)
+			return(cmp_name(left, right));
+		if (left->sb.st_ctim.tv_nsec > right->sb.st_ctim.tv_nsec)
+			return (1);
+		return (0);
+	}
+	if (left->sb.st_ctime > right->sb.st_ctime)
+		return (1);
+	return (0);
+}
+
+int		cmp_atime(t_file *left, t_file *right)
+{
+	if (left->sb.st_atime == right->sb.st_atime)
+	{
+		if (left->sb.st_atim.tv_nsec == right->sb.st_atim.tv_nsec)
+			return(cmp_name(left, right));
+		if (left->sb.st_atim.tv_nsec > right->sb.st_atim.tv_nsec)
+			return (1);
+		return (0);
+	}
+	if (left->sb.st_atime > right->sb.st_atime)
+		return (1);
+	return (0);
+}
+
 t_file	*sort(t_ls *ls, t_file *head)
 {
 	if (ls->key_f)
 		return (head);
+
 	if (ls->key_t)
-		head = sort_list(cmp_mtime, head);
+	{
+		if (ls->key_c)
+			head = sort_list(cmp_ctime, head);
+		else if (ls->key_u)
+			head = sort_list(cmp_atime, head);
+		else
+			head = sort_list(cmp_mtime, head);
+	}
 	else
 		head = sort_list(cmp_name, head);
 	if (ls->key_r)
