@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 09:11:23 by fallard           #+#    #+#             */
-/*   Updated: 2020/07/28 00:37:18 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/07 03:32:38 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -138,21 +138,19 @@ static void	print_col(t_col *col, int row)
 	}
 }
 
-int		print_column(t_ls *ls, t_file *head)
+int		print_column(t_ls *ls, t_data data)
 {
-	t_col	col;
-
-	ft_memset(&col, 0, sizeof(col));
-	if (!head)
+	ft_memset(&data.col, 0, sizeof(t_col));
+	if (!data.head)
 		return (0);
-	col.args = list_to_char(&col, head);
-	if (!col.args)
+	data.col.args = list_to_char(&data.col, data.head);
+	if (!data.col.args)
 		return (1);
-	if (!(col.lens = get_lens_of_args(&col)))
-		return (free_split(&col.args));
-	col.row = get_row(ls, &col);
-	print_col(&col, col.row);
-	free(col.lens);
-	free_split(&col.args);
+	if (!(data.col.lens = get_lens_of_args(&data.col)))
+		return (free_split(&data.col.args));
+	data.col.row = get_row(ls, &data.col);
+	print_col(&data.col, data.col.row);
+	free(data.col.lens);
+	free_split(&data.col.args);
 	return (0);
 }

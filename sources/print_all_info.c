@@ -6,32 +6,32 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 17:20:22 by fallard           #+#    #+#             */
-/*   Updated: 2020/07/31 16:18:58 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/07 04:13:24 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	display_users(t_ls *ls, t_file *tmp, int *width)
+void	display_users(t_ls *ls, t_file *head, int *width)
 {
 	if (!ls->key_g)
-		ft_printf("%-*s ", width[3], tmp->uid_name);	//g
+		ft_printf("%-*s ", width[3], head->uid_name);	//g
 	if (!ls->key_o)
-		ft_printf("%-*s ", width[4], tmp->gid_name);	//o
+		ft_printf("%-*s ", width[4], head->gid_name);	//o
+	if (ls->key_g && ls->key_o)
+		write(1, "  ", 2);
 }
 
-void	display_size(t_file *f, int *width)
+void	display_size(t_data data, t_file *f, int *width)
 {
-	//ft_printf("{1}!! %c  %d  %d !!{0}\n", get_type(f->sb.st_mode), \
-		major(f->sb.st_rdev), minor(f->sb.st_rdev));
-	int n;
-
-	//if ()
+	if (data.spec_file)
+		width[7] = width[5] + 2 + 3;
 	if (S_ISREG(f->sb.st_mode) || S_ISDIR(f->sb.st_mode) ||
 		S_ISLNK(f->sb.st_mode) || S_ISFIFO(f->sb.st_mode))
-		ft_printf("%*ld ", width[5], f->sb.st_size);
+		ft_printf("%*ld ", width[7], f->sb.st_size);
 	else
-		ft_printf("%3d, %3d ", major(f->sb.st_rdev), minor(f->sb.st_rdev));
+		ft_printf("%*d, %*d ", width[5], major(f->sb.st_rdev), \
+		width[6], minor(f->sb.st_rdev));
 }
 
 void	display_time(t_ls *ls, t_file *tmp)

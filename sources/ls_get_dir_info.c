@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 10:06:49 by fallard           #+#    #+#             */
-/*   Updated: 2020/07/30 12:12:34 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/07 02:47:15 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,8 +19,6 @@ t_file	*get_dir_files(t_ls *ls, char *dir_name)
 
 	head = NULL;
 	tmp = &head;
-	if (!dir_name)
-		dir_name = "./";
 	if (!(ls->dir = opendir(dir_name)))
 		return (NULL);
 	while((ls->lol = readdir(ls->dir)))
@@ -57,6 +55,8 @@ t_file	*new_file(t_ls *ls, char *dirname, char *filename)
 	if (lstat(tmp->path, &current) == -1)
 		perror("lstat");
 	tmp->sb = current;
+	tmp->fmajor = major(tmp->sb.st_rdev);
+	tmp->fminor = minor(tmp->sb.st_rdev);
 	tmp->name = ft_strdup(filename);
 	ls->gr_gid = getgrgid(current.st_gid);
 	ls->pw_uid = getpwuid(current.st_uid);
