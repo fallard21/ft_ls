@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 06:00:04 by tima              #+#    #+#             */
-/*   Updated: 2020/07/31 16:14:08 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/07 03:21:09 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,37 +39,34 @@ void	print_list(t_file *head)
 }
 */
 
-void	print_key_l(t_ls *ls, t_file *head)
+void	print_key_l(t_ls *ls, t_data data)
 {
-	int *width;
-
-	width = get_width_arr(head);
-	while (head)
+	while (data.head)
 	{
 		if (ls->key_i)
-			ft_printf("%*lu ",  width[0], head->sb.st_ino);
+			ft_printf("%*lu ", data.width[0], data.head->sb.st_ino);
 		if (ls->key_s)
-			ft_printf("%*ld ",  width[1], head->sb.st_blocks / 2);
-		display_chmod(head);
-		ft_printf("%*lu ", width[2], head->sb.st_nlink);
-		display_users(ls, head, width);
-		display_size(head, width);
-		display_time(ls, head);
-		display_name(ls, head);
-		head = head->next;
+			ft_printf("%*ld ", data.width[1], data.head->sb.st_blocks / 2);
+		display_chmod(data.head);
+		ft_printf("%*lu ", data.width[2], data.head->sb.st_nlink);
+		display_users(ls, data.head, data.width);
+		display_size(data, data.head, data.width);
+		display_time(ls, data.head);
+		display_name(ls, data.head);
+		data.head = data.head->next;
 	}
-	free(width);
+
 }
 
 void	print_total(t_file *head)
 {
 	long	blck;
-	char	buf[40];
+	char	buf[30];
 	char	*num;
 
 	if (!head)
 		return ;
-	ft_memset(buf, 0, 40);
+	ft_memset(buf, 0, 30);
 	blck = 0;
 	while (head)
 	{
@@ -113,4 +110,13 @@ void	print_error(t_ls *ls, char *file, int flag)
 	write(2, str, ft_strlen(str));
 	if (flag == 1 || flag == 2)
 		exit(EXIT_FAILURE);
+}
+
+void	print_one_column(t_file *head)
+{
+	while (head)
+	{
+		ft_printf("%s\n", head->name);
+		head = head->next;
+	}
 }

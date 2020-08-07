@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 14:25:15 by fallard           #+#    #+#             */
-/*   Updated: 2020/07/30 01:02:35 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/07 04:05:08 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,31 +19,34 @@ void	choosing_ls(t_ls *ls)
 
 void	do_ls(t_ls *ls, t_file *head, char *dir)
 {
-	if (ls->flag_args == 0)
-		head = get_dir_files(ls, NULL);
-	else
-		head = ls->args;
-	if (!head)
-		return ;
-	
-	head = sort(ls, head);
-	//if (ls->key_l || ls->key_s)
-	//	print_total(head);
+	t_data	data;
+
 	if (ls->flag_args)
-		ls_print_args(ls, head);
+		data = get_data(ls, ls->args, NULL, NULL);
 	else
-		main_print(ls, head); 
-	//free_list(&head);
+		data = get_data(ls, NULL, NULL, dir);
 	
+	data.head = sort(ls, data.head);
+
+	if (ls->flag_args || ls->key_up_r)
+		ls_print_args(ls, data.head);
+	else
+		display_files(ls, data); 
+
 }
 
 void	ls_print_args(t_ls *ls, t_file *head)
 {
 	t_file	*tmp;
-
+	t_data o;
+	t_data d;
+	
 	split_list(ls, head);
+	if (ls->others)
+		o = get_data(ls, ls->others, NULL, NULL);
+	d = get_data(ls, ls->dirs, NULL, NULL);
 	tmp = ls->dirs;
-	main_print(ls, ls->others);
+	display_files(ls, o);
 	if (ls->dirs && ls->others)
 		write(1, "\n", 1);
 	while (tmp)
@@ -60,17 +63,18 @@ void	ls_print_args(t_ls *ls, t_file *head)
 
 void	ls_print_dir(t_ls *ls, char *dir_name)
 {
-	t_file	*head;
+	t_data data;
 
-	if (!(head = get_dir_files(ls, dir_name)))
-		ft_printf("ls: cannot open directory '%s': Permission denied");
+	data = get_data(ls, NULL, NULL, dir_name);
+	if (!data.head)
+		ft_printf("ls: cannot open directory '%s': Permission denied", dir_name);
 	else
 		ft_printf("{2}%s:{0}\n", dir_name);
-	head = sort(ls, head);
+	data.head = sort(ls, data.head);
 	if (ls->key_l || ls->key_s)
-		print_total(head);
-	main_print(ls, head);
-	free_list(&head);
+		print_total(data.head);
+	display_files(ls, data);
+	free_data(data);
 }
 
 int		list_size(t_file *head)
@@ -86,12 +90,14 @@ int		list_size(t_file *head)
 	return (count);
 }
 
-void	main_print(t_ls *ls, t_file *head)
+void	display_files(t_ls *ls, t_data data)
 {
 	if (ls->key_l)
-		print_key_l(ls, head);
+		print_key_l(ls, data);
+	else if (ls->key_one)
+		print_one_column(data.head);
 	else
-		print_column(ls, head);
+		print_column(ls, data);
 }
 
 void	split_list(t_ls *ls, t_file *head)
