@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 21:03:52 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/07 03:58:42 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/09 02:15:58 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -104,8 +104,6 @@ typedef struct		s_ls
 	t_grp			*gr_gid;
 	t_pw			*pw_uid;
 	t_file			*args;
-	t_file			*dirs;
-	t_file			*others;
 	
 }					t_ls;
 
@@ -113,21 +111,23 @@ typedef struct		s_data
 {
 	t_file		*head;
 	t_col		col;
+	char		path[PATH_MAX];
 	int			spec_file;
 	int			size;
 	int			*width;
-
+	int			permission;
 }					t_data;
 
 t_data	get_data(t_ls *ls, t_file *head, char *path, char *dir);
+void	run_ls(t_ls *ls, char *path, char *dirname);
 
 int		parse_args_to_keys(t_ls *ls, int ac, char **av);
 int		parse_args_to_file(t_ls *ls, int ac, char **av);
 int		init_keys(t_ls *ls, char *argv);
 int		find_key(char key);
 
-t_file	*get_dir_files(t_ls *ls, char *dir_name);
-t_file	*new_file(t_ls *ls, char *dirname, char *filename);
+t_file	*get_dir_files(t_ls *ls, char *path, char *dir_name);
+t_file	*new_file(t_ls *ls, char *path, char *name);
 int		save_file_info(t_ls *ls, t_file *tmp, char *name);
 
 void	choosing_ls(t_ls *ls);
@@ -135,7 +135,11 @@ void	ls_only_args(t_ls *ls);
 void	ls_print_dir(t_ls *ls, char *dir_name);
 void	ls_print_reg(t_ls *ls, t_file *head);
 
-void	ls_print_args(t_ls *ls, t_file *head);
+void	display_file_from_args(t_ls *ls, t_data *root);
+
+void	test_ls(t_ls *ls, char *path, char *dirname);
+void	display_dir(t_ls *ls, char *path, char *name);
+void	display_path(char *path);
 
 void	display_name(t_ls *ls, t_file *current);
 void	print_link(t_file *file);
@@ -148,7 +152,7 @@ void	display_users(t_ls *ls, t_file *head, int *width);
 void	ft_exit();
 int		free_split(char ***str);
 int		free_list(t_file **head);
-int		free_data(t_data data);
+int		free_data(t_data *data);
 
 int		print_column(t_ls *ls, t_data data);
 void	print_one_column(t_file *head);
@@ -198,8 +202,8 @@ void	display_files(t_ls *ls, t_data data);
 
 int		list_size(t_file *head);
 
-void	split_list(t_ls *ls, t_file *head);
+void	split_list(t_file **dirs, t_file **others, t_file **head);
 
-
+t_data	*update_data(t_ls *ls, t_data **upd, t_file *new);
 
 #endif

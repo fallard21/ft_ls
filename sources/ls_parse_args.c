@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 17:10:19 by tima              #+#    #+#             */
-/*   Updated: 2020/07/31 16:07:28 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/08 19:17:22 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -92,7 +92,6 @@ int		parse_args_to_keys(t_ls *ls, int ac, char **av)
 		}
 		if (av[i][0] == '-' && ft_strcmp(av[i], "-"))
 		{
-			ls->flag_keys = 1;	// ?
 			if (init_keys(ls, av[i]))
 				print_error(ls, av[i], 1);
 		}

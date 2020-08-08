@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 14:25:15 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/07 04:05:08 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/08 22:22:57 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,25 +29,35 @@ void	do_ls(t_ls *ls, t_file *head, char *dir)
 	data.head = sort(ls, data.head);
 
 	if (ls->flag_args || ls->key_up_r)
-		ls_print_args(ls, data.head);
+		display_file_from_args(ls, &data);
 	else
 		display_files(ls, data); 
 
 }
 
-void	ls_print_args(t_ls *ls, t_file *head)
+void	display_file_from_args(t_ls *ls, t_data *root)
 {
 	t_file	*tmp;
-	t_data o;
-	t_data d;
+	t_file	*dirs;
+	t_file	*others;
+	t_data	o;
+	t_data	d;
 	
-	split_list(ls, head);
-	if (ls->others)
-		o = get_data(ls, ls->others, NULL, NULL);
-	d = get_data(ls, ls->dirs, NULL, NULL);
-	tmp = ls->dirs;
+	dirs = NULL;
+	others = NULL;
+	split_list(&dirs, &others, &root->head);
+	root->head = dirs;
+	o = get_data(ls, others, NULL, NULL);
 	display_files(ls, o);
-	if (ls->dirs && ls->others)
+	update_data(ls, &root, dirs);
+	if (dirs && others)
+		write(1, "\n", 1);
+	free_data(&o);
+
+	/*
+	//d = get_data(ls, dirs, NULL, NULL);
+	tmp = root->head;
+	if (dirs && others)
 		write(1, "\n", 1);
 	while (tmp)
 	{
@@ -56,25 +66,25 @@ void	ls_print_args(t_ls *ls, t_file *head)
 			write(1, "\n", 1);
 		tmp = tmp->next;
 	}
-	//ls->flag_args = 0;
-	free_list(&ls->dirs);
-	free_list(&ls->others);
+	ls->flag_args = 0;
+	*/
 }
+
 
 void	ls_print_dir(t_ls *ls, char *dir_name)
 {
 	t_data data;
 
-	data = get_data(ls, NULL, NULL, dir_name);
+	data = get_data(ls, NULL, "", dir_name);
 	if (!data.head)
-		ft_printf("ls: cannot open directory '%s': Permission denied", dir_name);
+		ft_printf("ls: cannot open directory '%s': Permission denied\n", dir_name);
 	else
 		ft_printf("{2}%s:{0}\n", dir_name);
 	data.head = sort(ls, data.head);
 	if (ls->key_l || ls->key_s)
 		print_total(data.head);
 	display_files(ls, data);
-	free_data(data);
+	free_data(&data);
 }
 
 int		list_size(t_file *head)
@@ -100,31 +110,29 @@ void	display_files(t_ls *ls, t_data data)
 		print_column(ls, data);
 }
 
-void	split_list(t_ls *ls, t_file *head)
+void	split_list(t_file **dirs, t_file **others, t_file **head)
 {
 	t_file	**dir;
 	t_file	**oth;
 	t_file	*next;
 
-	dir = &ls->dirs;
-	oth = &ls->others;
-	if (!head)
-		return ;
-	while (head)
+	dir = &(*dirs);
+	oth = &(*others);
+	while (*head)
 	{
-		next = head->next;
-		if (S_ISDIR(head->sb.st_mode))
+		next = (*head)->next;
+		if (S_ISDIR((*head)->sb.st_mode))
 		{
-			*dir = head;
+			*dir = *head;
 			(*dir)->next = NULL;
 			dir = &(*dir)->next;
 		}
 		else
 		{
-			*oth = head;
+			*oth = *head;
 			(*oth)->next = NULL;
 			oth = &(*oth)->next;
 		}
-		head = next;
+		*head = next;
 	}
 }

@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 23:42:41 by tima              #+#    #+#             */
-/*   Updated: 2020/08/07 03:32:00 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/08 19:32:35 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int		free_list(t_file **head)
 		ft_strdel(&(*head)->name);
 		ft_strdel(&(*head)->gid_name);
 		ft_strdel(&(*head)->uid_name);
-		free(*head);
+		ft_memdel((void**)&(*head));
 		*head = next;
 	}
 	*head = NULL;
@@ -52,9 +52,9 @@ int		free_split(char ***str)
 	return (1);
 }
 
-int		free_data(t_data data)
+int		free_data(t_data *data)
 {
-	free_list(&data.head);
-	ft_memdel((void**)&data.width);
+	free_list(&data->head);
+	ft_memdel((void**)&data->width);
 	return (1);
 }

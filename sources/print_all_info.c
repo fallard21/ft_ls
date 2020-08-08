@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 17:20:22 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/07 04:13:24 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/07 17:38:30 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -85,6 +85,6 @@ void	print_link(t_file *file)
 		write(1, "NONE\n", 5); // DEL
 		return ;
 	}
-	ft_printf("{3}%s -> %s{0}\n", file->name, buf);
+	ft_printf("{4}%s -> %s{0}\n", file->name, buf);
 	ft_memdel((void**)&buf);
 }

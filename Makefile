@@ -6,7 +6,7 @@
 #    By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/13 21:03:45 by fallard           #+#    #+#              #
-#    Updated: 2020/07/30 01:41:55 by fallard          ###   ########.fr        #
+#    Updated: 2020/08/09 00:13:11 by fallard          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -33,7 +33,8 @@ ls_sort.c \
 ls_max_width.c \
 ls_print_column.c \
 print_all_info.c \
-print.c
+print.c \
+new_code.c
 
 TMP = $(addprefix $(SRC_DIR), $(SRC:.c=.o))
 HEADER = $(addprefix $(INC_DIR), $(HEAD_NAME))
