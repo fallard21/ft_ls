@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 21:03:52 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/09 21:41:32 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/10 00:33:08 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,7 +69,7 @@ typedef struct		s_file
 	char			*uid_name;
 	char			*gid_name;
 	char			*name;
-	char			path[PATH_MAX];
+	char			path[LSPATH];
 	struct s_file	*next;
 }					t_file;
 
@@ -111,7 +111,7 @@ typedef struct		s_data
 {
 	t_file		*head;
 	t_col		col;
-	char		path[PATH_MAX];
+	char		path[LSPATH];
 	int			spec_file;
 	int			size;
 	int			*width;
@@ -143,6 +143,7 @@ void	test_ls(t_ls *ls, char *path, char *dirname);
 void	display_dir(t_ls *ls, char *path, char *name);
 void	display_path(t_ls *ls, t_data data);
 
+void	display_key_l(t_ls *ls, t_data data);
 void	display_name(t_ls *ls, t_file *current);
 void	print_link(t_file *file);
 void	display_size(t_data data, t_file *f, int *width);
@@ -151,13 +152,13 @@ void	display_chmod(t_file *tmp);
 void	display_users(t_ls *ls, t_file *head, int *width);
 
 
-void	ft_exit();
+void	ft_exit(char *error);
 int		free_split(char ***str);
 int		free_list(t_file **head);
 int		free_data(t_data *data);
 
 int		print_column(t_ls *ls, t_data data);
-void	print_one_column(t_file *head);
+void	display_one_column(t_file *head);
 //void	calculate_column(t_ls *ls, t_file *head);
 //int		get_column(char **args);
 //void	print_column(t_col *col, int row);
@@ -192,13 +193,14 @@ void	parse_keys_args(t_ls *ls, int argc, char **argv);
 int		parse_file_args(t_ls *ls, int argc, char **argv);
 void	choosing_ls(t_ls *ls);
 
-void	print_key_l(t_ls *ls, t_data data);
+void	display_error(char *file, int flag);
+void	error_exit(t_ls *ls, char *file, int flag);
 
 void	print_error(t_ls *ls, char *file, int flag);
 
 void	do_ls(t_ls *ls, t_file *head, char *dir);
 void	do_ls_args(t_ls *ls, t_file *head);
-void	print_total(t_file *head);
+void	display_total(t_ls *ls, t_file *head);
 
 void	display_files(t_ls *ls, t_data data);
 
