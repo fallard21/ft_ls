@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 17:20:22 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/09 04:15:13 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/09 21:53:58 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -75,7 +75,7 @@ void	print_link(t_file *file)
 		return ;
 	size = sb.st_size + 1;
 	if (!sb.st_size)
-		size = PATH_MAX;
+		size = LSPATH;
 	if (!(buf = ft_calloc(size, sizeof(char))))
 		return ;
 	if (readlink(file->path, buf, size) < 0)

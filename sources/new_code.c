@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/06 18:44:50 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/09 21:45:02 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/09 22:07:48 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ t_data	get_data(t_ls *ls, t_file *args, char *path, char *dir)
 	t_file *tmp;
 
 	ft_memset(&res, 0, sizeof(t_data));
-	ft_memset(res.path, 0, PATH_MAX);
+	ft_memset(res.path, 0, LSPATH);
 	if (!path)
 		ft_strcat(res.path, dir);
 	else
@@ -108,14 +108,11 @@ void	display_dir(t_ls *ls, char *path, char *name)
 	if ((ls->key_l || ls->key_s) && errno != EACCES)
 		print_total(data.head);
 	display_files(ls, data);
-	
 	tmp = data.head;
 	while (tmp && ls->key_up_r)
 	{
 		if (S_ISDIR(tmp->sb.st_mode) && ft_strcmp(".", tmp->name) && ft_strcmp("..", tmp->name))
 			display_dir(ls, tmp->path, tmp->name);
-		//if (tmp->next && S_ISDIR(tmp->next->sb.st_mode))
-		//	write(1, "\n", 1);
 		tmp = tmp ->next;
 	}
 	free_data(&data);
@@ -123,7 +120,7 @@ void	display_dir(t_ls *ls, char *path, char *name)
 
 void	display_path(t_ls *ls, t_data data)
 {
-	if (ls->key_up_r || ls->flag_args)
+	if ((ls->key_up_r || ls->flag_args) && errno != EACCES)
 	{
 		if (!ls->flag_path)
 			ft_printf("{2}%s:{0}\n", data.path);
@@ -135,14 +132,14 @@ void	display_path(t_ls *ls, t_data data)
 
 void	fix_path(char *path)
 {
-	char	buf[PATH_MAX];
+	char	buf[LSPATH];
 	int		len;
 	int		i;
 	int		j;
 	int		flag;
 
 	ft_strcpy(buf, path);
-	ft_memset(path, 0, PATH_MAX);
+	ft_memset(path, 0, LSPATH);
 	i = 0;
 	j = 0;
 	len = ft_strlen(buf);
@@ -161,33 +158,3 @@ void	fix_path(char *path)
 	}
 	path[j - 1] = '\0';
 }
-
-/*
-void	display_path(char *path)
-{
-	char	buf[PATH_MAX];
-	int		len;
-	int		i;
-	int		j;
-	int		flag;
-
-	i = 0;
-	j = 0;
-	len = ft_strlen(path);
-	while (i < len)
-	{
-		if (path[i] == '/')
-			flag = 0;
-		while (path[i] && path[i] != '/')
-		{
-			buf[j++] = path[i++];
-			flag = 1;
-		}
-		if (flag)
-			buf[j++] = '/';
-		i++;
-	}
-	buf[j - 1] = '\0';
-	ft_printf("{2}%s:\n{0}", buf);
-}
-*/
