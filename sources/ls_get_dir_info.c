@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 10:06:49 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/10 00:02:24 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/10 00:30:20 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@ t_data	get_data(t_ls *ls, t_file *args, char *path, char *dir)
 	res.width = get_width_arr(res.head);
 	lstat(res.path, &ls->sb);
 	if (errno == EACCES)
-		print_error(ls, res.path, 4);
+		display_error(res.path, 4);
 	tmp = res.head;
 	while (tmp)
 	{

@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 06:00:04 by tima              #+#    #+#             */
-/*   Updated: 2020/08/09 23:52:35 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/10 00:38:49 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -65,7 +65,40 @@ void	display_total(t_ls *ls, t_file *head)
 	}
 }
 
-void	print_error(t_ls *ls, char *file, int flag)
+void	display_path(t_ls *ls, t_data data)
+{
+	if ((ls->key_up_r || ls->flag_args) && errno != EACCES)
+	{
+		if (!ls->flag_path)
+			ft_printf("{2}%s:{0}\n", data.path);
+		else
+			ft_printf("\n{2}%s:{0}\n", data.path);
+		ls->flag_path = 1;
+	}
+}
+
+void	display_error(char *file, int flag)
+{
+	char str[LSPATH];
+
+	ft_memset(str, 0, LSPATH);
+	if (flag == 3)
+	{
+		ft_strcat(ft_strcat(str, "ls: "), file);
+		ft_strcat(str, ": ");
+		ft_strcat(str, strerror(errno));
+		ft_strcat(str, "\n");
+	}
+	if (flag == 4)
+	{
+		ft_strcat(str, "ls: cannot open directory '");
+		ft_strcat(str, file);
+		ft_strcat(str, "': Permission denied\n");
+	}
+	write(2, str, ft_strlen(str));
+}
+
+void	error_exit(t_ls *ls, char *file, int flag)
 {
 	char str[LSPATH];
 
@@ -82,29 +115,6 @@ void	print_error(t_ls *ls, char *file, int flag)
 		ft_strcat(str, file);
 		ft_strcat(str, "'\n");
 	}
-	if (flag == 3)
-	{
-		ft_strcat(ft_strcat(str, "ls: "), file);
-		ft_strcat(str, ": ");
-		ft_strcat(str, strerror(errno));
-		ft_strcat(str, "\n");
-	}
-	if (flag == 4)
-	{
-		ft_strcat(str, "ls: cannot open directory '");
-		ft_strcat(str, file);
-		ft_strcat(str, "': Permission denied\n");
-	}
 	write(2, str, ft_strlen(str));
-	if (flag == 1 || flag == 2)
-		exit(EXIT_FAILURE);
-}
-
-void	display_one_column(t_file *head)
-{
-	while (head)
-	{
-		ft_printf("%s\n", head->name);
-		head = head->next;
-	}
+	exit(EXIT_FAILURE);
 }
