@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 21:03:52 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/09 03:59:45 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/09 21:41:32 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,7 @@
 # include <termios.h>
 
 # define KEYS "lRartcuisSfog1"
+# define LSPATH 5000
 
 typedef struct stat		t_stat;
 typedef struct dirent	t_dir;
@@ -76,9 +77,9 @@ typedef struct		s_ls
 {
 	int				count_file;
 	int				count_dir;
-	int				count_link;
 
 	int				flag_args;
+	int				flag_path;
 
 	int				key_l;
 	int				key_up_r;
@@ -91,7 +92,7 @@ typedef struct		s_ls
 	int				key_i;		// bonus
 	int				key_s;		// bonus
 	int				key_up_s;	// bonus
-	int				key_f;		// bonus ??
+	int				key_f;		// bonus
 	int				key_o;		// bonus
 	int				key_g;		// bonus
 	int				key_one;	// bonus 
@@ -99,12 +100,11 @@ typedef struct		s_ls
 	uint16_t		tty_width;
 
 	DIR				*dir;
-	t_dir			*lol;
+	t_dir			*lread;
 	t_stat			sb;
 	t_grp			*gr_gid;
 	t_pw			*pw_uid;
 	t_file			*args;
-	
 }					t_ls;
 
 typedef struct		s_data
@@ -127,9 +127,10 @@ void	update_keys(t_ls *ls, char *del, int key);
 int		init_keys(t_ls *ls, char *argv);
 int		find_key(char key);
 
-t_file	*get_dir_files(t_ls *ls, char *path, char *dir_name);
+t_file	*get_dir_files(t_ls *ls, char *fpath);
 t_file	*new_file(t_ls *ls, char *path, char *name);
 int		save_file_info(t_ls *ls, t_file *tmp, char *name);
+void	fix_path(char *path);
 
 void	choosing_ls(t_ls *ls);
 void	ls_only_args(t_ls *ls);
@@ -140,7 +141,7 @@ void	display_file_from_args(t_ls *ls, t_data *root);
 
 void	test_ls(t_ls *ls, char *path, char *dirname);
 void	display_dir(t_ls *ls, char *path, char *name);
-void	display_path(char *path);
+void	display_path(t_ls *ls, t_data data);
 
 void	display_name(t_ls *ls, t_file *current);
 void	print_link(t_file *file);

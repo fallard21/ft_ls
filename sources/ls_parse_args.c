@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 17:10:19 by tima              #+#    #+#             */
-/*   Updated: 2020/08/09 04:00:52 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/09 16:59:27 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,7 +42,6 @@ int		init_keys(t_ls *ls, char *argv)
 		ls->key_a = (argv[i] == 'a') ? 1 : ls->key_a;
 		ls->key_r = (argv[i] == 'r') ? 1 : ls->key_r;
 		ls->key_t = (argv[i] == 't') ? 1 : ls->key_t;
-
 		ls->key_c = (argv[i] == 'c') ? 1 : ls->key_c;
 		ls->key_u = (argv[i] == 'u') ? 1 : ls->key_u;
 		ls->key_i = (argv[i] == 'i') ? 1 : ls->key_i;

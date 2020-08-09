@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/06 18:44:50 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/09 02:21:48 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/09 21:45:02 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,12 +18,25 @@ t_data	get_data(t_ls *ls, t_file *args, char *path, char *dir)
 	t_file *tmp;
 
 	ft_memset(&res, 0, sizeof(t_data));
+	ft_memset(res.path, 0, PATH_MAX);
+	if (!path)
+		ft_strcat(res.path, dir);
+	else
+	{
+		ft_strcat(res.path, path);
+		ft_strcat(res.path, "/");
+		ft_strcat(res.path, dir);
+	}
+	fix_path(res.path);
 	if (!args && dir)
-		res.head = get_dir_files(ls, path, dir);
+		res.head = get_dir_files(ls, res.path);
 	else
 		res.head = args;
 	res.size = list_size(res.head);	// optimize
 	res.width = get_width_arr(res.head);
+	lstat(res.path, &ls->sb);
+	if (errno == EACCES)
+		print_error(ls, res.path, 4);
 	tmp = res.head;
 	while (tmp)
 	{
@@ -46,7 +59,6 @@ t_data	*update_data(t_ls *ls, t_data **upd, t_file *new)
 	return (*upd);
 }
 
-
 //	run_ls(ls, NULL, "./");
 
 void	run_ls(t_ls *ls, char *path, char *dirname)
@@ -66,8 +78,6 @@ void	run_ls(t_ls *ls, char *path, char *dirname)
 	else
 		display_files(ls, root);
 	
-	
-
 	free_data(&root);
 	//ls_print_dir(ls, root.head->name);
 }
@@ -93,28 +103,66 @@ void	display_dir(t_ls *ls, char *path, char *name)
 	t_file	*tmp;
 
 	data = get_data(ls, NULL, path, name);
-	if (!data.head)
-		ft_printf("ls: cannot open directory '%s': Permission denied\n", name);
-	else
-		display_path(data.head->path);
-		//ft_printf("{2}%s:{0}\n", data.head->path);
 	data.head = sort(ls, data.head);
-	if (ls->key_l || ls->key_s)
+	display_path(ls, data);
+	if ((ls->key_l || ls->key_s) && errno != EACCES)
 		print_total(data.head);
 	display_files(ls, data);
+	
 	tmp = data.head;
 	while (tmp && ls->key_up_r)
 	{
 		if (S_ISDIR(tmp->sb.st_mode) && ft_strcmp(".", tmp->name) && ft_strcmp("..", tmp->name))
 			display_dir(ls, tmp->path, tmp->name);
-		if (tmp->next && S_ISDIR(tmp->next->sb.st_mode))
-			write(1, "\n", 1);
+		//if (tmp->next && S_ISDIR(tmp->next->sb.st_mode))
+		//	write(1, "\n", 1);
 		tmp = tmp ->next;
 	}
-	
 	free_data(&data);
 }
 
+void	display_path(t_ls *ls, t_data data)
+{
+	if (ls->key_up_r || ls->flag_args)
+	{
+		if (!ls->flag_path)
+			ft_printf("{2}%s:{0}\n", data.path);
+		else
+			ft_printf("\n{2}%s:{0}\n", data.path);
+		ls->flag_path = 1;
+	}
+}
+
+void	fix_path(char *path)
+{
+	char	buf[PATH_MAX];
+	int		len;
+	int		i;
+	int		j;
+	int		flag;
+
+	ft_strcpy(buf, path);
+	ft_memset(path, 0, PATH_MAX);
+	i = 0;
+	j = 0;
+	len = ft_strlen(buf);
+	while (i < len)
+	{
+		if (buf[i] == '/')
+			flag = 0;
+		while (buf[i] && buf[i] != '/')
+		{
+			path[j++] = buf[i++];
+			flag = 1;
+		}
+		if (flag)
+			path[j++] = '/';
+		i++;
+	}
+	path[j - 1] = '\0';
+}
+
+/*
 void	display_path(char *path)
 {
 	char	buf[PATH_MAX];
@@ -142,3 +190,4 @@ void	display_path(char *path)
 	buf[j - 1] = '\0';
 	ft_printf("{2}%s:\n{0}", buf);
 }
+*/

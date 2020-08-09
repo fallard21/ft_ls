@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 06:00:04 by tima              #+#    #+#             */
-/*   Updated: 2020/08/07 03:21:09 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/09 21:14:22 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,8 +64,6 @@ void	print_total(t_file *head)
 	char	buf[30];
 	char	*num;
 
-	if (!head)
-		return ;
 	ft_memset(buf, 0, 30);
 	blck = 0;
 	while (head)
@@ -85,9 +83,9 @@ void	print_total(t_file *head)
 
 void	print_error(t_ls *ls, char *file, int flag)
 {
-	char str[350];
+	char str[LSPATH];
 
-	ft_memset(str, 0, 350);
+	ft_memset(str, 0, LSPATH);
 	if (flag == 1)
 	{
 		ft_strcat(str, "ls: invalid key - '");
@@ -106,6 +104,12 @@ void	print_error(t_ls *ls, char *file, int flag)
 		ft_strcat(str, ": ");
 		ft_strcat(str, strerror(errno));
 		ft_strcat(str, "\n");
+	}
+	if (flag == 4)
+	{
+		ft_strcat(str, "ls: cannot open directory '");
+		ft_strcat(str, file);
+		ft_strcat(str, "': Permission denied\n");
 	}
 	write(2, str, ft_strlen(str));
 	if (flag == 1 || flag == 2)

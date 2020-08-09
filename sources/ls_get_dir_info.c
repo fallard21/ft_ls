@@ -6,36 +6,26 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 10:06:49 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/09 04:31:32 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/09 21:21:18 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-t_file	*get_dir_files(t_ls *ls, char *path, char *dir_name)
+t_file	*get_dir_files(t_ls *ls, char *fpath)
 {
 	t_file	*head;
 	t_file	**tmp;
-	char	fpath[PATH_MAX];
-
-	ft_memset(fpath, 0, PATH_MAX);
-	if (!path)
-		ft_strcat(fpath, dir_name);
-	else
-	{
-		ft_strcat(fpath, path);
-		ft_strcat(fpath, "/");
-		ft_strcat(fpath, dir_name);
-	}
+	
 	head = NULL;
 	tmp = &head;
 	if (!(ls->dir = opendir(fpath)))
 		return (NULL);
-	while((ls->lol = readdir(ls->dir)))
+	while((ls->lread = readdir(ls->dir)))
 	{
-		if (ls->lol->d_name[0] == '.' && ls->key_a == 0)
+		if (ls->lread->d_name[0] == '.' && ls->key_a == 0)
 			continue;
-		if (!(*tmp = new_file(ls, fpath, ls->lol->d_name)))
+		if (!(*tmp = new_file(ls, fpath, ls->lread->d_name)))
 			break;
 		tmp = &(*tmp)->next;
 	}
