@@ -6,11 +6,46 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 10:06:49 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/09 21:21:18 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/10 00:02:24 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
+
+t_data	get_data(t_ls *ls, t_file *args, char *path, char *dir)
+{
+	t_data	res;
+	t_file *tmp;
+
+	ft_memset(&res, 0, sizeof(t_data));
+	ft_memset(res.path, 0, LSPATH);
+	if (!path)
+		ft_strcat(res.path, dir);
+	else
+	{
+		ft_strcat(res.path, path);
+		ft_strcat(res.path, "/");
+		ft_strcat(res.path, dir);
+	}
+	fix_path(res.path);
+	if (!args && dir)
+		res.head = get_dir_files(ls, res.path);
+	else
+		res.head = args;
+	res.size = list_size(res.head);	// optimize
+	res.width = get_width_arr(res.head);
+	lstat(res.path, &ls->sb);
+	if (errno == EACCES)
+		print_error(ls, res.path, 4);
+	tmp = res.head;
+	while (tmp)
+	{
+		if (S_ISBLK(tmp->sb.st_mode) || S_ISCHR(tmp->sb.st_mode))
+			res.spec_file = 1;
+		tmp = tmp->next;
+	}
+	return (res);
+}
 
 t_file	*get_dir_files(t_ls *ls, char *fpath)
 {
@@ -50,7 +85,7 @@ t_file	*new_file(t_ls *ls, char *path, char *name)
 	}
 	fpath = ft_strjoin(tmp->path, name);
 	if (lstat(fpath, &current) == -1)
-		perror("lstat");
+		ft_exit("lstat");
 	tmp->sb = current;
 	tmp->fmajor = major(tmp->sb.st_rdev);
 	tmp->fminor = minor(tmp->sb.st_rdev);

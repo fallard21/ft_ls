@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 06:00:04 by tima              #+#    #+#             */
-/*   Updated: 2020/08/09 21:14:22 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/09 23:52:35 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -39,47 +39,31 @@ void	print_list(t_file *head)
 }
 */
 
-void	print_key_l(t_ls *ls, t_data data)
-{
-	while (data.head)
-	{
-		if (ls->key_i)
-			ft_printf("%*lu ", data.width[0], data.head->sb.st_ino);
-		if (ls->key_s)
-			ft_printf("%*ld ", data.width[1], data.head->sb.st_blocks / 2);
-		display_chmod(data.head);
-		ft_printf("%*lu ", data.width[2], data.head->sb.st_nlink);
-		display_users(ls, data.head, data.width);
-		display_size(data, data.head, data.width);
-		display_time(ls, data.head);
-		display_name(ls, data.head);
-		data.head = data.head->next;
-	}
-
-}
-
-void	print_total(t_file *head)
+void	display_total(t_ls *ls, t_file *head)
 {
 	long	blck;
 	char	buf[30];
 	char	*num;
 
-	ft_memset(buf, 0, 30);
-	blck = 0;
-	while (head)
+	if ((ls->key_l || ls->key_s) && errno != EACCES)
 	{
-		blck = blck + (head->sb.st_blocks / 2);
-		head = head->next;
+		ft_memset(buf, 0, 30);
+		blck = 0;
+		while (head)
+		{
+			blck = blck + (head->sb.st_blocks / 2);
+			head = head->next;
+		}
+		if (num = ft_ulong_itoa(blck, 1))
+		{
+			ft_strcat(buf, "total ");
+			ft_strcat(buf, num);
+			ft_strcat(buf, "\n");
+			write(1, buf, ft_strlen(buf));
+			ft_memdel((void**)&num);
+		}
 	}
-	if (!(num = ft_ulong_itoa(blck, 1)))
-		return ;
-	ft_strcat(buf, "total ");
-	ft_strcat(buf, num);
-	ft_strcat(buf, "\n");
-	write(1, buf, ft_strlen(buf));
-	free(num);
 }
-
 
 void	print_error(t_ls *ls, char *file, int flag)
 {
@@ -116,7 +100,7 @@ void	print_error(t_ls *ls, char *file, int flag)
 		exit(EXIT_FAILURE);
 }
 
-void	print_one_column(t_file *head)
+void	display_one_column(t_file *head)
 {
 	while (head)
 	{

@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 14:25:15 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/08 22:22:57 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/09 22:35:03 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,7 +70,7 @@ void	display_file_from_args(t_ls *ls, t_data *root)
 	*/
 }
 
-
+/*
 void	ls_print_dir(t_ls *ls, char *dir_name)
 {
 	t_data data;
@@ -82,10 +82,11 @@ void	ls_print_dir(t_ls *ls, char *dir_name)
 		ft_printf("{2}%s:{0}\n", dir_name);
 	data.head = sort(ls, data.head);
 	if (ls->key_l || ls->key_s)
-		print_total(data.head);
+		display_total(ls, data.head);
 	display_files(ls, data);
 	free_data(&data);
 }
+*/
 
 int		list_size(t_file *head)
 {
@@ -103,9 +104,9 @@ int		list_size(t_file *head)
 void	display_files(t_ls *ls, t_data data)
 {
 	if (ls->key_l)
-		print_key_l(ls, data);
+		display_key_l(ls, data);
 	else if (ls->key_one)
-		print_one_column(data.head);
+		display_one_column(data.head);
 	else
 		print_column(ls, data);
 }

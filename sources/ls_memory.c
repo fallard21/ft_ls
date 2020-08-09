@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 23:42:41 by tima              #+#    #+#             */
-/*   Updated: 2020/08/08 19:32:35 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/10 00:00:52 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,9 +29,9 @@ int		free_list(t_file **head)
 	return (1);
 }
 
-void	ft_exit()
+void	ft_exit(char *error)
 {
-	perror("ls");
+	perror(error);
 	exit(EXIT_FAILURE);
 }
 
