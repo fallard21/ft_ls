@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 21:03:52 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/10 00:33:08 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/10 01:15:11 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -131,6 +131,7 @@ t_file	*get_dir_files(t_ls *ls, char *fpath);
 t_file	*new_file(t_ls *ls, char *path, char *name);
 int		save_file_info(t_ls *ls, t_file *tmp, char *name);
 void	fix_path(char *path);
+void	init_path(char *add, char *path, char *dir, int flag);
 
 void	choosing_ls(t_ls *ls);
 void	ls_only_args(t_ls *ls);

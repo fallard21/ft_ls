@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 10:06:49 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/10 00:49:54 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/10 01:17:01 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,24 +15,17 @@
 t_data	get_data(t_ls *ls, t_file *args, char *path, char *dir)
 {
 	t_data	res;
-	t_file *tmp;
+	t_file	*tmp;
 
 	ft_memset(&res, 0, sizeof(t_data));
 	ft_memset(res.path, 0, LSPATH);
-	if (!path)
-		ft_strcat(res.path, dir);
-	else
-	{
-		ft_strcat(res.path, path);
-		ft_strcat(res.path, "/");
-		ft_strcat(res.path, dir);
-	}
+	init_path(res.path, path, dir, 1);
 	fix_path(res.path);
 	if (!args && dir)
 		res.head = get_dir_files(ls, res.path);
 	else
 		res.head = args;
-	res.size = list_size(res.head);	// optimize
+	res.size = list_size(res.head);
 	res.width = get_width_arr(res.head);
 	lstat(res.path, &ls->sb);
 	if (errno == EACCES)
@@ -47,21 +40,46 @@ t_data	get_data(t_ls *ls, t_file *args, char *path, char *dir)
 	return (res);
 }
 
+void	init_path(char *add, char *path, char *dir, int flag)
+{
+	if (flag == 1)
+	{
+		if (!path)
+			ft_strcat(add, dir);
+		else
+		{
+			ft_strcat(add, path);
+			ft_strcat(add, "/");
+			ft_strcat(add, dir);
+		}
+	}
+	else
+	{
+		if (!path)
+			ft_strcat(add, "");
+		else
+		{
+			ft_strcat(add, path);
+			ft_strcat(add, "/");
+		}
+	}
+}
+
 t_file	*get_dir_files(t_ls *ls, char *fpath)
 {
 	t_file	*head;
 	t_file	**tmp;
-	
+
 	head = NULL;
 	tmp = &head;
 	if (!(ls->dir = opendir(fpath)))
 		return (NULL);
-	while((ls->lread = readdir(ls->dir)))
+	while ((ls->lread = readdir(ls->dir)))
 	{
 		if (ls->lread->d_name[0] == '.' && ls->key_a == 0)
 			continue;
 		if (!(*tmp = new_file(ls, fpath, ls->lread->d_name)))
-			break;
+			break ;
 		tmp = &(*tmp)->next;
 	}
 	closedir(ls->dir);
@@ -72,17 +90,11 @@ t_file	*new_file(t_ls *ls, char *path, char *name)
 {
 	t_file	*tmp;
 	t_stat	current;
-	char *fpath;
+	char	*fpath;
 
 	if (!(tmp = ft_calloc(1, sizeof(t_file))))
 		return (NULL);
-	if (!path)
-		ft_strcat(tmp->path, "");
-	else
-	{
-		ft_strcat(tmp->path, path);
-		ft_strcat(tmp->path, "/");
-	}
+	init_path(tmp->path, path, name, 2);
 	fpath = ft_strjoin(tmp->path, name);
 	if (lstat(fpath, &current) == -1)
 		ft_exit("lstat");
