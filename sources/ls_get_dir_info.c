@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 10:06:49 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/10 00:30:20 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/10 00:49:54 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -101,4 +101,17 @@ t_file	*new_file(t_ls *ls, char *path, char *name)
 	}
 	free(fpath);
 	return (tmp);
+}
+
+int		list_size(t_file *head)
+{
+	int count;
+
+	count = 0;
+	while (head)
+	{
+		count++;
+		head = head->next;
+	}
+	return (count);
 }

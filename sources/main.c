@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 07:24:15 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/09 02:21:18 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/10 00:47:45 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,5 @@ int		main(int argc, char **argv)
 	//choosing_ls(&ls);
 	//run_ls(&ls, NULL, "./");
 	test_ls(&ls, NULL, "./");
-	//ft_printf("{1}flag_args: %d{0}\n", ls.flag_args);
-	//ft_printf("{1}flag_keys: %d{0}\n", ls.flag_keys);
 	return (0);
 }

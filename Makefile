@@ -6,7 +6,7 @@
 #    By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/13 21:03:45 by fallard           #+#    #+#              #
-#    Updated: 2020/08/10 00:39:31 by fallard          ###   ########.fr        #
+#    Updated: 2020/08/10 00:51:46 by fallard          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -34,7 +34,7 @@ ls_max_width.c \
 ls_print_column.c \
 display.c \
 display_extended.c \
-print.c \
+display_other.c \
 new_code.c
 
 TMP = $(addprefix $(SRC_DIR), $(SRC:.c=.o))

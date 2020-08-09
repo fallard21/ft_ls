@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 06:30:43 by tima              #+#    #+#             */
-/*   Updated: 2020/08/07 04:12:32 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/10 00:50:37 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,7 @@ int		*get_width_arr(t_file *head)
 	int *arr;
 
 	if (!(arr = ft_calloc(8, sizeof(int))))
-		return (NULL);
+		ft_exit("malloc");
 	while (head)
 	{
 		ls_max(width_num(head->sb.st_ino), &arr[0]);
