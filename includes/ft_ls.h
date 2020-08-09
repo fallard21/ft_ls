@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 21:03:52 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/09 02:15:58 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/09 03:59:45 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,7 @@
 # include <sys/ioctl.h>
 # include <termios.h>
 
-# define KEYS "lRart"
+# define KEYS "lRartcuisSfog1"
 
 typedef struct stat		t_stat;
 typedef struct dirent	t_dir;
@@ -123,6 +123,7 @@ void	run_ls(t_ls *ls, char *path, char *dirname);
 
 int		parse_args_to_keys(t_ls *ls, int ac, char **av);
 int		parse_args_to_file(t_ls *ls, int ac, char **av);
+void	update_keys(t_ls *ls, char *del, int key);
 int		init_keys(t_ls *ls, char *argv);
 int		find_key(char key);
 

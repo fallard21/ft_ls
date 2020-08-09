@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 02:22:49 by tima              #+#    #+#             */
-/*   Updated: 2020/07/31 16:02:44 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/09 04:36:16 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -133,6 +133,8 @@ t_file	*sort(t_ls *ls, t_file *head)
 		else
 			head = sort_list(cmp_mtime, head);
 	}
+	else if (ls->key_up_s)
+		head = sort_list(cmp_size, head);
 	else
 		head = sort_list(cmp_name, head);
 	if (ls->key_r)

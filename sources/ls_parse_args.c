@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 17:10:19 by tima              #+#    #+#             */
-/*   Updated: 2020/08/08 19:17:22 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/09 04:00:52 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -42,14 +42,25 @@ int		init_keys(t_ls *ls, char *argv)
 		ls->key_a = (argv[i] == 'a') ? 1 : ls->key_a;
 		ls->key_r = (argv[i] == 'r') ? 1 : ls->key_r;
 		ls->key_t = (argv[i] == 't') ? 1 : ls->key_t;
+
+		ls->key_c = (argv[i] == 'c') ? 1 : ls->key_c;
+		ls->key_u = (argv[i] == 'u') ? 1 : ls->key_u;
+		ls->key_i = (argv[i] == 'i') ? 1 : ls->key_i;
+		ls->key_s = (argv[i] == 's') ? 1 : ls->key_s;
+		ls->key_up_s = (argv[i] == 'S') ? 1 : ls->key_up_s;
+		ls->key_f = (argv[i] == 'f') ? 1 : ls->key_f;
+		ls->key_o = (argv[i] == 'o') ? 1 : ls->key_o;
+		ls->key_g = (argv[i] == 'g') ? 1 : ls->key_g;
+		ls->key_one = (argv[i] == '1') ? 1 : ls->key_one;
+		update_keys(ls, NULL, argv[i]);
 		i++;
 	}
 	return (0);
 }
 
-void	lol(t_ls *ls, char *del, int key)
+void	update_keys(t_ls *ls, char *del, int key)
 {
-	if (key == 'o' || ls->key_g == 'g')
+	if (key == 'o' || key == 'g')
 		ls->key_l = 1;
 	if (key == 'l')
 		ls->key_one = 0;
