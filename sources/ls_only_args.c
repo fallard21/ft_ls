@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 10:03:56 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/10 03:19:04 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/10 04:21:59 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -34,9 +34,7 @@ void	display_file_from_args(t_ls *ls, t_data *root)
 	tmp = root->head;
 	while (tmp)// && ls->key_up_r)
 	{
-		if (S_ISDIR(tmp->sb.st_mode) && ft_strcmp(".", tmp->name)
-			&& ft_strcmp("..", tmp->name))
-			display_dir(ls, tmp->path, tmp->name);
+		display_dir(ls, tmp->path, tmp->name);
 		tmp = tmp->next;
 	}
 	free_data(root);
