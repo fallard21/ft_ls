@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 10:06:49 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/11 00:50:27 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/11 01:40:48 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,6 @@ t_data	get_data(t_ls *ls, t_file *args, char *path, char *dir)
 	t_file	*tmp;
 
 	ft_memset(&res, 0, sizeof(t_data));
-	ft_memset(res.path, 0, LSPATH);
 	init_path(res.path, path, dir, 1);
 	fix_path(res.path);
 	if (!args && dir)

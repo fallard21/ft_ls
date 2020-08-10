@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 17:20:22 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/10 02:51:44 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/11 01:14:38 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,9 +15,9 @@
 void	display_users(t_ls *ls, t_file *head, int *width)
 {
 	if (!ls->key_g)
-		ft_printf("%-*s ", width[3], head->uid_name);	//g
+		ft_printf("%-*s ", width[3], head->uid_name);
 	if (!ls->key_o)
-		ft_printf("%-*s ", width[4], head->gid_name);	//o
+		ft_printf("%-*s ", width[4], head->gid_name);
 }
 
 void	display_size(t_data data, t_file *f, int *width)

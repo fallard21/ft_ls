@@ -6,7 +6,7 @@
 #    By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/13 21:03:45 by fallard           #+#    #+#              #
-#    Updated: 2020/08/11 01:55:48 by fallard          ###   ########.fr        #
+#    Updated: 2020/08/11 02:02:32 by fallard          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -30,7 +30,7 @@ display_chmod.c \
 free_memory.c \
 do_ls.c \
 sorting.c \
-sort_types.c
+sort_types.c \
 calculate_width.c \
 ls_print_column.c \
 display.c \
