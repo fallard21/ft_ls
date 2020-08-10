@@ -6,13 +6,13 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 14:25:15 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/10 03:13:31 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/11 00:58:27 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	test_ls(t_ls *ls, char *path, char *dirname)
+void	do_ls(t_ls *ls)
 {
 	t_data root;
 
@@ -22,7 +22,7 @@ void	test_ls(t_ls *ls, char *path, char *dirname)
 		display_file_from_args(ls, &root);
 	}
 	else
-		display_dir(ls, path, dirname);
+		display_dir(ls, NULL, "./");
 }
 
 void	display_dir(t_ls *ls, char *path, char *name)

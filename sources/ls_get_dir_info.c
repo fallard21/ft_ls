@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 10:06:49 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/10 04:23:59 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/11 00:50:27 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,6 @@ void	init_path(char *add, char *path, char *dir, int flag)
 		else
 		{
 			ft_strcat(add, path);
-			//ft_strcat(add, "/");
 			ft_strcat(add, dir);
 		}
 	}

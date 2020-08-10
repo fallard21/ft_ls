@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 02:22:49 by tima              #+#    #+#             */
-/*   Updated: 2020/08/09 04:36:16 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/11 01:01:09 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,6 +45,8 @@ t_file	*reverse_list(t_file *head)
 	t_file	*prev;
 	t_file	*right;
 
+	if (!head)
+		return (head);
 	prev = NULL;
 	right = head->next;
 	while (right)
