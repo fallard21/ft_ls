@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ls_only_args.c                                     :+:      :+:    :+:   */
+/*   display_arguments.c                                :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 10:03:56 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/10 20:21:56 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/11 01:49:14 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,7 +19,7 @@ void	display_file_from_args(t_ls *ls, t_data *root)
 	t_file	*others;
 	t_data	o;
 	t_data	d;
-	
+
 	dirs = NULL;
 	others = NULL;
 	split_list(&dirs, &others, &root->head);
@@ -31,7 +31,6 @@ void	display_file_from_args(t_ls *ls, t_data *root)
 	if (dirs && others)
 		write(1, "\n", 1);
 	free_data(&o);
-
 	tmp = root->head;
 	tmp = sort(ls, tmp);
 	while (tmp)

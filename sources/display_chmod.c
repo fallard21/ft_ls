@@ -1,12 +1,12 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   ls_chmod.c                                         :+:      :+:    :+:   */
+/*   display_chmod.c                                    :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 22:19:10 by tima              #+#    #+#             */
-/*   Updated: 2020/07/30 01:07:39 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/11 01:51:25 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,15 +17,12 @@ void	display_chmod(t_file *tmp)
 	char res[11];
 
 	res[0] = get_type(tmp->sb.st_mode);
-
 	res[1] = (tmp->sb.st_mode & S_IRUSR) ? 'r' : '-';
 	res[2] = (tmp->sb.st_mode & S_IWUSR) ? 'w' : '-';
 	res[3] = (tmp->sb.st_mode & S_IXUSR) ? 'x' : '-';
-
 	res[4] = (tmp->sb.st_mode & S_IRGRP) ? 'r' : '-';
 	res[5] = (tmp->sb.st_mode & S_IWGRP) ? 'w' : '-';
 	res[6] = (tmp->sb.st_mode & S_IXGRP) ? 'x' : '-';
-
 	res[7] = (tmp->sb.st_mode & S_IROTH) ? 'r' : '-';
 	res[8] = (tmp->sb.st_mode & S_IWOTH) ? 'w' : '-';
 	res[9] = (tmp->sb.st_mode & S_IXOTH) ? 'x' : '-';
