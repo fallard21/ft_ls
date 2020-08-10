@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 14:25:15 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/10 00:50:57 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/10 03:13:31 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,8 +14,15 @@
 
 void	test_ls(t_ls *ls, char *path, char *dirname)
 {
-	
-	display_dir(ls, path, dirname);
+	t_data root;
+
+	if (ls->flag_args)
+	{
+		root = get_data(ls, ls->args, NULL, "");
+		display_file_from_args(ls, &root);
+	}
+	else
+		display_dir(ls, path, dirname);
 }
 
 void	display_dir(t_ls *ls, char *path, char *name)

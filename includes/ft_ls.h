@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 21:03:52 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/10 01:15:11 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/10 02:51:54 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,6 +33,9 @@
 # include <termios.h>
 
 # define KEYS "lRartcuisSfog1"
+# define LRLINK "readlink"
+# define LMALLOC "malloc"
+# define LLSTAT "lstat"
 # define LSPATH 5000
 
 typedef struct stat		t_stat;

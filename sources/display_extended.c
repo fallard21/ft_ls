@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 17:20:22 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/10 00:38:38 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/10 02:51:44 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -66,14 +66,14 @@ void	display_name(t_ls *ls, t_file *file)
 	{
 		ft_strcat(file->path, file->name);
 		if (lstat(file->path, &sb) < 0)
-			ft_exit("lstat");
+			ft_exit(LLSTAT);
 		size = sb.st_size + 1;
 		if (!sb.st_size)
 			size = LSPATH;
 		if (buf = ft_calloc(size, sizeof(char)))
 		{
 			if (readlink(file->path, buf, size) < 0)
-				ft_exit("readlink");
+				ft_exit(LRLINK);
 			ft_printf("{4}%s -> %s{0}\n", file->name, buf);
 			ft_memdel((void**)&buf);
 		}

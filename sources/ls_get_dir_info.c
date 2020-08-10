@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 10:06:49 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/10 01:17:01 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/10 02:49:56 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -95,9 +95,10 @@ t_file	*new_file(t_ls *ls, char *path, char *name)
 	if (!(tmp = ft_calloc(1, sizeof(t_file))))
 		return (NULL);
 	init_path(tmp->path, path, name, 2);
-	fpath = ft_strjoin(tmp->path, name);
+	if (!(fpath = ft_strjoin(tmp->path, name)))
+		ft_exit(LMALLOC);
 	if (lstat(fpath, &current) == -1)
-		ft_exit("lstat");
+		ft_exit(LLSTAT);
 	tmp->sb = current;
 	tmp->fmajor = major(tmp->sb.st_rdev);
 	tmp->fminor = minor(tmp->sb.st_rdev);
@@ -107,11 +108,8 @@ t_file	*new_file(t_ls *ls, char *path, char *name)
 	tmp->uid_name = ft_strdup(ls->pw_uid->pw_name);
 	tmp->gid_name = ft_strdup(ls->gr_gid->gr_name);
 	if (!tmp->uid_name || !tmp->gid_name || !tmp->name)
-	{
-		free_list(&tmp);
-		return (NULL);
-	}
-	free(fpath);
+		ft_exit(LMALLOC);
+	ft_strdel(&fpath);
 	return (tmp);
 }
 

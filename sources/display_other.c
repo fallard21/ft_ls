@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 06:00:04 by tima              #+#    #+#             */
-/*   Updated: 2020/08/10 00:49:49 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/10 04:09:41 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -77,7 +77,6 @@ void	display_path(t_ls *ls, t_data data)
 	}
 }
 
-
 void	fix_path(char *path)
 {
 	char	buf[LSPATH];
@@ -90,21 +89,21 @@ void	fix_path(char *path)
 	ft_memset(path, 0, LSPATH);
 	i = 0;
 	j = 0;
+	flag = 0;
 	len = ft_strlen(buf);
-	while (i < len)
+	while (i < len + 1)
 	{
 		if (buf[i] == '/')
-			flag = 0;
-		while (buf[i] && buf[i] != '/')
-		{
-			path[j++] = buf[i++];
 			flag = 1;
+		if (buf[i] != '/')
+		{
+			if (flag)
+				path[j++] = '/';
+			flag = 0;
+			path[j++] = buf[i];
 		}
-		if (flag)
-			path[j++] = '/';
 		i++;
 	}
-	path[j - 1] = '\0';
 }
 
 void	display_error(char *file, int flag)
