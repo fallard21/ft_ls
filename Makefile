@@ -6,7 +6,7 @@
 #    By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/13 21:03:45 by fallard           #+#    #+#              #
-#    Updated: 2020/08/10 00:51:46 by fallard          ###   ########.fr        #
+#    Updated: 2020/08/11 01:55:48 by fallard          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -23,19 +23,19 @@ INC_DIR = includes/
 LIB_DIR = libft/
 
 SRC = main.c \
-ls_parse_args.c \
+parsing_arguments.c \
 ls_get_dir_info.c \
-ls_only_args.c \
-ls_chmod.c \
-ls_memory.c \
+display_arguments.c \
+display_chmod.c \
+free_memory.c \
 do_ls.c \
-ls_sort.c \
-ls_max_width.c \
+sorting.c \
+sort_types.c
+calculate_width.c \
 ls_print_column.c \
 display.c \
 display_extended.c \
-display_other.c \
-new_code.c
+display_other.c
 
 TMP = $(addprefix $(SRC_DIR), $(SRC:.c=.o))
 HEADER = $(addprefix $(INC_DIR), $(HEAD_NAME))

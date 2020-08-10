@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 21:03:52 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/10 22:29:42 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/11 01:46:33 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -121,7 +121,6 @@ typedef struct		s_data
 }					t_data;
 
 t_data	get_data(t_ls *ls, t_file *head, char *path, char *dir);
-void	run_ls(t_ls *ls, char *path, char *dirname);
 
 int		parse_args_to_keys(t_ls *ls, int ac, char **av);
 void	parse_args_to_file(t_ls *ls, int ac, char **av);
@@ -171,9 +170,6 @@ void	display_one_column(t_file *head);
 //int		get_row(t_ls *ls, t_col *col);
 //int		get_sum_width(t_col *col, int row);
 
-void	print_list(t_file *head);
-
-
 char	get_type(mode_t mode);
 
 t_file	*sort_list(int (*cmp)(t_file*, t_file*), t_file *head);
@@ -185,12 +181,8 @@ int		cmp_ctime(t_file *left, t_file *right);
 int		cmp_mtime(t_file *left, t_file *right);
 t_file	*sort(t_ls *ls, t_file *head);
 
-size_t	width_uid_gid(t_file *head, int flag);
-size_t	width_nlink(t_file *head, int flag);
 int		*get_width_arr(t_file *head);
 
-int		width_num(size_t num);
-void	ls_max(int current, int *width);
 
 void	parse_keys_args(t_ls *ls, int argc, char **argv);
 int		parse_file_args(t_ls *ls, int argc, char **argv);
@@ -201,7 +193,7 @@ void	error_exit(t_ls *ls, char *file, int flag);
 
 void	print_error(t_ls *ls, char *file, int flag);
 
-void	do_ls(t_ls *ls, t_file *head, char *dir);
+void	do_ls(t_ls *ls);
 void	do_ls_args(t_ls *ls, t_file *head);
 void	display_total(t_ls *ls, t_file *head);
 
