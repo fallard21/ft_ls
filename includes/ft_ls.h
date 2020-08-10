@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 21:03:52 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/10 02:51:54 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/10 22:29:42 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -78,8 +78,7 @@ typedef struct		s_file
 
 typedef struct		s_ls
 {
-	int				count_file;
-	int				count_dir;
+	int				count_args;
 
 	int				flag_args;
 	int				flag_path;
@@ -125,7 +124,7 @@ t_data	get_data(t_ls *ls, t_file *head, char *path, char *dir);
 void	run_ls(t_ls *ls, char *path, char *dirname);
 
 int		parse_args_to_keys(t_ls *ls, int ac, char **av);
-int		parse_args_to_file(t_ls *ls, int ac, char **av);
+void	parse_args_to_file(t_ls *ls, int ac, char **av);
 void	update_keys(t_ls *ls, char *del, int key);
 int		init_keys(t_ls *ls, char *argv);
 int		find_key(char key);
@@ -158,7 +157,7 @@ void	display_users(t_ls *ls, t_file *head, int *width);
 
 void	ft_exit(char *error);
 int		free_split(char ***str);
-int		free_list(t_file **head);
+void	free_list(t_file **head);
 int		free_data(t_data *data);
 
 int		print_column(t_ls *ls, t_data data);

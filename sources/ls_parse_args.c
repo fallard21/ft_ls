@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 17:10:19 by tima              #+#    #+#             */
-/*   Updated: 2020/08/10 00:29:42 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/11 00:44:10 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,7 @@ int		init_keys(t_ls *ls, char *argv)
 		ls->key_f = (argv[i] == 'f') ? 1 : ls->key_f;
 		ls->key_o = (argv[i] == 'o') ? 1 : ls->key_o;
 		ls->key_g = (argv[i] == 'g') ? 1 : ls->key_g;
-		ls->key_one = (argv[i] == '1') ? 1 : ls->key_one;
+		ls->key_one = (!ls->key_l && argv[i] == '1') ? 1 : ls->key_one;
 		update_keys(ls, NULL, argv[i]);
 		i++;
 	}
@@ -109,7 +109,7 @@ int		parse_args_to_keys(t_ls *ls, int ac, char **av)
 	return (0);
 }
 
-int		parse_args_to_file(t_ls *ls, int ac, char **av)
+void	parse_args_to_file(t_ls *ls, int ac, char **av)
 {
 	t_file	**tmp;
 	int		i;
@@ -125,6 +125,7 @@ int		parse_args_to_file(t_ls *ls, int ac, char **av)
 		else if (av[i][0] != '-' || flag == 1 || !ft_strcmp("-", av[i]))
 		{
 			ls->flag_args = 1;
+			ls->count_args++;
 			if (lstat(av[i], &ls->sb) < 0)
 				display_error(av[i], 3);
 			else
@@ -135,5 +136,4 @@ int		parse_args_to_file(t_ls *ls, int ac, char **av)
 			}
 		}
 	}
-	return (0);
 }

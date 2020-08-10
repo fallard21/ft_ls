@@ -6,13 +6,13 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 23:42:41 by tima              #+#    #+#             */
-/*   Updated: 2020/08/10 00:00:52 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/10 22:29:18 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-int		free_list(t_file **head)
+void	free_list(t_file **head)
 {
 	t_file *next;
 
@@ -26,7 +26,6 @@ int		free_list(t_file **head)
 		*head = next;
 	}
 	*head = NULL;
-	return (1);
 }
 
 void	ft_exit(char *error)

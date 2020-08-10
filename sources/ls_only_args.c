@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 10:03:56 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/10 04:21:59 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/10 20:21:56 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,6 +25,7 @@ void	display_file_from_args(t_ls *ls, t_data *root)
 	split_list(&dirs, &others, &root->head);
 	root->head = dirs;
 	o = get_data(ls, others, NULL, "");
+	o.head = sort(ls, o.head);
 	display_files(ls, o);
 	update_data(ls, &root, dirs);
 	if (dirs && others)
@@ -32,7 +33,8 @@ void	display_file_from_args(t_ls *ls, t_data *root)
 	free_data(&o);
 
 	tmp = root->head;
-	while (tmp)// && ls->key_up_r)
+	tmp = sort(ls, tmp);
+	while (tmp)
 	{
 		display_dir(ls, tmp->path, tmp->name);
 		tmp = tmp->next;

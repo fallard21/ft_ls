@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 06:00:04 by tima              #+#    #+#             */
-/*   Updated: 2020/08/10 04:09:41 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/10 22:47:43 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,6 +69,8 @@ void	display_path(t_ls *ls, t_data data)
 {
 	if ((ls->key_up_r || ls->flag_args) && errno != EACCES)
 	{
+		if (ls->flag_args && ls->count_args == 1 && !ls->key_up_r)
+			return ;
 		if (!ls->flag_path)
 			ft_printf("{2}%s:{0}\n", data.path);
 		else
