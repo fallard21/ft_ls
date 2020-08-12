@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 23:42:41 by tima              #+#    #+#             */
-/*   Updated: 2020/08/11 01:50:18 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/12 02:56:21 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -55,5 +55,13 @@ int		free_data(t_data *data)
 {
 	free_list(&data->head);
 	ft_memdel((void**)&data->width);
+	return (1);
+}
+
+int		free_col(t_col *col)
+{
+	free_split(&col->args);
+	ft_memdel((void**)&col->lens);
+	ft_memdel((void**)&col->ib);
 	return (1);
 }

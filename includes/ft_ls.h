@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 21:03:52 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/11 01:46:33 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/12 04:11:41 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,6 +38,12 @@
 # define LLSTAT "lstat"
 # define LSPATH 5000
 
+# define BAD_KEY 1
+# define BAD_PARAMETER 2
+# define NO_FILE 3
+# define DIR_PERM 4
+# define LINK_PERM 5
+
 typedef struct stat		t_stat;
 typedef struct dirent	t_dir;
 typedef struct group	t_grp;
@@ -56,9 +62,11 @@ typedef struct		s_col
 {
 	char			**args;
 	int				*lens;
+	size_t			*ib;
 	int				size;
 	int				col;
 	int				row;
+	int				width;
 	int				space;
 	int				prev;
 	int				m;
@@ -73,6 +81,7 @@ typedef struct		s_file
 	char			*gid_name;
 	char			*name;
 	char			path[LSPATH];
+	char			link[LSPATH];
 	struct s_file	*next;
 }					t_file;
 
@@ -143,7 +152,7 @@ void	display_file_from_args(t_ls *ls, t_data *root);
 
 void	test_ls(t_ls *ls, char *path, char *dirname);
 void	display_dir(t_ls *ls, char *path, char *name);
-void	display_path(t_ls *ls, t_data data);
+void	display_path(t_ls *ls, char *path, char *dir);
 
 void	display_key_l(t_ls *ls, t_data data);
 void	display_name(t_ls *ls, t_file *current);
@@ -158,9 +167,12 @@ void	ft_exit(char *error);
 int		free_split(char ***str);
 void	free_list(t_file **head);
 int		free_data(t_data *data);
+int		free_col(t_col *col);
 
-int		print_column(t_ls *ls, t_data data);
-void	display_one_column(t_file *head);
+void	display_column(t_ls *ls, t_data *data);
+void	print_column(t_ls *ls, t_data *data, t_col *col, int row);
+int		get_row(t_ls *ls, t_data *data);
+void	display_one_column(t_ls *ls, t_data *data);
 //void	calculate_column(t_ls *ls, t_file *head);
 //int		get_column(char **args);
 //void	print_column(t_col *col, int row);
