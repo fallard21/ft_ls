@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 17:10:19 by tima              #+#    #+#             */
-/*   Updated: 2020/08/11 00:49:23 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/11 16:20:59 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,12 +98,12 @@ int		parse_args_to_keys(t_ls *ls, int ac, char **av)
 			if (ft_strcmp("--", av[i]) == 0)
 				break ;
 			else
-				error_exit(ls, av[i], 2);
+				error_exit(ls, av[i], BAD_PARAMETER);
 		}
 		if (av[i][0] == '-' && ft_strcmp(av[i], "-"))
 		{
 			if (init_keys(ls, av[i]))
-				error_exit(ls, av[i], 1);
+				error_exit(ls, av[i], BAD_KEY);
 		}
 	}
 	return (0);
@@ -127,7 +127,7 @@ void	parse_args_to_file(t_ls *ls, int ac, char **av)
 			ls->flag_args = 1;
 			ls->count_args++;
 			if (lstat(av[i], &ls->sb) < 0)
-				display_error(av[i], 3);
+				display_error(av[i], NO_FILE);
 			else
 			{
 				if (!(*tmp = new_file(ls, NULL, av[i])))
