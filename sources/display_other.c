@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 06:00:04 by tima              #+#    #+#             */
-/*   Updated: 2020/08/11 01:15:28 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/13 02:18:39 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,16 +38,22 @@ void	display_total(t_ls *ls, t_file *head)
 	}
 }
 
-void	display_path(t_ls *ls, t_data data)
+void	display_path(t_ls *ls, char *path, char *dir)
 {
-	if ((ls->key_up_r || ls->flag_args) && errno != EACCES)
+	char fpath[LSPATH];
+
+	ft_memset(fpath, 0, LSPATH);
+	init_path(fpath, path, dir, 1);
+	fix_path(fpath);
+
+	if ((ls->key_up_r || ls->flag_args))
 	{
 		if (ls->flag_args && ls->count_args == 1 && !ls->key_up_r)
 			return ;
 		if (!ls->flag_path)
-			ft_printf("{2}%s:{0}\n", data.path);
+			ft_printf("{2}%s:{0}\n", fpath);
 		else
-			ft_printf("\n{2}%s:{0}\n", data.path);
+			ft_printf("\n{2}%s:{0}\n", fpath);
 		ls->flag_path = 1;
 	}
 }
@@ -86,16 +92,22 @@ void	display_error(char *file, int flag)
 	char str[LSPATH];
 
 	ft_memset(str, 0, LSPATH);
-	if (flag == 3)
+	if (flag == NO_FILE)
 	{
 		ft_strcat(ft_strcat(str, "ls: "), file);
 		ft_strcat(str, ": ");
 		ft_strcat(str, strerror(errno));
 		ft_strcat(str, "\n");
 	}
-	if (flag == 4)
+	if (flag == DIR_PERM)
 	{
 		ft_strcat(str, "ls: cannot open directory '");
+		ft_strcat(str, file);
+		ft_strcat(str, "': Permission denied\n");
+	}
+	if (flag == LINK_PERM)
+	{
+		ft_strcat(str, "ls: cannot read symbolic link '");
 		ft_strcat(str, file);
 		ft_strcat(str, "': Permission denied\n");
 	}
@@ -107,13 +119,13 @@ void	error_exit(t_ls *ls, char *file, int flag)
 	char str[LSPATH];
 
 	ft_memset(str, 0, LSPATH);
-	if (flag == 1)
+	if (flag == BAD_KEY)
 	{
 		ft_strcat(str, "ls: invalid key - '");
 		str[ft_strlen(str)] = init_keys(ls, file);
 		ft_strcat(str, "'\n");
 	}
-	if (flag == 2)
+	if (flag == BAD_PARAMETER)
 	{
 		ft_strcat(str, "ls: invalid parameter '");
 		ft_strcat(str, file);
