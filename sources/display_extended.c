@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 17:20:22 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/11 01:14:38 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/15 01:21:22 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -62,22 +62,29 @@ void	display_name(t_ls *ls, t_file *file)
 	t_stat	sb;
 	size_t	size;
 
+	ft_printf("{3}%s{0}", file->name);
 	if (S_ISLNK(file->sb.st_mode))
 	{
-		ft_strcat(file->path, file->name);
-		if (lstat(file->path, &sb) < 0)
-			ft_exit(LLSTAT);
-		size = sb.st_size + 1;
-		if (!sb.st_size)
-			size = LSPATH;
-		if (buf = ft_calloc(size, sizeof(char)))
+		if (file->link)
+			ft_printf("{4} -> %s{0}", file->link);
+	}
+	write(1, "\n", 1);
+}
+
+void	get_symbolic_link(t_file *tmp, char *fpath)
+{
+	int size;
+
+	size = tmp->sb.st_size;
+	if (!tmp->sb.st_size)
+		size = LSPATH;
+	size = size + 1;
+	if (tmp->link = ft_calloc(size, sizeof(char)))
+	{
+		if (readlink(fpath, tmp->link, size) < 0)
 		{
-			if (readlink(file->path, buf, size) < 0)
-				ft_exit(LRLINK);
-			ft_printf("{4}%s -> %s{0}\n", file->name, buf);
-			ft_memdel((void**)&buf);
+			display_error(fpath, LINK_PERM);
+			ft_memdel((void**)&tmp->link);
 		}
 	}
-	else
-		ft_printf("{3}%s{0}\n", file->name);
 }

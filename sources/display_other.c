@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 06:00:04 by tima              #+#    #+#             */
-/*   Updated: 2020/08/13 02:18:39 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/14 23:30:02 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,12 +38,8 @@ void	display_total(t_ls *ls, t_file *head)
 	}
 }
 
-void	display_path(t_ls *ls, char *path, char *dir)
+void	display_path(t_ls *ls, char *fpath)
 {
-	char fpath[LSPATH];
-
-	ft_memset(fpath, 0, LSPATH);
-	init_path(fpath, path, dir, 1);
 	fix_path(fpath);
 
 	if ((ls->key_up_r || ls->flag_args))
@@ -67,7 +63,7 @@ void	fix_path(char *path)
 	int		flag;
 
 	ft_strcpy(buf, path);
-	ft_memset(path, 0, LSPATH);
+	ft_strclr(path);
 	i = 0;
 	j = 0;
 	flag = 0;

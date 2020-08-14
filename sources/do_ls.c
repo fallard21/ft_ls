@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/27 14:25:15 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/11 01:34:16 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/14 23:30:21 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ void	display_dir(t_ls *ls, char *path, char *name)
 
 	data = get_data(ls, NULL, path, name);
 	data.head = sort(ls, data.head);
-	display_path(ls, data);
 	display_total(ls, data.head);
 	display_files(ls, data);
 	tmp = data.head;

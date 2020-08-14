@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 10:06:49 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/11 01:40:48 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/15 01:27:24 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,16 +19,12 @@ t_data	get_data(t_ls *ls, t_file *args, char *path, char *dir)
 
 	ft_memset(&res, 0, sizeof(t_data));
 	init_path(res.path, path, dir, 1);
-	fix_path(res.path);
 	if (!args && dir)
 		res.head = get_dir_files(ls, res.path);
 	else
 		res.head = args;
 	res.size = list_size(res.head);
 	res.width = get_width_arr(res.head);
-	lstat(res.path, &ls->sb);
-	if (errno == EACCES)
-		display_error(res.path, 4);
 	tmp = res.head;
 	while (tmp)
 	{
@@ -61,6 +57,7 @@ void	init_path(char *add, char *path, char *dir, int flag)
 			ft_strcat(add, "/");
 		}
 	}
+	fix_path(add);
 }
 
 t_file	*get_dir_files(t_ls *ls, char *fpath)
@@ -71,7 +68,11 @@ t_file	*get_dir_files(t_ls *ls, char *fpath)
 	head = NULL;
 	tmp = &head;
 	if (!(ls->dir = opendir(fpath)))
+	{
+		display_error(fpath, DIR_PERM);
 		return (NULL);
+	}
+	display_path(ls, fpath);
 	while ((ls->lread = readdir(ls->dir)))
 	{
 		if (ls->lread->d_name[0] == '.' && ls->key_a == 0)
@@ -98,6 +99,8 @@ t_file	*new_file(t_ls *ls, char *path, char *name)
 	if (lstat(fpath, &current) == -1)
 		ft_exit(LLSTAT);
 	tmp->sb = current;
+	if (S_ISLNK(tmp->sb.st_mode) && ls->key_l)
+		get_symbolic_link(tmp, fpath);
 	tmp->fmajor = major(tmp->sb.st_rdev);
 	tmp->fminor = minor(tmp->sb.st_rdev);
 	tmp->name = ft_strdup(name);

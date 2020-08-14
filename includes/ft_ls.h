@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 21:03:52 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/12 04:11:41 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/15 01:20:49 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,7 +36,7 @@
 # define LRLINK "readlink"
 # define LMALLOC "malloc"
 # define LLSTAT "lstat"
-# define LSPATH 5000
+# define LSPATH 4096
 
 # define BAD_KEY 1
 # define BAD_PARAMETER 2
@@ -81,7 +81,7 @@ typedef struct		s_file
 	char			*gid_name;
 	char			*name;
 	char			path[LSPATH];
-	char			link[LSPATH];
+	char			*link;
 	struct s_file	*next;
 }					t_file;
 
@@ -91,7 +91,7 @@ typedef struct		s_ls
 
 	int				flag_args;
 	int				flag_path;
-
+	int				flag_perm;
 	int				key_l;
 	int				key_up_r;
 	int				key_a;
@@ -129,6 +129,7 @@ typedef struct		s_data
 	int			permission;
 }					t_data;
 
+void	get_symbolic_link(t_file *tmp, char *fpath);
 t_data	get_data(t_ls *ls, t_file *head, char *path, char *dir);
 
 int		parse_args_to_keys(t_ls *ls, int ac, char **av);
@@ -152,7 +153,7 @@ void	display_file_from_args(t_ls *ls, t_data *root);
 
 void	test_ls(t_ls *ls, char *path, char *dirname);
 void	display_dir(t_ls *ls, char *path, char *name);
-void	display_path(t_ls *ls, char *path, char *dir);
+void	display_path(t_ls *ls, char *fpath);
 
 void	display_key_l(t_ls *ls, t_data data);
 void	display_name(t_ls *ls, t_file *current);
@@ -203,7 +204,7 @@ void	choosing_ls(t_ls *ls);
 void	display_error(char *file, int flag);
 void	error_exit(t_ls *ls, char *file, int flag);
 
-void	print_error(t_ls *ls, char *file, int flag);
+//void	print_error(t_ls *ls, char *file, int flag);
 
 void	do_ls(t_ls *ls);
 void	do_ls_args(t_ls *ls, t_file *head);
