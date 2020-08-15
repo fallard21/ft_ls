@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 06:00:04 by tima              #+#    #+#             */
-/*   Updated: 2020/08/14 23:30:02 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/16 00:28:06 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	display_total(t_ls *ls, t_file *head)
 	char	buf[30];
 	char	*num;
 
-	if ((ls->key_l || ls->key_s) && errno != EACCES)
+	if ((ls->key_l || ls->key_s))
 	{
 		ft_memset(buf, 0, 30);
 		blck = 0;
@@ -35,51 +35,6 @@ void	display_total(t_ls *ls, t_file *head)
 			write(1, buf, ft_strlen(buf));
 			ft_memdel((void**)&num);
 		}
-	}
-}
-
-void	display_path(t_ls *ls, char *fpath)
-{
-	fix_path(fpath);
-
-	if ((ls->key_up_r || ls->flag_args))
-	{
-		if (ls->flag_args && ls->count_args == 1 && !ls->key_up_r)
-			return ;
-		if (!ls->flag_path)
-			ft_printf("{2}%s:{0}\n", fpath);
-		else
-			ft_printf("\n{2}%s:{0}\n", fpath);
-		ls->flag_path = 1;
-	}
-}
-
-void	fix_path(char *path)
-{
-	char	buf[LSPATH];
-	int		len;
-	int		i;
-	int		j;
-	int		flag;
-
-	ft_strcpy(buf, path);
-	ft_strclr(path);
-	i = 0;
-	j = 0;
-	flag = 0;
-	len = ft_strlen(buf);
-	while (i < len + 1)
-	{
-		if (buf[i] == '/')
-			flag = 1;
-		if (buf[i] != '/')
-		{
-			if (flag)
-				path[j++] = '/';
-			flag = 0;
-			path[j++] = buf[i];
-		}
-		i++;
 	}
 }
 

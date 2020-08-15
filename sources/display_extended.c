@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 17:20:22 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/15 01:21:22 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/16 00:28:26 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -69,22 +69,4 @@ void	display_name(t_ls *ls, t_file *file)
 			ft_printf("{4} -> %s{0}", file->link);
 	}
 	write(1, "\n", 1);
-}
-
-void	get_symbolic_link(t_file *tmp, char *fpath)
-{
-	int size;
-
-	size = tmp->sb.st_size;
-	if (!tmp->sb.st_size)
-		size = LSPATH;
-	size = size + 1;
-	if (tmp->link = ft_calloc(size, sizeof(char)))
-	{
-		if (readlink(fpath, tmp->link, size) < 0)
-		{
-			display_error(fpath, LINK_PERM);
-			ft_memdel((void**)&tmp->link);
-		}
-	}
 }
