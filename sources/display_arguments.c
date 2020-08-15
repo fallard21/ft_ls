@@ -6,57 +6,13 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 10:03:56 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/14 23:33:12 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/15 04:48:22 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-void	display_file_from_args(t_ls *ls, t_data *root)
-{
-	t_file	*tmp;
-	t_file	*dirs;
-	t_file	*others;
-	t_data	o;
-	t_data	d;
-
-	dirs = NULL;
-	others = NULL;
-	split_list(&dirs, &others, &root->head);
-	root->head = dirs;
-	if (others)
-	{
-		o = get_data(ls, others, NULL, "");
-		o.head = sort(ls, o.head);
-		display_files(ls, o);
-		update_data(ls, &root, dirs);
-		if (dirs && others)
-			write(1, "\n", 1);
-	free_data(&o);
-	}
-	tmp = root->head;
-	tmp = sort(ls, tmp);
-	while (tmp)
-	{
-		display_dir(ls, tmp->path, tmp->name);
-		tmp = tmp->next;
-	}
-	free_data(root);
-}
-
-t_data	*update_data(t_ls *ls, t_data **upd, t_file *new)
-{
-	if (!new)
-		return (NULL);
-	ft_memdel((void**)&(*upd)->width);
-	(*upd)->head = new;
-	(*upd)->size = list_size(new);
-	(*upd)->width = get_width_arr(new);
-	(*upd)->spec_file = 0;
-	return (*upd);
-}
-
-void	split_list(t_file **dirs, t_file **others, t_file **head)
+static void	split_list(t_file **dirs, t_file **others, t_file **head)
 {
 	t_file	**dir;
 	t_file	**oth;
@@ -81,4 +37,45 @@ void	split_list(t_file **dirs, t_file **others, t_file **head)
 		}
 		*head = next;
 	}
+}
+
+static void	print_fargs(t_ls *ls, t_file *files)
+{
+	t_data	d_files;
+
+	d_files = get_data(ls, files, NULL, "");
+	d_files.head = sort(ls, d_files.head);
+	display_files(ls, d_files);
+	free_data(&d_files);
+}
+
+static void	print_dargs(t_ls *ls, t_file *dirs)
+{
+	t_data	d_dirs;
+
+	d_dirs = get_data(ls, dirs, NULL, "");
+	d_dirs.head = sort(ls, d_dirs.head);
+	dirs = d_dirs.head;
+	while (dirs)
+	{
+		display_dir(ls, dirs->path, dirs->name);
+		dirs = dirs->next;
+	}
+	free_data(&d_dirs);
+}
+
+void		display_arguments(t_ls *ls, t_file *root)
+{
+	t_file	*dirs;
+	t_file	*files;
+
+	dirs = NULL;
+	files = NULL;
+	split_list(&dirs, &files, &root);
+	if (files)
+		print_fargs(ls, files);
+	if (dirs && files)
+		write(1, "\n", 1);
+	if (dirs)
+		print_dargs(ls, dirs);
 }

@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 21:03:52 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/15 01:20:49 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/15 04:52:32 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,6 @@ typedef struct		s_data
 	int			spec_file;
 	int			size;
 	int			*width;
-	int			permission;
 }					t_data;
 
 void	get_symbolic_link(t_file *tmp, char *fpath);
@@ -149,7 +148,7 @@ void	ls_only_args(t_ls *ls);
 void	ls_print_dir(t_ls *ls, char *dir_name);
 void	ls_print_reg(t_ls *ls, t_file *head);
 
-void	display_file_from_args(t_ls *ls, t_data *root);
+void	display_arguments(t_ls *ls, t_file *root);
 
 void	test_ls(t_ls *ls, char *path, char *dirname);
 void	display_dir(t_ls *ls, char *path, char *name);
@@ -174,14 +173,6 @@ void	display_column(t_ls *ls, t_data *data);
 void	print_column(t_ls *ls, t_data *data, t_col *col, int row);
 int		get_row(t_ls *ls, t_data *data);
 void	display_one_column(t_ls *ls, t_data *data);
-//void	calculate_column(t_ls *ls, t_file *head);
-//int		get_column(char **args);
-//void	print_column(t_col *col, int row);
-//int		get_max_width(t_col *col, int j, int row);
-//char	**list_to_char(t_col *col, t_file *head);
-//int		*get_lens_of_args(t_col *col);
-//int		get_row(t_ls *ls, t_col *col);
-//int		get_sum_width(t_col *col, int row);
 
 char	get_type(mode_t mode);
 
@@ -204,8 +195,6 @@ void	choosing_ls(t_ls *ls);
 void	display_error(char *file, int flag);
 void	error_exit(t_ls *ls, char *file, int flag);
 
-//void	print_error(t_ls *ls, char *file, int flag);
-
 void	do_ls(t_ls *ls);
 void	do_ls_args(t_ls *ls, t_file *head);
 void	display_total(t_ls *ls, t_file *head);
@@ -213,8 +202,6 @@ void	display_total(t_ls *ls, t_file *head);
 void	display_files(t_ls *ls, t_data data);
 
 int		list_size(t_file *head);
-
-void	split_list(t_file **dirs, t_file **others, t_file **head);
 
 t_data	*update_data(t_ls *ls, t_data **upd, t_file *new);
 
