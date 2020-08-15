@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 21:03:52 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/16 01:23:39 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/16 01:26:50 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -124,7 +124,7 @@ typedef struct		s_data
 }					t_data;
 
 /*
-** >----------------< PARSING ARGUMENTS >----------------<
+** >------------------------< PARSING ARGUMENTS >------------------------<
 */
 int					parse_args_to_keys(t_ls *ls, int ac, char **av);
 void				parse_args_to_file(t_ls *ls, int ac, char **av);
@@ -133,7 +133,7 @@ int					init_keys(t_ls *ls, char *argv);
 int					find_key(char key);
 
 /*
-** >----------------< GET DIR INFO >----------------<
+** >---------------------------< GET DIR INFO >--------------------------<
 */
 t_data				get_data(t_ls *ls, t_file *head, char *path, char *dir);
 t_file				*get_dir_files(t_ls *ls, char *fpath);
@@ -147,14 +147,14 @@ void				init_path(char *add, char *path, char *dir, int flag);
 void				display_path(t_ls *ls, char *fpath);
 
 /*
-** >----------------< D0 LS >----------------<
+** >------------------------------< D0 LS >------------------------------<
 */
 void				do_ls(t_ls *ls);
 void				display_arguments(t_ls *ls, t_file *root);
 void				display_dir(t_ls *ls, char *path, char *name);
 
 /*
-** >----------------< SORTING >----------------<
+** >-----------------------------< SORTING >-----------------------------<
 */
 t_file				*sort(t_ls *ls, t_file *head);
 t_file				*sort_list(int (*cmp)(t_file*, t_file*), t_file *head);
@@ -166,7 +166,7 @@ int					cmp_ctime(t_file *left, t_file *right);
 int					cmp_mtime(t_file *left, t_file *right);
 
 /*
-** >----------------< DISPLAY >----------------<
+** >-----------------------------< DISPLAY >-----------------------------<
 */
 void				display_files(t_ls *ls, t_data data);
 void				display_key_l(t_ls *ls, t_data data);
@@ -176,14 +176,14 @@ void				display_error(char *file, int flag);
 void				error_exit(t_ls *ls, char *file, int flag);
 
 /*
-** >----------------< COLUMNS DISPLAY >----------------<
+** >-------------------------< COLUMNS DISPLAY >-------------------------<
 */
 void				display_column(t_ls *ls, t_data *data);
 void				print_column(t_ls *ls, t_data *data, t_col *col, int row);
 int					get_row(t_ls *ls, t_data *data);
 
 /*
-** >----------------< EXTENDED DISPLAY >----------------<
+** >-------------------------< EXTENDED DISPLAY >------------------------<
 */
 void				display_chmod(t_file *tmp);
 void				display_users(t_ls *ls, t_file *head, int *width);
@@ -192,7 +192,7 @@ void				display_time(t_ls *ls, t_file *tmp);
 void				display_name(t_ls *ls, t_file *current);
 
 /*
-** >----------------< MEMORY >----------------<
+** >------------------------------< MEMORY >-----------------------------<
 */
 void				ft_exit(char *error);
 int					free_split(char ***str);
