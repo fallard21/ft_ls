@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 21:03:52 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/17 21:58:05 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/18 02:16:38 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ typedef struct		s_data
 /*
 ** >------------------------< PARSING ARGUMENTS >------------------------<
 */
-int					parse_args_to_keys(t_ls *ls, int ac, char **av);
+void				parse_args_to_keys(t_ls *ls, int ac, char **av);
 void				parse_args_to_file(t_ls *ls, int ac, char **av);
 void				update_keys(t_ls *ls, int key);
 int					init_keys(t_ls *ls, char *argv);
