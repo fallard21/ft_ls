@@ -6,7 +6,7 @@
 #    By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/07 15:43:25 by fallard           #+#    #+#              #
-#    Updated: 2020/07/24 22:20:17 by fallard          ###   ########.fr        #
+#    Updated: 2020/08/17 20:45:42 by fallard          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -126,7 +126,7 @@ CN = \033[036m
 EOC = \033[0m
 
 all: $(NAME)
-	@printf "\n$(GR) >> $(NAME) created! <<$(EOC)\n"
+	@printf "\n$(GR) >> $(NAME) created <<$(EOC)\n"
 
 $(NAME): $(TMP_LIB) $(TMP_PF)
 	@ar rc $(NAME) $(TMP_LIB) $(TMP_PF)
@@ -138,10 +138,10 @@ $(NAME): $(TMP_LIB) $(TMP_PF)
 clean:
 	@rm -f $(TMP_LIB)
 	@rm -f $(TMP_PF)
-	@printf "$(YW)Libft: $(RD)Object files deleted!$(EOC)\n"
+	@printf "$(YW)Libft: $(RD)Object files deleted.$(EOC)\n"
 
 fclean: clean
 	@rm -f $(NAME)
-	@printf "$(YW)Libft: $(RD)$(NAME) and object files deleted!$(EOC)\n"
+	@printf "$(YW)Libft: $(RD)$(NAME) deleted.$(EOC)\n"
 
 re: fclean all
