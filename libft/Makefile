@@ -3,10 +3,10 @@
 #                                                         :::      ::::::::    #
 #    Makefile                                           :+:      :+:    :+:    #
 #                                                     +:+ +:+         +:+      #
-#    By: tima <tima@student.42.fr>                  +#+  +:+       +#+         #
+#    By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2019/09/07 15:43:25 by fallard           #+#    #+#              #
-#    Updated: 2020/06/22 18:03:51 by tima             ###   ########.fr        #
+#    Updated: 2020/07/24 22:20:17 by fallard          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -85,7 +85,8 @@ ft_lstdel.c \
 ft_lstadd.c \
 ft_lstiter.c \
 ft_lstmap.c \
-get_next_line.c
+get_next_line.c \
+ft_splitdel.c
 
 SRC_PF = ft_printf.c \
 parse.c \

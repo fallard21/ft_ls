@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 10:06:49 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/16 01:07:01 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/17 19:35:59 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,7 @@ t_data	get_data(t_ls *ls, t_file *args, char *path, char *dir)
 	t_data	res;
 	t_file	*tmp;
 
+	ls->flag_perm = 0;
 	ft_memset(&res, 0, sizeof(t_data));
 	init_path(res.path, path, dir, 1);
 	if (!args && dir)
@@ -44,6 +45,7 @@ t_file	*get_dir_files(t_ls *ls, char *fpath)
 	tmp = &head;
 	if (!(ls->dir = opendir(fpath)))
 	{
+		ls->flag_perm = 1;
 		display_error(fpath, DIR_PERM);
 		return (NULL);
 	}
@@ -87,8 +89,11 @@ void	get_lstat(t_ls *ls, t_file *tmp, char *fpath)
 	{
 		if (S_ISLNK(tmp->sb.st_mode))
 			get_symbolic_link(tmp, fpath);
-		tmp->fmajor = major(tmp->sb.st_rdev);
-		tmp->fminor = minor(tmp->sb.st_rdev);
+		if (S_ISBLK(tmp->sb.st_mode) || S_ISCHR(tmp->sb.st_mode))
+		{
+			tmp->fmajor = major(tmp->sb.st_rdev);
+			tmp->fminor = minor(tmp->sb.st_rdev);
+		}
 		ls->gr_gid = getgrgid(tmp->sb.st_gid);
 		ls->pw_uid = getpwuid(tmp->sb.st_uid);
 		tmp->uid_name = ft_strdup(ls->pw_uid->pw_name);

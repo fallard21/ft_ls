@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 06:00:04 by tima              #+#    #+#             */
-/*   Updated: 2020/08/16 00:28:06 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/17 19:35:24 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	display_total(t_ls *ls, t_file *head)
 	char	buf[30];
 	char	*num;
 
-	if ((ls->key_l || ls->key_s))
+	if ((ls->key_l || ls->key_s) && ls->flag_perm == 0)
 	{
 		ft_memset(buf, 0, 30);
 		blck = 0;

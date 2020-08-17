@@ -6,7 +6,7 @@
 /*   By: tima <tima@student.42.fr>                  +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/14 15:20:18 by fallard           #+#    #+#             */
-/*   Updated: 2020/05/29 22:16:56 by tima             ###   ########.fr       */
+/*   Updated: 2020/07/06 20:17:49 by tima             ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,7 +82,7 @@ char			**ft_strsplit(char const *s, char c)
 	{
 		j = 0;
 		if (!(arr[i] = ft_strnew(word_len(&s[k], c))))
-			return(split_error(arr, i));
+			return (split_error(arr, i));
 		while (s[k] == c)
 			k = k + 1;
 		while (s[k] != c && s[k])

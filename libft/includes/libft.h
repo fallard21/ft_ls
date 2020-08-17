@@ -3,10 +3,10 @@
 /*                                                        :::      ::::::::   */
 /*   libft.h                                            :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
-/*   By: tima <tima@student.42.fr>                  +#+  +:+       +#+        */
+/*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/09/07 15:50:43 by fallard           #+#    #+#             */
-/*   Updated: 2020/06/22 18:02:52 by tima             ###   ########.fr       */
+/*   Updated: 2020/07/24 22:27:47 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,7 +21,7 @@
 # include "ft_printf.h"
 
 /*
-** >>-------------------------------<< MEMORY >>-------------------------------<<
+** >>------------------------------<< MEMORY >>-------------------------------<<
 */
 void				*ft_memalloc(size_t size);
 void				*ft_calloc(size_t num, size_t size);
@@ -34,9 +34,10 @@ void				*ft_memmove(void *dest, const void *src, size_t n);
 void				*ft_memchr(const void *s, int c, size_t n);
 int					ft_memcmp(const void *s1, const void *s2, size_t n);
 void				ft_swap(int *a, int *b);
+int					ft_splitdel(char ***str);
 
 /*
-** >>-------------------------------<< STRING >>-------------------------------<<
+** >>------------------------------<< STRING >>-------------------------------<<
 */
 size_t				ft_strlen(const char *str);
 char				*ft_strdup(const char *s);
@@ -63,7 +64,7 @@ int					ft_strequ(char const *s1, char const *s2);
 int					ft_strnequ(char const *s1, char const *s2, size_t n);
 char				*ft_strsub(char const *s, unsigned int start, size_t len);
 char				*ft_strjoin(char const *s1, char const *s2);
-char				*ft_strjoin_free(char *str, char *del);
+char				*ft_strjoin_free(char *str1, char *str2, int flag);
 char				*ft_strtrim(char const *s);
 char				**ft_strsplit(char const *s, char c);
 char				*ft_itoa(int n);

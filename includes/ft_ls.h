@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 21:03:52 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/16 01:26:50 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/17 18:28:33 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -33,7 +33,7 @@
 # define LRLINK "readlink"
 # define LMALLOC "malloc"
 # define LLSTAT "lstat"
-# define LSPATH 1500
+# define LSPATH 2000
 
 # define BAD_KEY 1
 # define BAD_PARAMETER 2
@@ -176,14 +176,14 @@ void				display_error(char *file, int flag);
 void				error_exit(t_ls *ls, char *file, int flag);
 
 /*
-** >-------------------------< COLUMNS DISPLAY >-------------------------<
+** >-------------------< COLUMNS DISPLAY >--------------------<
 */
 void				display_column(t_ls *ls, t_data *data);
 void				print_column(t_ls *ls, t_data *data, t_col *col, int row);
 int					get_row(t_ls *ls, t_data *data);
 
 /*
-** >-------------------------< EXTENDED DISPLAY >------------------------<
+** >-------------------< EXTENDED DISPLAY >-------------------<
 */
 void				display_chmod(t_file *tmp);
 void				display_users(t_ls *ls, t_file *head, int *width);
