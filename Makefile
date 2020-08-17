@@ -6,7 +6,7 @@
 #    By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/13 21:03:45 by fallard           #+#    #+#              #
-#    Updated: 2020/08/17 20:49:09 by fallard          ###   ########.fr        #
+#    Updated: 2020/08/17 21:54:17 by fallard          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -16,7 +16,7 @@ HEAD_NAME = ft_ls.h
 LIB_NAME = libft.a
 
 CC = gcc -g# -fsanitize=address
-CFLAGS = 
+CFLAGS = -Wall -Wextra -Werror
 
 SRC_DIR = sources/
 INC_DIR = includes/
@@ -63,7 +63,7 @@ $(LIBFT):
 	@make -C $(LIB_DIR)
 
 %.o:%.c $(HEADER)
-	$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
+	@$(CC) $(CFLAGS) $(INCLUDES) -c $< -o $@
 
 clean:
 	@rm -f $(TMP)

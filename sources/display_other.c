@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 06:00:04 by tima              #+#    #+#             */
-/*   Updated: 2020/08/17 21:09:29 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/17 21:59:13 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ void	display_total(t_ls *ls, t_file *head)
 			blck = blck + (head->sb.st_blocks / 2);
 			head = head->next;
 		}
-		if (num = ft_ulong_itoa(blck, 1))
+		if ((num = ft_ulong_itoa(blck, 1)))
 		{
 			ft_strcat(buf, "total ");
 			ft_strcat(buf, num);

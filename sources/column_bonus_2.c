@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/12 04:01:28 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/12 04:13:28 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/17 21:56:42 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,7 +31,7 @@ static int	get_max_width(t_col *col, int j, int row)
 	return (max);
 }
 
-static int	get_sum_width(t_ls *ls, t_col *col, int row)
+static int	get_sum_width(t_col *col, int row)
 {
 	int count;
 	int i;
@@ -61,7 +61,7 @@ int			get_row(t_ls *ls, t_data *data)
 		col->prev = col->col;
 		col->m = col->size % row;
 		col->col = (col->size / row) + ((col->m == 0) ? 0 : 1);
-		col->width = get_sum_width(ls, col, row) +
+		col->width = get_sum_width(col, row) +
 			(2 * (col->col - 1)) + (col->space * col->col);
 		if (col->prev == col->col)
 		{

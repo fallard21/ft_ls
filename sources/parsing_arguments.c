@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 17:10:19 by tima              #+#    #+#             */
-/*   Updated: 2020/08/11 16:20:59 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/17 21:55:10 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,13 +51,13 @@ int		init_keys(t_ls *ls, char *argv)
 		ls->key_o = (argv[i] == 'o') ? 1 : ls->key_o;
 		ls->key_g = (argv[i] == 'g') ? 1 : ls->key_g;
 		ls->key_one = (!ls->key_l && argv[i] == '1') ? 1 : ls->key_one;
-		update_keys(ls, NULL, argv[i]);
+		update_keys(ls, argv[i]);
 		i++;
 	}
 	return (0);
 }
 
-void	update_keys(t_ls *ls, char *del, int key)
+void	update_keys(t_ls *ls, int key)
 {
 	if (key == 'o' || key == 'g')
 		ls->key_l = 1;

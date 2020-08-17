@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/10 00:37:01 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/12 04:03:52 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/17 21:58:31 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -35,7 +35,7 @@ void	display_key_l(t_ls *ls, t_data data)
 		display_users(ls, data.head, data.width);
 		display_size(data, data.head, data.width);
 		display_time(ls, data.head);
-		display_name(ls, data.head);
+		display_name(data.head);
 		data.head = data.head->next;
 	}
 }

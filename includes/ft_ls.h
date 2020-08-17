@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 21:03:52 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/17 21:00:49 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/17 21:58:05 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -128,7 +128,7 @@ typedef struct		s_data
 */
 int					parse_args_to_keys(t_ls *ls, int ac, char **av);
 void				parse_args_to_file(t_ls *ls, int ac, char **av);
-void				update_keys(t_ls *ls, char *del, int key);
+void				update_keys(t_ls *ls, int key);
 int					init_keys(t_ls *ls, char *argv);
 int					find_key(char key);
 
@@ -189,7 +189,7 @@ void				display_chmod(t_file *tmp);
 void				display_users(t_ls *ls, t_file *head, int *width);
 void				display_size(t_data data, t_file *f, int *width);
 void				display_time(t_ls *ls, t_file *tmp);
-void				display_name(t_ls *ls, t_file *current);
+void				display_name(t_file *file);
 
 /*
 ** >------------------------------< MEMORY >-----------------------------<

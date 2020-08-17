@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/29 17:20:22 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/16 00:28:26 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/17 21:58:10 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -56,12 +56,8 @@ void	display_time(t_ls *ls, t_file *tmp)
 		ft_printf("%-6.5s", str + 11);
 }
 
-void	display_name(t_ls *ls, t_file *file)
+void	display_name(t_file *file)
 {
-	char	*buf;
-	t_stat	sb;
-	size_t	size;
-
 	ft_printf("{3}%s{0}", file->name);
 	if (S_ISLNK(file->sb.st_mode))
 	{

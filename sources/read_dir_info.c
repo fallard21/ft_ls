@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 10:06:49 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/17 19:35:59 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/17 21:56:11 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -111,7 +111,7 @@ void	get_symbolic_link(t_file *tmp, char *fpath)
 	if (!tmp->sb.st_size)
 		size = LSPATH;
 	size = size + 1;
-	if (tmp->link = ft_calloc(size, sizeof(char)))
+	if ((tmp->link = ft_calloc(size, sizeof(char))))
 	{
 		if (readlink(fpath, tmp->link, size) < 0)
 		{
