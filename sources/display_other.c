@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 06:00:04 by tima              #+#    #+#             */
-/*   Updated: 2020/08/17 19:35:24 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/17 21:09:29 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -45,8 +45,8 @@ void	display_error(char *file, int flag)
 	ft_memset(str, 0, LSPATH);
 	if (flag == NO_FILE)
 	{
-		ft_strcat(ft_strcat(str, "ls: "), file);
-		ft_strcat(str, ": ");
+		ft_strcat(ft_strcat(str, "ls: cannot access '"), file);
+		ft_strcat(str, "': ");
 		ft_strcat(str, strerror(errno));
 		ft_strcat(str, "\n");
 	}
