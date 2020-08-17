@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/08 06:30:43 by tima              #+#    #+#             */
-/*   Updated: 2020/08/16 00:53:51 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/17 22:16:48 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,6 +17,8 @@ static int	width_num(size_t num)
 	int i;
 
 	i = 0;
+	if (num == 0)
+		return (1);
 	while (num)
 	{
 		num = num / 10;

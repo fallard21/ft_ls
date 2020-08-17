@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 10:06:49 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/17 21:56:11 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/17 22:19:27 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -27,7 +27,7 @@ t_data	get_data(t_ls *ls, t_file *args, char *path, char *dir)
 	res.size = list_size(res.head);
 	res.width = get_width_arr(res.head);
 	tmp = res.head;
-	while (tmp)
+	while (tmp && ls->key_l)
 	{
 		if (S_ISBLK(tmp->sb.st_mode) || S_ISCHR(tmp->sb.st_mode))
 			res.spec_file = 1;
