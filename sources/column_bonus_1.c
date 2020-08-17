@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/20 09:11:23 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/17 22:18:13 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/18 02:04:50 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -81,6 +81,9 @@ void			display_column(t_ls *ls, t_data *data)
 	data->col.lens = get_lens_of_args(&data->col);
 	data->col.ib = ino_blck_to_arr(data);
 	data->col.row = get_row(ls, data);
-	print_column(ls, data, &data->col, data->col.row);
+	if (data->col.col == 1)
+		display_one_column(ls, data);
+	else
+		print_column(ls, data, &data->col, data->col.row);
 	free_col(&data->col);
 }
