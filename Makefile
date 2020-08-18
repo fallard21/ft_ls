@@ -6,7 +6,7 @@
 #    By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2020/07/13 21:03:45 by fallard           #+#    #+#              #
-#    Updated: 2020/08/17 21:54:17 by fallard          ###   ########.fr        #
+#    Updated: 2020/08/18 22:59:11 by fallard          ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,7 +15,7 @@ NAME = ft_ls
 HEAD_NAME = ft_ls.h
 LIB_NAME = libft.a
 
-CC = gcc -g# -fsanitize=address
+CC = gcc -g
 CFLAGS = -Wall -Wextra -Werror
 
 SRC_DIR = sources/
@@ -53,10 +53,10 @@ LIBFT = $(addprefix $(LIB_DIR), $(LIB_NAME))
 
 INCLUDES = -I $(INC_DIR) -I $(LIB_DIR)$(INC_DIR)
 
-all: $(NAME) 
+all: $(LIBFT) $(NAME) 
 
 $(NAME): $(LIBFT) $(TMP)
-	@$(CC) -o $(NAME) $(TMP) $(INCLUDES) -L $(LIB_DIR) -lft
+	@$(CC) $(CFLAGS) -o $(NAME) $(TMP) $(INCLUDES) -L $(LIB_DIR) -lft
 	@printf "$(GR)>> Program $(NAME) created <<\n$(EOC)"
 
 $(LIBFT):
