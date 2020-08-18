@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 21:03:52 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/18 22:11:11 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/18 22:49:20 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,14 +18,11 @@
 # include <sys/stat.h>
 # include <dirent.h>
 # include <errno.h>
-# include <sys/xattr.h>	// getxattr
 # include <pwd.h>
 # include <grp.h>
 # include <time.h>
 # include <stdio.h>
 # include <fcntl.h>
-# include <linux/limits.h>
-# include <unistd.h>
 # include <sys/sysmacros.h>
 # include <sys/ioctl.h>
 

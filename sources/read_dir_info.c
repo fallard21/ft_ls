@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 10:06:49 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/18 20:55:47 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/18 22:48:07 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -88,9 +88,9 @@ void	get_lstat(t_ls *ls, t_file *tmp, char *fpath)
 		}
 		ls->gr_gid = getgrgid(tmp->sb.st_gid);
 		ls->pw_uid = getpwuid(tmp->sb.st_uid);
-		tmp->uid_name = ft_strdup(ls->pw_uid->pw_name);
-		tmp->gid_name = ft_strdup(ls->gr_gid->gr_name);
-		if (!tmp->gid_name || !tmp->name)
+		if (!(tmp->uid_name = ft_strdup(ls->pw_uid->pw_name)))
+			ft_exit(LMALLOC);
+		if (!(tmp->gid_name = ft_strdup(ls->gr_gid->gr_name)))
 			ft_exit(LMALLOC);
 	}
 }
