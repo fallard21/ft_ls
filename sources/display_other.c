@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 06:00:04 by tima              #+#    #+#             */
-/*   Updated: 2020/08/18 03:23:20 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/19 00:32:31 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -43,10 +43,11 @@ void	display_error(t_ls *ls, char *file, int flag)
 	ft_strclr(ls->buf);
 	if (flag == NO_FILE)
 	{
-		ft_strcat(ft_strcat(ls->buf, "ls: cannot access '"), file);
-		ft_strcat(ls->buf, "': ");
-		ft_strcat(ls->buf, strerror(errno));
-		ft_strcat(ls->buf, "\n");
+		write(2, "ls: cannot access '", 19);
+		write(2, file, ft_strlen(file));
+		write(2, "': ", 3);
+		write(2, strerror(errno), ft_strlen(strerror(errno)));
+		write(2, "\n", 1);
 	}
 	if (flag == DIR_PERM)
 	{
