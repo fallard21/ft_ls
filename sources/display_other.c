@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 06:00:04 by tima              #+#    #+#             */
-/*   Updated: 2020/08/17 21:59:13 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/18 03:23:20 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,31 +38,29 @@ void	display_total(t_ls *ls, t_file *head)
 	}
 }
 
-void	display_error(char *file, int flag)
+void	display_error(t_ls *ls, char *file, int flag)
 {
-	char str[LSPATH];
-
-	ft_memset(str, 0, LSPATH);
+	ft_strclr(ls->buf);
 	if (flag == NO_FILE)
 	{
-		ft_strcat(ft_strcat(str, "ls: cannot access '"), file);
-		ft_strcat(str, "': ");
-		ft_strcat(str, strerror(errno));
-		ft_strcat(str, "\n");
+		ft_strcat(ft_strcat(ls->buf, "ls: cannot access '"), file);
+		ft_strcat(ls->buf, "': ");
+		ft_strcat(ls->buf, strerror(errno));
+		ft_strcat(ls->buf, "\n");
 	}
 	if (flag == DIR_PERM)
 	{
-		ft_strcat(str, "ls: cannot open directory '");
-		ft_strcat(str, file);
-		ft_strcat(str, "': Permission denied\n");
+		ft_strcat(ls->buf, "ls: cannot open directory '");
+		ft_strcat(ls->buf, file);
+		ft_strcat(ls->buf, "': Permission denied\n");
 	}
 	if (flag == LINK_PERM)
 	{
-		ft_strcat(str, "ls: cannot read symbolic link '");
-		ft_strcat(str, file);
-		ft_strcat(str, "': Permission denied\n");
+		ft_strcat(ls->buf, "ls: cannot read symbolic link '");
+		ft_strcat(ls->buf, file);
+		ft_strcat(ls->buf, "': Permission denied\n");
 	}
-	write(2, str, ft_strlen(str));
+	write(2, ls->buf, ft_strlen(ls->buf));
 }
 
 void	error_exit(t_ls *ls, char *file, int flag)

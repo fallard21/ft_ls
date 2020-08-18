@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 21:03:52 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/18 02:16:38 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/18 03:24:04 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,6 +82,7 @@ typedef struct		s_file
 
 typedef struct		s_ls
 {
+	char			buf[LSPATH];
 	int				count_args;
 
 	int				flag_args;
@@ -139,7 +140,7 @@ t_data				get_data(t_ls *ls, t_file *head, char *path, char *dir);
 t_file				*get_dir_files(t_ls *ls, char *fpath);
 t_file				*new_file(t_ls *ls, char *path, char *name);
 void				get_lstat(t_ls *ls, t_file *tmp, char *fpath);
-void				get_symbolic_link(t_file *tmp, char *fpath);
+void				get_symbolic_link(t_ls *ls, t_file *tmp, char *fpath);
 int					list_size(t_file *head);
 int					*get_width_arr(t_file *head);
 void				fix_path(char *path);
@@ -172,7 +173,7 @@ void				display_files(t_ls *ls, t_data data);
 void				display_key_l(t_ls *ls, t_data data);
 void				display_one_column(t_ls *ls, t_data *data);
 void				display_total(t_ls *ls, t_file *head);
-void				display_error(char *file, int flag);
+void				display_error(t_ls *ls, char *file, int flag);
 void				error_exit(t_ls *ls, char *file, int flag);
 
 /*

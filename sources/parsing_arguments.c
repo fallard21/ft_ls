@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/06/22 17:10:19 by tima              #+#    #+#             */
-/*   Updated: 2020/08/18 02:16:39 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/18 03:23:31 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -126,7 +126,7 @@ void	parse_args_to_file(t_ls *ls, int ac, char **av)
 			ls->flag_args = 1;
 			ls->count_args++;
 			if (lstat(av[i], &ls->sb) < 0)
-				display_error(av[i], NO_FILE);
+				display_error(ls, av[i], NO_FILE);
 			else
 			{
 				if (!(*tmp = new_file(ls, NULL, av[i])))

@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 10:06:49 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/17 22:19:27 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/18 03:25:30 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,7 +46,7 @@ t_file	*get_dir_files(t_ls *ls, char *fpath)
 	if (!(ls->dir = opendir(fpath)))
 	{
 		ls->flag_perm = 1;
-		display_error(fpath, DIR_PERM);
+		display_error(ls, fpath, DIR_PERM);
 		return (NULL);
 	}
 	display_path(ls, fpath);
@@ -88,7 +88,7 @@ void	get_lstat(t_ls *ls, t_file *tmp, char *fpath)
 	if (ls->key_l)
 	{
 		if (S_ISLNK(tmp->sb.st_mode))
-			get_symbolic_link(tmp, fpath);
+			get_symbolic_link(ls, tmp, fpath);
 		if (S_ISBLK(tmp->sb.st_mode) || S_ISCHR(tmp->sb.st_mode))
 		{
 			tmp->fmajor = major(tmp->sb.st_rdev);
@@ -103,7 +103,7 @@ void	get_lstat(t_ls *ls, t_file *tmp, char *fpath)
 	}
 }
 
-void	get_symbolic_link(t_file *tmp, char *fpath)
+void	get_symbolic_link(t_ls *ls, t_file *tmp, char *fpath)
 {
 	int size;
 
@@ -115,7 +115,7 @@ void	get_symbolic_link(t_file *tmp, char *fpath)
 	{
 		if (readlink(fpath, tmp->link, size) < 0)
 		{
-			display_error(fpath, LINK_PERM);
+			display_error(ls, fpath, LINK_PERM);
 			ft_memdel((void**)&tmp->link);
 		}
 	}
