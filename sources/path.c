@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/16 00:25:31 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/18 21:52:01 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/18 22:29:33 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,7 +14,6 @@
 
 void	display_path(t_ls *ls, char *fpath)
 {
-	fix_path(fpath);
 	if ((ls->key_up_r || ls->flag_args))
 	{
 		if (ls->flag_args && ls->count_args == 1 && !ls->key_up_r)
