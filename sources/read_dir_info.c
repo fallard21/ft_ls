@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/21 10:06:49 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/18 03:25:30 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/18 20:55:47 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,7 +15,6 @@
 t_data	get_data(t_ls *ls, t_file *args, char *path, char *dir)
 {
 	t_data	res;
-	t_file	*tmp;
 
 	ls->flag_perm = 0;
 	ft_memset(&res, 0, sizeof(t_data));
@@ -24,15 +23,8 @@ t_data	get_data(t_ls *ls, t_file *args, char *path, char *dir)
 		res.head = get_dir_files(ls, res.path);
 	else
 		res.head = args;
-	res.size = list_size(res.head);
+	res.size = list_size(&res);
 	res.width = get_width_arr(res.head);
-	tmp = res.head;
-	while (tmp && ls->key_l)
-	{
-		if (S_ISBLK(tmp->sb.st_mode) || S_ISCHR(tmp->sb.st_mode))
-			res.spec_file = 1;
-		tmp = tmp->next;
-	}
 	return (res);
 }
 

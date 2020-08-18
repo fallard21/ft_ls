@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 21:03:52 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/18 03:24:04 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/18 22:11:11 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -84,7 +84,6 @@ typedef struct		s_ls
 {
 	char			buf[LSPATH];
 	int				count_args;
-
 	int				flag_args;
 	int				flag_path;
 	int				flag_perm;
@@ -141,7 +140,7 @@ t_file				*get_dir_files(t_ls *ls, char *fpath);
 t_file				*new_file(t_ls *ls, char *path, char *name);
 void				get_lstat(t_ls *ls, t_file *tmp, char *fpath);
 void				get_symbolic_link(t_ls *ls, t_file *tmp, char *fpath);
-int					list_size(t_file *head);
+int					list_size(t_data *data);
 int					*get_width_arr(t_file *head);
 void				fix_path(char *path);
 void				init_path(char *add, char *path, char *dir, int flag);

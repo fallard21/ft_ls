@@ -6,21 +6,25 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 07:24:15 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/18 02:06:43 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/18 20:55:22 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "ft_ls.h"
 
-int		list_size(t_file *head)
+int		list_size(t_data *data)
 {
-	int count;
+	t_file	*tmp;
+	int		count;
 
+	tmp = data->head;
 	count = 0;
-	while (head)
+	while (tmp)
 	{
 		count++;
-		head = head->next;
+		if (S_ISBLK(tmp->sb.st_mode) || S_ISCHR(tmp->sb.st_mode))
+			data->spec_file = 1;
+		tmp = tmp->next;
 	}
 	return (count);
 }
