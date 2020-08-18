@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 21:03:52 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/19 00:29:56 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/19 00:43:19 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -30,7 +30,7 @@
 # define LRLINK "readlink"
 # define LMALLOC "malloc"
 # define LLSTAT "lstat"
-# define LSPATH 2000
+# define LSPATH 4096
 
 # define BAD_KEY 1
 # define BAD_PARAMETER 2
