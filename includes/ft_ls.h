@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/13 21:03:52 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/19 15:41:18 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/19 16:13:20 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -116,7 +116,6 @@ typedef struct		s_data
 	t_col			col;
 	char			path[LSPATH];
 	int				spec_file;
-	int				sticky;
 	int				size;
 	int				*width;
 }					t_data;
