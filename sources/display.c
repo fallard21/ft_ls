@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/08/10 00:37:01 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/17 21:58:31 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/19 01:33:31 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,19 +24,22 @@ void	display_files(t_ls *ls, t_data data)
 
 void	display_key_l(t_ls *ls, t_data data)
 {
-	while (data.head)
+	t_file *tmp;
+
+	tmp = data.head;
+	while (tmp)
 	{
 		if (ls->key_i)
-			ft_printf("%*lu ", data.width[0], data.head->sb.st_ino);
+			ft_printf("%*lu ", data.width[0], tmp->sb.st_ino);
 		if (ls->key_s)
-			ft_printf("%*ld ", data.width[1], data.head->sb.st_blocks / 2);
-		display_chmod(data.head);
-		ft_printf("%*lu ", data.width[2], data.head->sb.st_nlink);
-		display_users(ls, data.head, data.width);
-		display_size(data, data.head, data.width);
-		display_time(ls, data.head);
-		display_name(data.head);
-		data.head = data.head->next;
+			ft_printf("%*ld ", data.width[1], tmp->sb.st_blocks / 2);
+		display_chmod(tmp);
+		ft_printf("%*lu ", data.width[2], tmp->sb.st_nlink);
+		display_users(ls, tmp, data.width);
+		display_size(data, tmp, data.width);
+		display_time(ls, tmp);
+		display_name(tmp);
+		tmp = tmp->next;
 	}
 }
 
