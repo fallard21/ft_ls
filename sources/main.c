@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/23 07:24:15 by fallard           #+#    #+#             */
-/*   Updated: 2020/08/18 20:55:22 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/19 15:29:50 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,6 +24,8 @@ int		list_size(t_data *data)
 		count++;
 		if (S_ISBLK(tmp->sb.st_mode) || S_ISCHR(tmp->sb.st_mode))
 			data->spec_file = 1;
+		if (tmp->sb.st_mode & __S_ISVTX)
+			data->sticky = 1;
 		tmp = tmp->next;
 	}
 	return (count);
