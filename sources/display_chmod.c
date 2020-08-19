@@ -6,7 +6,7 @@
 /*   By: fallard <fallard@student.21-school.ru>     +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2020/07/07 22:19:10 by tima              #+#    #+#             */
-/*   Updated: 2020/08/18 21:18:57 by fallard          ###   ########.fr       */
+/*   Updated: 2020/08/19 03:45:56 by fallard          ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -40,9 +40,17 @@ void		display_chmod(t_file *tmp)
 	res[1] = (tmp->sb.st_mode & S_IRUSR) ? 'r' : '-';
 	res[2] = (tmp->sb.st_mode & S_IWUSR) ? 'w' : '-';
 	res[3] = (tmp->sb.st_mode & S_IXUSR) ? 'x' : '-';
+	if (tmp->sb.st_mode & S_ISUID && tmp->sb.st_mode & S_IXUSR)
+		res[3] = 's';
+	if (tmp->sb.st_mode & S_ISUID && !(tmp->sb.st_mode & S_IXUSR))
+		res[3] = 'S';
 	res[4] = (tmp->sb.st_mode & S_IRGRP) ? 'r' : '-';
 	res[5] = (tmp->sb.st_mode & S_IWGRP) ? 'w' : '-';
 	res[6] = (tmp->sb.st_mode & S_IXGRP) ? 'x' : '-';
+	if (tmp->sb.st_mode & S_ISGID && tmp->sb.st_mode & S_IXGRP)
+		res[6] = 's';
+	if (tmp->sb.st_mode & S_ISGID && !(tmp->sb.st_mode & S_IXGRP))
+		res[6] = 'S';
 	res[7] = (tmp->sb.st_mode & S_IROTH) ? 'r' : '-';
 	res[8] = (tmp->sb.st_mode & S_IWOTH) ? 'w' : '-';
 	res[9] = (tmp->sb.st_mode & S_IXOTH) ? 'x' : '-';
